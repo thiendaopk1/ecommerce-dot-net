@@ -6,7 +6,7 @@ using System.Text;
 
 namespace BackendDotnetCore.EF
 {
-    class ShareImageDbContext:DbContext
+    class BackendDotnetCoreDbContext:DbContext
     {
         public DbSet<Account> Accounts { get; set; } 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -16,7 +16,7 @@ namespace BackendDotnetCore.EF
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseMySQL("server=localhost;port=3306;database=shareimage;user=root;password=");
+            optionsBuilder.UseMySQL("server=localhost;port=3306;database=dotnet;user=root;password=");
         }
     }
 }

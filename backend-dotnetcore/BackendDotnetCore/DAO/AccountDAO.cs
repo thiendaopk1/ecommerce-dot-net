@@ -11,10 +11,10 @@ namespace BackendDotnetCore.DAO
     
     public class AccountDAO
     {
-        private ShareImageDbContext dbContext;
+        private BackendDotnetCoreDbContext dbContext;
         public AccountDAO()
         {
-            this.dbContext = new ShareImageDbContext();
+            this.dbContext = new BackendDotnetCoreDbContext();
         }
         public Account getAccount(int Id)
         {
