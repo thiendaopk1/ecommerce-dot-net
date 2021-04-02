@@ -10,8 +10,11 @@ function App() {
  
   return (
     <div className="App">
-    <Header />
-  </div>
+      <Header />
+      <Switch >
+        <Route path="/products" component={ProductFeature}/>
+      </Switch>
+    </div>
   );
 }
 
