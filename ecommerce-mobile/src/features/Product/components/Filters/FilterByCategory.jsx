@@ -33,11 +33,17 @@ function FilterByCategory({onChange}) {
             onChange(category.id)
         }
     };
+    const handleClickAll = () => {
+        if(onChange){
+            onChange()
+        }
+    }
 
     return (
         <Box className={classes.root}>
             <Typography className={classes.title} variant="subtitle2">DANH MỤC SẢN PHẨM</Typography>
             <ul className={classes.menu}>
+                <li onClick={handleClickAll}>Tất cả</li>
                 {categoryList.map(category => (
                 <li 
                 key={category.id}

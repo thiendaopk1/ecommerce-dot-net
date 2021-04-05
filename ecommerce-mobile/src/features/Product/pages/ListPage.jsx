@@ -41,7 +41,7 @@ function ListPage(props) {
     const [filters, setFilters] = useState({
         _page: 1,
         _limit: 12,
-        _sort: 'salePrice:ASC'
+        // _sort: 'salePrice:ASC'
     });
 
     useEffect(() => {

@@ -15,10 +15,18 @@ function ProductFilters({ filters, onChange }) {
     const handleCategoryChange = (newCategoryId) => {
         if(!onChange) return;
 
+        if(!newCategoryId) return onChange({
+            ...filters,
+            //tra ve undefined la bo cai key category.id
+            "category.id": undefined,
+        })
+
+
         const newFilters = {
             ...filters,
-            "category.id": newCategoryId,
+            "category.id": newCategoryId ,
         };
+
         onChange(newFilters);
     };
 
@@ -27,6 +35,8 @@ function ProductFilters({ filters, onChange }) {
             onChange(values);
         }
     };
+
+    
 
     return (
         <Box>

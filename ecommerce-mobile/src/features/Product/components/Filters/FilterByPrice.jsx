@@ -26,9 +26,10 @@ function FilterByPrice({onChange}) {
         if (onChange) onChange(values);
     };
 
-    // const handleSubmit = () => {
-    //     if (onChange) onChange(values);
-    // };
+    const handleSubmitDelete = () => {
+        setValues({salePrice_gte: 0, salePrice_lte: 0})
+        if (onChange) onChange({salePrice_gte: undefined, salePrice_lte: undefined});
+    };
 
     return (
         <Box className={classes.root}>
@@ -42,7 +43,7 @@ function FilterByPrice({onChange}) {
             </Box>
 
             <Button variant="outlined" color="secondary" size="small" onClick={handleSubmit}>Áp dụng</Button>
-            {/* <Button variant="outlined" color="secondary" size="small" onClick={handleSubmitDelete}>Xóa</Button> */}
+            <Button variant="outlined" color="secondary" size="small" onClick={handleSubmitDelete}>Xóa</Button>
         </Box>
     );
 }
