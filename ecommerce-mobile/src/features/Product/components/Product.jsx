@@ -1,9 +1,10 @@
-import { Box, Typography } from '@material-ui/core';
-import { Skeleton } from '@material-ui/lab';
+import { Box, Button, Typography } from '@material-ui/core';
 import Rating from '@material-ui/lab/Rating';
+// import { STATIC_HOST, THUMBNAIL_PLACEHOLDER } from 'constants/index';
 import PropTypes from 'prop-types';
 import React from 'react';
 import ProductStyles from './ProductStyles';
+// import { STATIC_HOST } from 'constants/index';
 // import img from '../../../images/tagSale.png';
 
 
@@ -12,6 +13,11 @@ Product.propTypes = {
 };
 
 function Product({product}) {
+
+    const thumbnailUrl = product.thumbnail
+    ? `https://api.ezfrontend.com${product.thumbnail?.url}`
+    : 'http://via.placeholder.com/444';
+
     const [value, setValue] = React.useState(2);
     const classes = ProductStyles();
     return (
@@ -19,11 +25,13 @@ function Product({product}) {
             {/* nhớ sửa lại thành img */}
             <Box className={classes.image}>
                 
-                <Typography component="span" className={classes.percent}>-{product.promotionPercent}</Typography>
-                <Skeleton variant="rect" width ="100%" height={118}/>
+                <Typography component="span" className={classes.percent}>-{product.promotionPercent}%</Typography>
+                <img src={thumbnailUrl} alt={product.name} width="100%" />
             </Box>
-            
-            <Typography component="span" className={classes.name} padding={1}>{product.name}</Typography>
+            <Box className={classes.name}>
+                <Typography component="span"  padding={1}>{product.name}</Typography>
+            </Box>
+           
             <Box>
                 <Box component="span" className={classes.salePrice} >
                     {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND'}).format(product.salePrice)}
@@ -37,6 +45,10 @@ function Product({product}) {
                 <Rating name="read-only" value={value}  readOnly className={classes.rate} mr={2}/>
                 <Typography component="span" className={classes.comment} >5 đánh giá</Typography>
             </Box>
+            <Box className={classes.button}>
+                <Button variant="outlined" color="secondary" size="small">Mua ngay</Button>
+            </Box>
+           
         </Box>
     );
 }

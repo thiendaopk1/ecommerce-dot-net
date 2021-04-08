@@ -2,8 +2,26 @@ import { makeStyles } from "@material-ui/core";
 import img from '../../../images/tagSale.png';
 
 const ProductStyles = makeStyles(() => ({
+    root: {
+
+      '&:hover ':{
+          cursor: "pointer",
+          border: "1px solid  red",
+        
+      },
+    },
+
+    button:{
+        display: "none",
+    },
+
+    name: {
+        height: "45px",
+    },
+
     rate: {
         fontSize: "1rem",
+        
     },
 
     comment: {

@@ -8,6 +8,7 @@ import ProductSkeletonList from '../components/ProductSkeletonList';
 import ProductSort from '../components/ProductSort';
 import { useHistory,useLocation } from 'react-router-dom';
 import queryString from 'query-string';
+import FilterSkeletonList from '../components/FilterSkeletonList';
 
 
 
@@ -141,8 +142,9 @@ const handelFiltersChange = (newFilters) => {
             <Container>
                 <Grid container spacing={1}>
                     <Grid item className={classes.left}>
+                        {loading ? <FilterSkeletonList length={1}/> : <ProductFilters filters={queryParams} onChange={handelFiltersChange}/>}
                         
-                        <ProductFilters filters={queryParams} onChange={handelFiltersChange}/>
+                        
         
                     </Grid>
                     <Grid item className={classes.right}>
