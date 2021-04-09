@@ -4,7 +4,8 @@ import Rating from '@material-ui/lab/Rating';
 import PropTypes from 'prop-types';
 import React from 'react';
 import ProductStyles from './ProductStyles';
-// import { STATIC_HOST } from 'constants/index';
+import { STATIC_HOST, THUMBNAIL_PLACEHOLDER } from '../../../constants/index';
+// import {}
 // import img from '../../../images/tagSale.png';
 
 
@@ -14,9 +15,7 @@ Product.propTypes = {
 
 function Product({product}) {
 
-    const thumbnailUrl = product.thumbnail
-    ? `https://api.ezfrontend.com${product.thumbnail?.url}`
-    : 'http://via.placeholder.com/444';
+    const thumbnailUrl = product.thumbnail ? `${STATIC_HOST}${product.thumbnail?.url}` : THUMBNAIL_PLACEHOLDER;
 
     const [value, setValue] = React.useState(2);
     const classes = ProductStyles();
