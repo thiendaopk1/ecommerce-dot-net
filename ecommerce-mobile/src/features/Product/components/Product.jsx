@@ -33,15 +33,15 @@ function Product({product}) {
            
             <Box>
                 <Box component="span" className={classes.salePrice} >
-                    {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND'}).format(product.salePrice)}
+                    {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product.salePrice)}
                 </Box>
                 <Box component="span" className={classes.originalPrice} ml={1}>
-                    {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND'}).format(product.originalPrice)}
+                    {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product.originalPrice)}
                 </Box>
-        
+
             </Box>
             <Box component="span" ml={0}>
-                <Rating name="read-only" value={value}  readOnly className={classes.rate} mr={2}/>
+                <Rating name="read-only" value={value} readOnly className={classes.rate} mr={2} />
                 <Typography component="span" className={classes.comment} >5 đánh giá</Typography>
             </Box>
             <Box className={classes.button}>

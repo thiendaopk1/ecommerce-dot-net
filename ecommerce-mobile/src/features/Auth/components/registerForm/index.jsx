@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 import * as yup from  'yup';
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
-import { Avatar, Button, makeStyles, Typography } from '@material-ui/core';
+import { Avatar, Button, LinearProgress, makeStyles, Typography } from '@material-ui/core';
 import LockOutlined from '@material-ui/icons/LockOpenOutlined';
 import InputField from '../../../../component/Form-control/InputField';
 import PasswordField from '../../../../component/Form-control/passwordField';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        // paddingTop: theme.spacing(2),
+        padding: theme.spacing(2,0,2,0),
     },
     avatar: {
         margin: '0 auto',
@@ -51,16 +51,18 @@ function RegisterForm(props) {
         resolver: yupResolver(schema),
     });
 
-    const handleSubmit = (values) => {
+    const handleSubmit = async (values) => {
         const { onSubmit } = props;
         if(onSubmit){
-            onSubmit(values);
+          await onSubmit(values);
         }
-        form.restet();
 
-    }
+    };
+    const {isSubmitting} = form.formState;
     return (
         <div className={classes.root}>
+            {isSubmitting && <LinearProgress />}
+
             <Avatar className={classes.avatar}>
             <LockOutlined></LockOutlined>
             </Avatar>
@@ -73,7 +75,7 @@ function RegisterForm(props) {
             <PasswordField name="password" label="Password" form={form} />
             <PasswordField name="retypePassword" label="Retype Password" form={form} />
         
-        <Button type="submit" className={classes.submit} variant="contained" color="primary" fullWidth>
+        <Button disabled={isSubmitting} type="submit" className={classes.submit} variant="contained" color="primary" fullWidth>
             create an Account
         </Button>
         </form>
