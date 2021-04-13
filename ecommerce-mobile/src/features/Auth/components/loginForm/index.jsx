@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import * as yup from  'yup';
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
-import { Avatar, Button, Checkbox, FormControlLabel, Grid, makeStyles, Typography } from '@material-ui/core';
+import { Avatar, Button, Checkbox, FormControlLabel, Grid, LinearProgress, makeStyles, Typography } from '@material-ui/core';
 import LockOutlined from '@material-ui/icons/LockOpenOutlined';
 import { Link } from 'react-router-dom';
 import InputField from '../../../../component/Form-control/InputField';
@@ -11,7 +11,7 @@ import PasswordField from '../../../../component/Form-control/passwordField';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        // paddingTop: theme.spacing(2),
+        padding: theme.spacing(2,0,2,0),
     },
     avatar: {
         margin: '0 auto',
@@ -37,28 +37,29 @@ LoginForm.propTypes = {
 function LoginForm(props) {
     const classes = useStyles();
     const schema = yup.object().shape({
-       email: yup.string().required('please enter your email').email('please enter a valid email address'),
+        identifier: yup.string().required('please enter your email').email('please enter a valid email address'),
        password: yup.string().required('please enter your password')
        .matches("(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}",'Password must contain at least 8 characters, including upper case letters, lower case letters, numbers and a special character'),
     });
     const form = useForm({
         defaultValues:{
-            email:'',
+            identifier:'',
             password:'',
         },
         resolver: yupResolver(schema),
     });
 
-    const handleSubmit = (values) => {
+    const handleSubmit = async (values) => {
         const { onSubmit } = props;
         if(onSubmit){
-            onSubmit(values);
+          await onSubmit(values);
         }
-        form.restet();
 
-    }
+    };
+    const {isSubmitting} = form.formState;
     return (
         <div className={classes.root}>
+            {isSubmitting && <LinearProgress />}
             <Avatar className={classes.avatar}>
             <LockOutlined></LockOutlined>
             </Avatar>
@@ -66,7 +67,7 @@ function LoginForm(props) {
                 Sign In
             </Typography>
         <form onSubmit={form.handleSubmit(handleSubmit)}>
-            <InputField name="email" label="Email" form={form} />
+            <InputField name="identifier" label="identifier" form={form} />
             <PasswordField name="password" label="Password" form={form} />
             <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
