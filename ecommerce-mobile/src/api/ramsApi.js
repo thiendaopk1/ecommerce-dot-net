@@ -1,26 +1,26 @@
 import axiosClient from "./axiosClient";
 
-const categoryApi = {
+const ramsApi = {
     getAll(params){
-        const url = '/categories';
+        const url = '/product/rams';
         return axiosClient.get(url, {params: params});
     }, 
     get(id){
-        const url = `/categories/${id}`;
+        const url = `/product/rams/${id}`;
         return axiosClient.get(url);
     },
     add(data){
-        const url = '/categories';
+        const url = '/product/rams';
         return axiosClient.post(url, data);
     }, 
     update(data){
-        const url = `/categories/${data.id}`;
+        const url = `/product/rams/${data.id}`;
         return axiosClient.patch(url, data);
     }, 
     remove(id){
-        const url = `/categories/${id}`;
+        const url = `/product/rams/${id}`;
         return axiosClient.delete(url);
     },
 };
 
-export default categoryApi;
+export default ramsApi;

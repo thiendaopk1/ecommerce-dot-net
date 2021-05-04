@@ -1,25 +1,26 @@
 import { Box, Typography } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
-import brandsApi from '../../../../api/brandsApi';
+import ramsApi from '../../../../api/ramsApi';
 import FilterStyles from './FilterStyles';
 
-FilterByCategory.propTypes = {
+FilterByRam.propTypes = {
     onChange: PropTypes.func,
 
 };
 
-function FilterByCategory({onChange}) {
+function FilterByRam({onChange}) {
     const classes = FilterStyles();
-    const [brandList, setBrandList] = useState([]);
+    const [ramList, setRamList] = useState([]);
 
     useEffect(() =>{
         (async () =>{
             try {
-                const list = await brandsApi.getAll();
-                setBrandList(list.map((x) => ({
+                const list = await ramsApi.getAll();
+                setRamList(list.map((x) => ({
                     id: x.id,
-                    name: x.name
+                    ram: x.ram
+                    
                 }))
                 );
             } catch (error) {
@@ -28,9 +29,9 @@ function FilterByCategory({onChange}) {
         })();
     }, []);
 
-    const handleCategoryClick = (brand) => {
+    const handleCategoryClick = (ram) => {
         if(onChange){
-            onChange(brand.id)
+            onChange(ram.id)
         }
     };
     const handleClickAll = () => {
@@ -44,12 +45,12 @@ function FilterByCategory({onChange}) {
             <Typography className={classes.title} variant="subtitle2">DANH MỤC SẢN PHẨM</Typography>
             <ul className={classes.menu}>
                 <li onClick={handleClickAll}>Tất cả</li>
-                {brandList.map(brand => (
+                {ramList.map(ram => (
                 <li 
-                key={brand.id}
-                onClick={() => handleCategoryClick(brand)}
+                key={ram.id}
+                onClick={() => handleCategoryClick(ram)}
                 >
-                    {brand.name}
+                    {ram.ram}
                 </li>
                 ))}
             </ul>
@@ -57,4 +58,4 @@ function FilterByCategory({onChange}) {
     );
 }
 
-export default FilterByCategory;
+export default FilterByRam;

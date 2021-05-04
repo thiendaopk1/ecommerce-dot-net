@@ -6,8 +6,7 @@ const ProductDetailStyles = makeStyles(() => ({
     },
 
     nameProduct: {
-        display: 'flex',
-        flexFlow: 'row nowrap',
+        
     },
 
     title :{
@@ -49,7 +48,7 @@ const ProductDetailStyles = makeStyles(() => ({
         textDecoration: 'line-through',
     },
 //Ram
-    box1: {
+    selected: {
         position: 'relative',
         backgroundColor: '#fff',
         border: '1px solid #d70018',
@@ -74,17 +73,27 @@ const ProductDetailStyles = makeStyles(() => ({
         fontWeight: '700',
     },
 //Color
+
+    colors: {
+        paddingLeft: '0px',
+        display: 'flex',
+        flexFlow: 'row nowrap',
+    },
+
     box2: {
+        
+        listStyle: 'none',
         position: 'relative',
         backgroundColor: '#fff',
-        border: '1px solid #d70018',
+        border: '1px solid #eee',
         borderRadius: '3px',
-        width: '100px',
+        width: '150px',
         textAlign: 'center',
         padding: '5px 10px',
         cursor: 'pointer',
         display: 'flex',
         flexDirection: 'column',
+        marginRight: '5px',
         justifyContent: 'center',
         marginTop: '10px',
     },
@@ -104,6 +113,52 @@ const ProductDetailStyles = makeStyles(() => ({
         color: '#2f2f2f',
         fontWeight: '700',
     },
+//Promotion Wapper
+    promotionWapper: {
+        border: '#e11b1e solid 1px',
+        borderRadius: '4px',
+        padding: '10px 0 0',
+        position: 'relative',
+        overflow: 'visible',
+        margin: '30px 0',
+        float: 'left',
+        width: '100%'
+    },
+    promotionHeader: {
+        background: '#e11b1e',
+        borderRadius: '13px',
+        color: '#fff',
+        fontSize: '14px',
+        fontWeight: '400',
+        position: 'relative',
+        top: '-22px',
+        left: '10px',
+        verticalAlign: 'middle',
+        lineHeight: '26px',
+        clear: 'both',
+        padding: '0 18px',
+        testTransform: 'uppercase',
+    },
+    iconGift: {
+        fontSize: '14px',
+        marginRight:'6px',
+        width: '16px',
+        height: '15px',
+        
+    },
 
+    titleKM: {
+        position: 'relative',
+        marginLeft: '15px',
+        top: '-8px',
+    },
+    KMH: {
+        fontSize: '14px',
+    },
+    TTKM: {
+        color: '#e11b1e',
+        listStyleType: 'disc',
+        cursor: 'pointer'
+    },
 }));
 export default ProductDetailStyles;

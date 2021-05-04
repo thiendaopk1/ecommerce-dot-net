@@ -14,18 +14,19 @@ Product.propTypes = {
 };
 
 function Product({product}) {
-
-    const thumbnailUrl = product.thumbnail ? `${STATIC_HOST}${product.thumbnail?.url}` : THUMBNAIL_PLACEHOLDER;
+    
+    // const thumbnailUrl = product.thumbnail ? `${STATIC_HOST}${product.thumbnail?.url}` : THUMBNAIL_PLACEHOLDER;
 
     const [value, setValue] = React.useState(2);
     const classes = ProductStyles();
+    
     return (
         <Box padding={1} className={classes.root}>
             {/* nhớ sửa lại thành img */}
             <Box className={classes.image}>
                 
-                <Typography component="span" className={classes.percent}>-{product.promotionPercent}%</Typography>
-                <img src={thumbnailUrl} alt={product.name} width="100%" />
+                <Typography component="span" className={classes.percent}>-{product.promotionPercents}%</Typography>
+                <img src={product.images[0].image} alt={product.name} width="100%" />
             </Box>
             <Box className={classes.name}>
                 <Typography component="span"  padding={1}>{product.name}</Typography>

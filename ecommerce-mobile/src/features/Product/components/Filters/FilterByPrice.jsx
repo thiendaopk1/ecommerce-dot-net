@@ -27,7 +27,7 @@ function FilterByPrice({onChange}) {
     };
 
     const handleSubmitDelete = () => {
-        setValues({salePrice_gte: 0, salePrice_lte: 0})
+        setValues({salePrice_gte: 0, salePrice_gte: 0})
         if (onChange) onChange({salePrice_gte: undefined, salePrice_lte: undefined});
     };
 
@@ -37,9 +37,9 @@ function FilterByPrice({onChange}) {
 
             <Box className={classes.range}>
                 
-                <TextField name="salePrice_gte" value={values.salePrice_gte} onChange={handleChange} />
+                <TextField name="salePrice_gte" value={values.gte} onChange={handleChange} />
                 <span>-</span>
-                <TextField name="salePrice_lte" value={values.salePrice_lte} onChange={handleChange} />
+                <TextField name="salePrice_lte" value={values.lte} onChange={handleChange} />
             </Box>
 
             <Button variant="outlined" color="secondary" size="small" onClick={handleSubmit}>Áp dụng</Button>

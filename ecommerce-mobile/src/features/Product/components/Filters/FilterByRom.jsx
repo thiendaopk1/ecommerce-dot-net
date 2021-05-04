@@ -1,25 +1,26 @@
 import { Box, Typography } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
-import brandsApi from '../../../../api/brandsApi';
+import romsApi from '../../../../api/romsApi';
 import FilterStyles from './FilterStyles';
 
-FilterByCategory.propTypes = {
+FilterByRom.propTypes = {
     onChange: PropTypes.func,
 
 };
 
-function FilterByCategory({onChange}) {
+function FilterByRom({onChange}) {
     const classes = FilterStyles();
-    const [brandList, setBrandList] = useState([]);
+    const [romList, setRomList] = useState([]);
 
     useEffect(() =>{
         (async () =>{
             try {
-                const list = await brandsApi.getAll();
-                setBrandList(list.map((x) => ({
+                const list = await romsApi.getAll();
+                setRomList(list.map((x) => ({
                     id: x.id,
-                    name: x.name
+                    rom: x.rom
+                    
                 }))
                 );
             } catch (error) {
@@ -28,9 +29,9 @@ function FilterByCategory({onChange}) {
         })();
     }, []);
 
-    const handleCategoryClick = (brand) => {
+    const handleCategoryClick = (rom) => {
         if(onChange){
-            onChange(brand.id)
+            onChange(rom.id)
         }
     };
     const handleClickAll = () => {
@@ -44,12 +45,12 @@ function FilterByCategory({onChange}) {
             <Typography className={classes.title} variant="subtitle2">DANH MỤC SẢN PHẨM</Typography>
             <ul className={classes.menu}>
                 <li onClick={handleClickAll}>Tất cả</li>
-                {brandList.map(brand => (
+                {romList.map(rom => (
                 <li 
-                key={brand.id}
-                onClick={() => handleCategoryClick(brand)}
+                key={rom.id}
+                onClick={() => handleCategoryClick(rom)}
                 >
-                    {brand.name}
+                    {rom.rom}
                 </li>
                 ))}
             </ul>
@@ -57,4 +58,4 @@ function FilterByCategory({onChange}) {
     );
 }
 
-export default FilterByCategory;
+export default FilterByRom;

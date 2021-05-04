@@ -1,8 +1,10 @@
 import axios from 'axios';
 
 const axiosClient = axios.create({
-    baseURL: 'https://api.ezfrontend.com/',
+    baseURL: 'https://localhost:5001/',
+    //baseURL: 'https://25.50.183.23:25002/',
     headers: {'Content-Type': 'application/json'},
+    
 });
 // Add a request interceptor
 axiosClient.interceptors.request.use(function (config) {

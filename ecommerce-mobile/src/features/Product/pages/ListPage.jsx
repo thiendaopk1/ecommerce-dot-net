@@ -9,6 +9,7 @@ import ProductSort from '../components/ProductSort';
 import { useHistory,useLocation } from 'react-router-dom';
 import queryString from 'query-string';
 import FilterSkeletonList from '../components/FilterSkeletonList';
+import FilterViewer from '../components/FilterViewer';
 
 
 
@@ -45,7 +46,7 @@ function ListPage(props) {
             ...params,
             _page: Number.parseInt(params._page)|| 1,
             _limit: Number.parseInt(params._limit) || 12,
-            _sort: params._sort ||'salePrice:ASC',
+            _sort: params._sort ||'salePrice:asc',
         };
     }, [location.search]);
 
@@ -65,21 +66,26 @@ function ListPage(props) {
 
     
     //
-    // useEffect(() => {
-    //     history.push({
-    //         pathName: history.location.pathName,
-    //         search: queryString.stringify(filters),
-    //     })
+    //  useEffect(() => {
+    //      history.push({
+    //          pathName: history.location.pathName,
+    //          //search: stringify(filters, null, null, escape()),
+    //      })
 
     // }, [history,filters]);
     //
+
     useEffect(() => {
         (async () => {
             try{
-                const {data, pagination} = await productApi.getAll(queryParams);
-                
+                const params2={...queryParams};
+                console.log("param",params2);
+                const rp=await productApi.getAll(params2);
+                const {data, pagination} = rp;
+                console.log("data",data);
+                console.log("pagi", pagination);
                 setProductList(data);
-                console.log(data, pagination);
+                
                 setPagination(pagination);
             }
             catch(error){
@@ -90,10 +96,7 @@ function ListPage(props) {
     }, [queryParams]);
 //handle pagination
 const handlePageChange = (e, page) => {
-    // setFilters((prevFilters) => ({
-    //     ...prevFilters,
-    //     _page: page,
-    // }));
+
     const filters = {
         ...queryParams,
         _page: page,
@@ -137,6 +140,13 @@ const handelFiltersChange = (newFilters) => {
     
 };
 
+const setNewFilter = (newFilters) => {
+    history.push({
+        pathName: history.location.pathName,
+        search: queryString.stringify(newFilters),
+    });
+}
+
     return (
         <Box>
             <Container>
@@ -150,12 +160,15 @@ const handelFiltersChange = (newFilters) => {
                     <Grid item className={classes.right}>
                         <Paper elevation={0}>
                             <ProductSort currentSort={queryParams._sort} onChange={handleSortChange}/>
+                            <FilterViewer filters={queryParams} onChange={setNewFilter}/>
+
                             {loading ? <ProductSkeletonList length={12}/> : <ProductList data={productList}/>}
+                            
                             <Box className={classes.pagination}>
                                 <Pagination 
                                 color="secondary" 
-                                count={Math.ceil(pagination.total / pagination.limit)} 
-                                page={pagination.page}
+                                count={Math.ceil(pagination._total / pagination._limit)} 
+                                _page={pagination._page}
                                 onChange={handlePageChange}
                                 >
                                 </Pagination>
