@@ -17,8 +17,8 @@ ProductInfo.propTypes = {
 function ProductInfo({product = {}}) {
     console.log({product})
     const classes = ProductDetailStyles();
-    const { name, salePrice, originalPrice, promotionPercent, specifics } = product;
-    console.log(specifics)
+    const { name, specifics } = product;
+    // console.log(specifics)
 
     const handleClick = (e) => {
         e.target.closest('li').classList.toggle('selected');
@@ -41,17 +41,6 @@ function ProductInfo({product = {}}) {
                 <Typography variant="span" className={classes.price}>Giá niêm yết:</Typography>
                 <Box component="span" className={classes.originalPrice}>{formatPrice(product.originalPrice)}</Box>
             </Box>
-            {/* <Box mt={2}>
-                <Box component="ul" className={classes.colors}>
-                    {specifics &&  specifics.map((specific)  => (
-                        <Box key={specific.id} component="li" className={classNames({
-                        }),classes.box2} >
-                            <Typography component="span" className={classes.ram}>{specific.ram.ram}</Typography>
-                            <Box component="span" className={classes.ramPrice}>{formatPrice(product.salePrice)}</Box>
-                        </Box>
-                    ))}
-                </Box>
-            </Box> */}
             <Box mt={2} >
                 <Typography component="span" className={classes.titleColor}>Màu sắc:</Typography>
                 <Box component="ul" className={classes.colors}>

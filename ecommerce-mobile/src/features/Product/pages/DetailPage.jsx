@@ -71,12 +71,27 @@ function DetailPage() {
                 <ProductMenu />
 
                 <Switch>
-                    <Route exact path={url}>
-                        <ProductDescription product={product}/>
-                    </Route>
+                    <Paper elevation={0} style={{ padding : '20px'}}>
+                        <Grid item>
+                            <Route exact path={url}>
+                                <ProductDescription product={product}/>
+                            </Route>
+                        </Grid>
 
-                    <Route exact path={`${url}/infomation`} component={ProductInfomation}/>
-                    <Route exact path={`${url}/review`} component={ProductReview}/>
+                        <Grid item>
+                            <Route exact path={`${url}/infomation`}>
+                                <ProductInfomation product={product}/>
+                            </Route>
+                        </Grid>
+                        
+                        <Grid item>
+                            <Route exact path={`${url}/review`} component={ProductReview}/>
+                        </Grid>
+                    </Paper>
+                    
+                    
+                    {/* <Route exact path={`${url}/infomation`} component={ProductInfomation}/> */}
+                    
                 </Switch>
             </Container>
         </Box>

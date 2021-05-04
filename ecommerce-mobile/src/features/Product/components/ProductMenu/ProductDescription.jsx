@@ -2,14 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 ProductDescription.propTypes = {
-    
+    product: PropTypes.object,
 };
 
-function ProductDescription(props) {
+function ProductDescription({product = {}}) {
     return (
-        <div>
-            Description
-        </div>
+        <div dangerouslySetInnerHTML={{__html: product.longDescription}}/>
+           
     );
 }
 
