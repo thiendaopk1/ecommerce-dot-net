@@ -9,7 +9,7 @@ export const register = createAsyncThunk(
 
         // luu data vao localStorage
         localStorage.setItem(StorageKeys.TOKEN,data.jwt);
-        localStorage.setItem(StorageKeys.USER,JSON.stringify(data.user));
+        localStorage.setItem(StorageKeys.USER,JSON.stringify(data));
 
      return data.user;
     }
