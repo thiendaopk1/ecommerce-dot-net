@@ -26,7 +26,7 @@ function Product({product}) {
             <Box className={classes.image}>
                 
                 <Typography component="span" className={classes.percent}>-{product.promotionPercents}%</Typography>
-                <img src={product.images[0].image} alt={product.name} width="100%" />
+                <img src={product.images[0].image} alt={product.name} width="100%" height="100%" />
             </Box>
             <Box className={classes.name}>
                 <Typography component="span"  padding={1}>{product.name}</Typography>
