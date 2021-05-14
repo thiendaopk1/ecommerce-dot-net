@@ -1,11 +1,13 @@
-import { Box, Button, Typography } from '@material-ui/core';
+import { Box, Button, Radio, RadioGroup, Typography } from '@material-ui/core';
 import Rating from '@material-ui/lab/Rating';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { formatPrice } from '../../../utils';
 import ProductDetailStyles from './ProductDetailStyles';
 import CardGiftcardIcon from '@material-ui/icons/CardGiftcard';
 import classNames from 'classnames';
+import SpecificItem from './SpecificItem';
+import { keys } from '@material-ui/core/styles/createBreakpoints';
 
 
 ProductInfo.propTypes = {
@@ -14,14 +16,19 @@ ProductInfo.propTypes = {
 
 
 
-function ProductInfo({product = {}}) {
+function ProductInfo({product = {}, selected, setSelected}) {
     console.log({product})
     const classes = ProductDetailStyles();
     const { name, specifics } = product;
     // console.log(specifics)
 
-    const handleClick = (e) => {
-        e.target.closest('li').classList.toggle('selected');
+
+    // const handleOnChange = (e) => {
+    //     setColor(e.target.value);
+    // }
+    const handleClickItem = (value,index) => {
+        console.log(value);
+        setSelected(index);
         
     }
   
@@ -41,15 +48,12 @@ function ProductInfo({product = {}}) {
                 <Typography variant="span" className={classes.price}>Giá niêm yết:</Typography>
                 <Box component="span" className={classes.originalPrice}>{formatPrice(product.originalPrice)}</Box>
             </Box>
-            <Box mt={2} >
+            
+             <Box mt={2} >
                 <Typography component="span" className={classes.titleColor}>Màu sắc:</Typography>
                 <Box component="ul" className={classes.colors}>
-                    {specifics &&  specifics.map((specific)  => (
-                        <Box key={specific.id} component="li" className={classes.box2} onClick={handleClick} >
-                            <Typography component="span" className={classes.colorProduct}>{specific.color}</Typography>
-                            <Typography component="span" className={classes.ram}>{specific.ram.ram}-{specific.rom.rom}</Typography>
-                            <Box component="span" className={classes.colorPrice}>{formatPrice(product.salePrice)}</Box>
-                        </Box>
+                    {specifics &&  specifics.map((specific,index)  => (
+                        <SpecificItem specific={specific} onClick={handleClickItem} index={index} selected={selected === index} />
                     ))}
                 </Box>
                 

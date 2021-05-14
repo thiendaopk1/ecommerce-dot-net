@@ -13,10 +13,12 @@ import SearchIcon from '@material-ui/icons/Search';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import Login from '../../features/Auth/components/login';
 import Register from '../../features/Auth/components/Register';
 import { logout } from '../../features/Auth/userSlice';
+import { cartItemsCountSelectors } from '../../features/ShoppingCart/selectors';
+import SearchForm from '../search';
 import Hang from './Hang';
 
 const useStyles = makeStyles((theme) => ({
@@ -107,10 +109,15 @@ const MODE = {
 export default function Header() {
   const loggedInUser = useSelector(state => state.user.current);
   const isLoggedIn = !!loggedInUser.id;
+  const history = useHistory();
 
   //logOut
   const dispatch = useDispatch();
-
+  //Cart
+  const cartItemsCount = useSelector(cartItemsCountSelectors);
+  const handleClickCart = () => {
+    history.push('/cart');
+  };
   // form dang ky
   const [open, setOpen] = useState(false);
   const [mode, setMode] = useState(MODE.REGISTER)
@@ -204,24 +211,13 @@ export default function Header() {
             <Link className={classes.link} to="/"> News</Link>
           </Typography>
           {/* search */}
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
-            </div>
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </div>
+          
+          <SearchForm />
           <Box>
           <IconButton aria-label="cart">
-            <StyledBadge badgeContent={4} color="secondary">
+            <Badge badgeContent={cartItemsCount} color="secondary" onClick={handleClickCart}>
               <ShoppingCartIcon className={classes.cartIcon} />
-            </StyledBadge>
+            </Badge>
           </IconButton>
           {!isLoggedIn && (
             <>

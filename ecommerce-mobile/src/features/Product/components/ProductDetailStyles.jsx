@@ -78,8 +78,12 @@ const ProductDetailStyles = makeStyles(() => ({
         paddingLeft: '0px',
         display: 'flex',
         flexFlow: 'row nowrap',
+        '&>.selected':{
+                border: '1px solid #e11b1e', 
+            },
+        
     },
-
+    
     box2: {
         
         listStyle: 'none',
@@ -160,5 +164,22 @@ const ProductDetailStyles = makeStyles(() => ({
         listStyleType: 'disc',
         cursor: 'pointer'
     },
+radioColor:{
+    "&>.red":{
+        color: 'red',
+        "&.Mui-checked":{
+            color:"red",
+        } 
+    }
+    ,
+    "&>.green":{
+        color: 'green',
+        "&.Mui-checked":{
+            color:"green",
+        }
+    }
+},
+ 
+
 }));
 export default ProductDetailStyles;

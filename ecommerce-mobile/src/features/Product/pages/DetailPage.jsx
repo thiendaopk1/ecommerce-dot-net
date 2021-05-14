@@ -10,6 +10,7 @@ import ProductMenu from '../components/ProductMenu';
 import ProductDescription from '../components/ProductMenu/ProductDescription';
 import ProductInfomation from '../components/ProductMenu/ProductInfomation';
 import ProductReview from '../components/ProductMenu/ProductReview';
+import ProductContentCenter from '../components/ProductContentCenter';
 
 
 DetailPage.propTypes = {
@@ -46,9 +47,7 @@ function DetailPage() {
 
     const { product, loading} = useProductDetail(productId);
 
-    const handleAddToCartSubmit = (formValues) => {
-        console.log('Form values:', formValues);
-    }
+   
     
     return (
         <Box>
@@ -60,8 +59,7 @@ function DetailPage() {
                             <ProductThumbnail product={product}/>
                         </Grid>
                         <Grid item className={classes.center}>
-                            <ProductInfo product={product} />
-                            <AddToCartForm onSubmit={handleAddToCartSubmit}/>
+                           <ProductContentCenter product={product}/>
                         </Grid>
                         <Grid item className={classes.right}>
                             <RightContentDetail product={product}/>
