@@ -1,10 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
+// import localStorage from "redux-persist/es/storage";
 
+let cartItemsStore = []
+
+if(localStorage.getItem("cart"))
+    cartItemsStore = JSON.parse(localStorage.getItem("cart"))
+    
 const cartSlice = createSlice({
     name: 'cart',
     initialState: {
         showMiniCart: true,
-        cartItems: [],
+        cartItems: cartItemsStore,
     },
     reducers: {
         showMiniCart(state){
@@ -18,6 +24,7 @@ const cartSlice = createSlice({
         addToCart(state, action){
             const newItem = action.payload;
             const index = state.cartItems.findIndex((x) => x.id === newItem.id);
+
             if(index >= 0 ){
                 //increase quantity
                 state.cartItems[index].quantity += newItem.quantity;
@@ -25,6 +32,8 @@ const cartSlice = createSlice({
                 //add to cart
                 state.cartItems.push(newItem);
             }
+
+            localStorage.setItem("cart", JSON.stringify(state.cartItems))
         },
 
         setQuantity(state, action){
@@ -35,6 +44,7 @@ const cartSlice = createSlice({
                 //update quantity
                 state.cartItems[index].quantity = quantity;
             }
+            
         },
 
         removeFromCart(state, action){

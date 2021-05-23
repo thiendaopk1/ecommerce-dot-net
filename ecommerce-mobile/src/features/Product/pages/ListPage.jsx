@@ -57,23 +57,7 @@ function ListPage(props) {
         page: 1,
     });
     const [loading, setLoading] = useState([true]);
-    // const [filters, setFilters] = useState(() => ({
-    //     ...queryParams,
-    //     _page: Number.parseInt(queryParams._page)|| 1,
-    //     _limit: Number.parseInt(queryParams._limit) || 12,
-    //     _sort: queryParams._sort ||'salePrice:ASC',
-    // }));
-
-    
-    //
-    //  useEffect(() => {
-    //      history.push({
-    //          pathName: history.location.pathName,
-    //          //search: stringify(filters, null, null, escape()),
-    //      })
-
-    // }, [history,filters]);
-    //
+   
 
     useEffect(() => {
         (async () => {
@@ -108,10 +92,7 @@ const handlePageChange = (e, page) => {
 };
 //handle sort
 const handleSortChange = (newSortValue) => {
-    // setFilters((prevFilters) => ({
-    //     ...prevFilters,
-    //     _sort: newSortValue,
-    // }));
+    
     const filters = {
         ...queryParams,
         _sort: newSortValue,
@@ -124,11 +105,7 @@ const handleSortChange = (newSortValue) => {
 };
 //handle filter 
 const handelFiltersChange = (newFilters) => {
-    // setFilters((prevFilters) => ({
-    //     ...prevFilters,
-    //     ...newFilters,
-    // }));
-
+  
     const filters = {
         ...queryParams,
         ...newFilters,

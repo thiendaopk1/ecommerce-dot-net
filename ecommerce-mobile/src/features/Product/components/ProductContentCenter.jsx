@@ -19,11 +19,18 @@ function ProductContentCenter({product = {}}) {
             id: product.id,
             product,
             quantity,
+            selected
         });
         console.log(action);
+        
         dispatch(action);
-
+            // console.log(product);
+            // const abc = {
+            //     product,quantity
+            // }
+           
     }
+
     return (
         <Box>
         <ProductInfo product={product} selected={selected} setSelected={setSelected}/>

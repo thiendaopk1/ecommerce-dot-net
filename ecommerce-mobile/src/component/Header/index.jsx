@@ -107,6 +107,7 @@ const MODE = {
   REGISTER: 'register',
 };
 export default function Header() {
+  //check isLogin
   const loggedInUser = useSelector(state => state.user.current);
   const isLoggedIn = !!loggedInUser.id;
   const history = useHistory();
