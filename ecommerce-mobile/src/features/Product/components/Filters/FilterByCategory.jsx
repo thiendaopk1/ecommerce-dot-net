@@ -38,7 +38,7 @@ function FilterByCategory({onChange}) {
             onChange()
         }
     }
-
+console.log("brandList",brandList);
     return (
         <Box className={classes.root}>
             <Typography className={classes.title} variant="subtitle2">DANH MỤC SẢN PHẨM</Typography>

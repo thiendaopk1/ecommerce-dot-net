@@ -1,6 +1,8 @@
 import { Box, Grid } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import React from 'react';
+import { useHistory, useRouteMatch } from 'react-router';
+import { Link } from 'react-router-dom';
 import Product from './Product';
 
 ProductList.propTypes = {
@@ -11,12 +13,17 @@ ProductList.defaultProps = {
 }
 
 function ProductList({data}) {
+    const match = useRouteMatch();
+//   Link
     return (
         <Box>
             <Grid container>
                 {data.map((product) => (
                     <Grid item key={product.id} xs={12} sm={6} md={4} lg={3}>
-                        <Product product={product} />
+                        <Link to={`${match.url}/${product.id}`}>
+                            <Product product={product} />
+                        </Link>
+                        
                     </Grid>
                 ))}
             </Grid>

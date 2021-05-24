@@ -1,5 +1,6 @@
-import { Box, Container, Grid, makeStyles, Paper } from '@material-ui/core';
+import { Box, Container, Grid, Link, makeStyles, Paper } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
+import { useRouteMatch } from 'react-router';
 import productApi from '../../../api/productApi';
 import ProductList from '../../Product/components/ProductList';
 import ProductSkeletonList from '../../Product/components/ProductSkeletonList';
@@ -46,7 +47,7 @@ function HomeProductList(props) {
             setLoading(false);
         })();
     }, [filters]);
-
+const match = useRouteMatch();
     return (
         <Box>
             <Container>
@@ -54,7 +55,9 @@ function HomeProductList(props) {
                     <Grid item className={classes.right}>
                         <Paper className={classes.contai} elevation={0}>
                             <h1 className={classes.title}>{title} </h1>
-                            {loading ? <ProductSkeletonList length={4}/> : <ProductList data={productList}/>}
+                            {/* <Link to={`/products`}> */}
+                                {loading ? <ProductSkeletonList length={4}/> : <ProductList data={productList}/>}
+                            {/* </Link> */}
                         </Paper>
                     </Grid>
                 </Grid>

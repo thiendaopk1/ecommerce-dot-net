@@ -19,9 +19,13 @@ const useStyles = makeStyles((theme) => ({
         marginTop: '12px'
     },
 
-    center: {},
+    center: {
+        marginTop: '10px'
+    },
 
-    bottom: {},
+    bottom: {
+        marginTop: '10px',
+    },
 
     header: {
         padding: '0 20px',
@@ -66,7 +70,10 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 function ShoppingCartFeature(props) {
-    // const data = localStorage.getItem('cart');
+    const sp = localStorage.getItem('cart');
+    const spi = JSON.parse(sp);
+    console.log('sp',sp);
+    console.log('spi', spi);
     const cartTotal = useSelector(cartTotalCountSelectors);
     const classes = useStyles();
     return (
@@ -93,10 +100,13 @@ function ShoppingCartFeature(props) {
                         </Box>
                     </Paper>
                 </Grid>
-                <Grid item>
-                    <ProductItem />
+                <Grid item className={classes.center}>
+                    <Paper elevation={0}>
+                        <ProductItem spi={spi}/>
+                    </Paper>
+                    
                 </Grid>
-                <Grid item> 
+                <Grid item className={classes.bottom}> 
                     <Paper elevation={0}>
                         <Box>
                             <Box>

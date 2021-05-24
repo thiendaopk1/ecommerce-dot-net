@@ -22,7 +22,7 @@ const productApi = {
 //         }, 
     getAll(params){
         const url = `/products`;
-        console.log("api", params);
+        console.log("thien", params);
         return axiosClient.get(url, {params});
     },
     get(id){

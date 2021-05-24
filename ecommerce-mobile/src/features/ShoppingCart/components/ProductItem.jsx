@@ -1,15 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Box, Grid, makeStyles } from '@material-ui/core';
+import ProductItemCart from './ProductItemCart';
 
 productItem.propTypes = {
-    
+    spi: PropTypes.array,
+};
+productItem.defaultProps = {
+    spi: [],
 };
 
-function productItem(props) {
+function productItem({spi}) {
+   
     return (
-        <div>
-            alo
-        </div>
+        <Box>
+            <Grid container>
+                {spi.map((item) => (
+                    <Grid item key={item.id} xs={12}>
+                        <ProductItemCart items={item}/>
+                    </Grid>
+                    
+                ))}
+            </Grid>
+        </Box>
     );
 }
 

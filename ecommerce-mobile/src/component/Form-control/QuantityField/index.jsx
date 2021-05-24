@@ -37,7 +37,7 @@ function QuantityField(props) {
           <Controller
             name={name}
             control={form.control}
-            render={({ onChange, onBlur, value, name }) => (
+            render={({ onChange, onBlur, value, name, }) => (
               <Box>
                 <IconButton >
                   <RemoveIcon onClick={() => setValue(name, Number.parseInt(value) ? Number.parseInt(value) - 1 : 1)} />
@@ -48,9 +48,10 @@ function QuantityField(props) {
                 id ={name}
                 type="number"
                 disabled={disabled}
-                value = {value}
+                value = { value}
                 onChange={onChange}
                 onBlur={onBlur}
+                
                 />
 
                 <IconButton className={classes.icon}>

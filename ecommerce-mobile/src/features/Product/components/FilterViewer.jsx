@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Box, Chip, makeStyles } from '@material-ui/core';
+import brandsApi from '../../../api/brandsApi';
 
 FilterViewer.propTypes = {
     filters: PropTypes.object,
@@ -26,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
 const FILTER_LIST =[
     {
         id: 1,
-        getLabel: (filters) => '{filters}',
+        getLabel: (filters,brandList) => `${brandList[filters.brand_id-1].name}`,
         isActive: () => true,
         isVisible: (filters) => 
         Object.keys(filters).includes('brand_id'),
@@ -86,13 +87,30 @@ const FILTER_LIST =[
 
 function FilterViewer({filters = {}, onChange = null}) {
     const classes = useStyles();
+    const [brandList,setBrandList] = useState();
+    useEffect(() =>{
+        (async () =>{
+            try {
+                const list = await brandsApi.getAll();
+                setBrandList(list.map((x) => ({
+                    id: x.id,
+                    name: x.name
+                }))
+                );
+            } catch (error) {
+                console.log(error);
+            }
+        })();
+    }, []);
     console.log('asd',filters);
+    console.log("brandList",brandList);
+    console.log("FILTER_LIST",FILTER_LIST);
     return (
        <Box component="ul" className={classes.root}>
            {FILTER_LIST.filter((x) => x.isVisible(filters)).map((x) => (
                <li key={x.id}>
                    <Chip
-                    label={x.getLabel(filters)}
+                    label={brandList&&x.getLabel(filters,brandList)}
                     color={x.isActive(filters) ? 'primary' : 'default'}
                     clickable={!x.isRemoveable}
                     onClick={
