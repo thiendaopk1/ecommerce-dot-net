@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Box, Chip, makeStyles } from '@material-ui/core';
 import brandsApi from '../../../api/brandsApi';
+import ramsApi from '../../../api/ramsApi';
 
 FilterViewer.propTypes = {
     filters: PropTypes.object,
@@ -41,7 +42,7 @@ const FILTER_LIST =[
     },
     {
         id: 2,
-        getLabel: (filters) => 'rom',
+        getLabel: (filters) => `a`,
         isActive: () => true,
         isVisible: (filters) => 
         Object.keys(filters).includes('rom_id'),
@@ -88,6 +89,7 @@ const FILTER_LIST =[
 function FilterViewer({filters = {}, onChange = null}) {
     const classes = useStyles();
     const [brandList,setBrandList] = useState();
+    const [ramList, setRamList] = useState();
     useEffect(() =>{
         (async () =>{
             try {
@@ -102,9 +104,21 @@ function FilterViewer({filters = {}, onChange = null}) {
             }
         })();
     }, []);
-    console.log('asd',filters);
-    console.log("brandList",brandList);
-    console.log("FILTER_LIST",FILTER_LIST);
+    useEffect(() =>{
+        (async () =>{
+            try {
+                const list = await ramsApi.getAll();
+                setRamList(list.map((x) => ({
+                    id: x.id,
+                    ram: x.ram
+                    
+                }))
+                );
+            } catch (error) {
+                console.log(error);
+            }
+        })();
+    }, []);
     return (
        <Box component="ul" className={classes.root}>
            {FILTER_LIST.filter((x) => x.isVisible(filters)).map((x) => (
