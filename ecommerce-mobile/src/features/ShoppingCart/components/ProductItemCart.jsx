@@ -57,7 +57,7 @@ function ProductItemCart({items}) {
     const product = items.product;
     const quantityItem = items.quantity;
     const dispatch = useDispatch();
-    const handleOnSubmit = ({quantity}) => {
+    const handleOnChange = ({quantity}) => {
 
         const action = setQuantity({
             id: product.id,
@@ -65,8 +65,15 @@ function ProductItemCart({items}) {
             product
         });
         dispatch(action)
+        console.log('thien4', action);
     }
-    // const handleOnClick = ()
+    const handleClickRemove = ({cartItems}) => {
+        const action = removeFromCart({
+            id: product.id,
+            
+        });
+        dispatch(action);
+    }
     return (
         <Box padding={1} className={classes.root}>
                 <Box className={classes.image}>
@@ -81,13 +88,15 @@ function ProductItemCart({items}) {
                     <Typography>{product.salePrice}</Typography>
                 </Box>
                 <Box className={classes.sl}>
-                    <QuantityFormCart quantityItem={quantityItem} onChange/>
+                    <QuantityFormCart quantityItem={quantityItem} onChange={handleOnChange} />
                 </Box>
                 <Box className={classes.st}>
                     so tien
                 </Box>
-                <Box className={classes.tt} >
-                    xoa
+                <Box className={classes.tt} onClick={handleClickRemove}>
+                    <a >
+                        Xóa
+                    </a>
                 </Box>
             
         </Box>

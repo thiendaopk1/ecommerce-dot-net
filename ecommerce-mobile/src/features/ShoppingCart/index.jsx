@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { cartTotalCountSelectors } from './selectors';
 import { useSelector } from 'react-redux';
 import { Box, Button, Container, Grid, makeStyles, Paper } from '@material-ui/core';
 // import ProductItem from './components/ProductItem';
 import ProductItem from './components/ProductItem';
+import { ContactSupportOutlined } from '@material-ui/icons';
 
 
 ShoppingCartFeature.propTypes = {
@@ -70,10 +71,15 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 function ShoppingCartFeature(props) {
-    const sp = localStorage.getItem('cart');
-    const spi = JSON.parse(sp);
-    console.log('sp',sp);
-    console.log('spi', spi);
+
+    const products = useSelector((state) => {
+        return state.cart.cartItems
+    })
+
+    console.log(products);
+
+
+    
     const cartTotal = useSelector(cartTotalCountSelectors);
     const classes = useStyles();
     return (
@@ -102,7 +108,7 @@ function ShoppingCartFeature(props) {
                 </Grid>
                 <Grid item className={classes.center}>
                     <Paper elevation={0}>
-                        <ProductItem spi={spi}/>
+                        <ProductItem spi={products}/>
                     </Paper>
                     
                 </Grid>

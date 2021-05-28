@@ -1,10 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
+import StorageKeys from "../../constants/storage-keys";
 // import localStorage from "redux-persist/es/storage";
 
 let cartItemsStore = []
 
 if(localStorage.getItem("cart"))
     cartItemsStore = JSON.parse(localStorage.getItem("cart"))
+
+    console.log(cartItemsStore)
     
 const cartSlice = createSlice({
     name: 'cart',
@@ -14,14 +17,17 @@ const cartSlice = createSlice({
     },
     reducers: {
         showMiniCart(state){
+            console.log(state);
             state.showMiniCart = true;
         },
 
-        hideMiniCart(state){
+        hideMiniCart(state) {
             state.showMiniCart = false;
         },
 
-        addToCart(state, action){
+        addToCart(state, action) {
+            // console.log({state.cartItems})
+            
             const newItem = action.payload;
             const index = state.cartItems.findIndex((x) => x.id === newItem.id);
 
@@ -44,12 +50,23 @@ const cartSlice = createSlice({
                 //update quantity
                 state.cartItems[index].quantity = quantity;
             }
-            
+            localStorage.setItem("cart", JSON.stringify(state.cartItems))
         },
 
-        removeFromCart(state, action){
-            const idNeedToRemove = action.payload;
-            state.cartItems = state.cartItems.filter(x => x.id !== idNeedToRemove);
+        removeFromCart(state, action) {
+            const {cartItems} = state;
+            console.error({cartItems})
+            // const idNeedToRemove = action.payload;
+            // console.log(idNeedToRemove)
+            // state.cartItems = state.cartItems.filter(x => x.id !== idNeedToRemove);
+
+            // localStorage.setItem("cart", JSON.stringify(state.cartItems))
+            
+            // get all product from local storage
+
+            // delete the product
+
+            // save into local storage
         },
     },
 });

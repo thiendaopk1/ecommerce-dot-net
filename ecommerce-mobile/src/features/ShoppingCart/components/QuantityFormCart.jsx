@@ -35,23 +35,28 @@ function QuantityFormCart({quantityItem, onChange = null}) {
         quantity: yup.number().required('làm ơn nhập').min(1, 'Tối thiểu là 1 sản phẩm').typeError('Làm ơn nhập số'),
       });
     // console.log('quantity', quantityItem);
-    const form = useForm({
-        defaultValues:{
-            quantity:quantityItem,
-            
-        },
-        resolver: yupResolver(schema),
-    });
     const handleOnChange = async (values) => {
         if(onChange){
             await onChange(values);
         }
     }
+    const form = useForm({
+        defaultValues:{
+            quantity:quantityItem,  
+        },
+        // onChange:{
+        //      quantity:handleOnChange,
+        // },
+        resolver: yupResolver(schema),
+       
+    });
+    // console.log('onchange', onChange);
+    
 
   
     return (
         <form>
-            <QuantityField name="quantity" form={form} onChange={handleOnChange}/>
+            <QuantityField name="quantity" form={form} />
         </form>
     );
 }
