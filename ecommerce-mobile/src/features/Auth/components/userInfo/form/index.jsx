@@ -1,16 +1,16 @@
-import React from 'react';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { Button, makeStyles } from '@material-ui/core';
 import PropTypes from 'prop-types';
-import * as yup from  'yup';
-import { yupResolver } from '@hookform/resolvers/yup'
-import { useForm } from 'react-hook-form'
-import { Avatar, Button, LinearProgress, makeStyles, Typography } from '@material-ui/core';
-import LockOutlined from '@material-ui/icons/LockOpenOutlined';
-import InputField from '../../../../component/Form-control/InputField';
-import PasswordField from '../../../../component/Form-control/passwordField';
+import React from 'react';
+import { useForm } from 'react-hook-form';
+import { useSelector } from 'react-redux';
+import * as yup from 'yup';
+import InputField from '../../../../../component/Form-control/InputField';
 
 const useStyles = makeStyles((theme) => ({
     root: {
         padding: theme.spacing(1,0,1,0),
+        width:'60%'
     },
     avatar: {
         margin: '0 auto',
@@ -25,11 +25,12 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-RegisterForm.propTypes = {
+UpdateForm.propTypes = {
     onSubmit: PropTypes.func,
 };
 
-function RegisterForm(props) {
+function UpdateForm(props) {
+    const loggedInUser = useSelector(state => state.user.current);
     const classes = useStyles();
     const schema = yup.object().shape({
        fullName: yup.string().required('please enter your full name')
@@ -37,20 +38,15 @@ function RegisterForm(props) {
            return value.split(' ').length>=2;
        }),
        email: yup.string().required('please enter your email').email('please enter a valid email address'),
-       password: yup.string().required('please enter your password')
-       .matches("(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}",'Password must contain at least 8 characters, including upper case letters, lower case letters, numbers and a special character'),
-       rePassword: yup.string().required('please retype your password').oneOf([yup.ref('password')],'passord does not match'),
        phone: yup.string().required('please enter your phone number').length(10,'please enter a valid phone number').matches("((09|03|07|08|05)+([0-9]{8}))","please enter a valid phone number"),
        address: yup.string().required('please enter your address')
     });
     const form = useForm({
         defaultValues:{
-            fullName: '',
-            email:'',
-            password:'',
-            rePassword:'',
-            phone:'',
-            address:'',
+            fullName: loggedInUser.fullname,
+            email:loggedInUser.email,
+            phone:loggedInUser.phone,
+            address:loggedInUser.address,
         },
         resolver: yupResolver(schema),
     });
@@ -65,19 +61,10 @@ function RegisterForm(props) {
     const {isSubmitting} = form.formState;
     return (
         <div className={classes.root}>
-            {isSubmitting && <LinearProgress />}
-
-            <Avatar className={classes.avatar}>
-            <LockOutlined></LockOutlined>
-            </Avatar>
-            <Typography className={classes.title} component='h3' variant='h5'>
-                Sign Up
-            </Typography>
+           
         <form onSubmit={form.handleSubmit(handleSubmit)}>
             <InputField name="fullName" label="Full Name" form={form} />
             <InputField name="email" label="Email" form={form} />
-            <PasswordField name="password" label="Password" form={form} />
-            <PasswordField name="rePassword" label="Retype Password" form={form} />
             <InputField name="phone" label="Phone Number" form={form} />
             <InputField name="address" label="Address" form={form} />
         <Button disabled={isSubmitting} type="submit" className={classes.submit} variant="contained" color="primary" fullWidth>
@@ -88,4 +75,4 @@ function RegisterForm(props) {
     );
 }
 
-export default RegisterForm;
+export default UpdateForm;

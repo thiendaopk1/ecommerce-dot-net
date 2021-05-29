@@ -23,7 +23,7 @@ axiosClient.interceptors.response.use(function (response) {
   }, function (error) {
     // Any status codes that falls outside the range of 2xx cause this function to trigger
     // Do something with response error
-    console.log('loi email',error.response.data.message);
+    // console.log('loi email',error.response.data.message);
     const {config,status,data} =error.response;
     const URLs = ['/auth/local/register','api/login/user']
     if(URLs.includes(config.url)&& status==400){

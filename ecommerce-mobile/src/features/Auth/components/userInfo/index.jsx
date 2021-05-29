@@ -1,11 +1,15 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Avatar, Button, Collapse, Grid, List, ListItem, ListItemText, ListSubheader, makeStyles, TextField } from '@material-ui/core';
 import { ExpandLess, ExpandMore } from '@material-ui/icons';
+import { unwrapResult } from '@reduxjs/toolkit';
+import { useSnackbar } from 'notistack';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import * as yup from 'yup';
+import { updateUser } from '../../userSlice';
+import UpdateForm from './form';
 const useStyles = makeStyles((theme) => ({
     root: {
         maxWidth: 1232,
@@ -62,37 +66,20 @@ function UserInfo(props) {
     const classes = useStyles();
     const loggedInUser = useSelector(state => state.user.current);
     const [open, setOpen] = React.useState(false);
-
-    const handleClick = () => {
-        setOpen(!open);
-    };
-    const schema = yup.object().shape({
-        fullName: yup.string().required('please enter your full name')
-            .test('should has at least two words', 'please enter at least two words', (value) => {
-                return value.split(' ').length >= 2;
-            }),
-        email: yup.string().required('please enter your email').email('please enter a valid email address'),
-        password: yup.string().required('please enter your password')
-            .matches("(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}", 'Password must contain at least 8 characters, including upper case letters, lower case letters, numbers and a special character'),
-        retypePassword: yup.string().required('please retype your password').oneOf([yup.ref('password')], 'passord does not match'),
-    });
-    const form = useForm({
-        defaultValues: {
-            fullName: '',
-            email: '',
-            password: '',
-            retypePassword: '',
-        },
-        resolver: yupResolver(schema),
-    });
-    const handleSubmit = async (values) => {
-        const { onSubmit } = props;
-        if (onSubmit) {
-            await onSubmit(values);
+    const dispath = useDispatch();
+    const { enqueueSnackbar } = useSnackbar();
+    const handleSubmit = async (values) =>{
+        try {
+            //auto set username = email
+            values.id = loggedInUser.id;
+            const action = updateUser(values);
+            const resultAction = await dispath(action)
+            const user = unwrapResult(resultAction)
+            enqueueSnackbar('Update successfully', {variant: 'success'});
+        } catch (error) {
+            enqueueSnackbar(error.message, {variant: 'error'});
         }
-
     };
-    const { isSubmitting } = form.formState;
     return (
         <div className={classes.root}>
             <Grid container spacing={1}>
@@ -120,7 +107,7 @@ function UserInfo(props) {
         </ListItemIcon> */}
                             <ListItemText primary="Đổi mật khẩu" />
                         </ListItem>
-                        <ListItem button onClick={handleClick}>
+                        <ListItem button>
                             {/* <ListItemIcon>
           <InboxIcon />
         </ListItemIcon> */}
@@ -146,17 +133,7 @@ function UserInfo(props) {
                             <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" className={classes.large} />
                             <p className={classes.ten}>{loggedInUser.fullName}</p>
                         </Grid>
-                        <Grid item>
-                            <form onSubmit={form.handleSubmit(handleSubmit)}>
-                                <TextField className={classes.text} name="fullName" label="Full Name" value={loggedInUser.fullName} form={form} />
-                                <TextField className={classes.text} name="email" value={loggedInUser.email} label="Email" form={form} />
-                                <TextField className={classes.text} name="phoneNunber" value={loggedInUser.email} label="phone number" form={form} />
-                                <TextField className={classes.text} name="address" value={loggedInUser.email} label="address" form={form} />
-                                <Button disabled={isSubmitting} type="submit" className={classes.text} variant="contained" color="primary" fullWidth>
-                                    save
-                                </Button>
-                            </form>
-                        </Grid>
+                        <UpdateForm onSubmit={handleSubmit} />
                     </Grid>
                 </Grid>
             </Grid>

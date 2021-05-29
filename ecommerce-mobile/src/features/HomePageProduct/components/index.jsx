@@ -8,9 +8,9 @@ ProductHome.propTypes = {
 function ProductHome(props) {
     return (
         <div>
-            <HomeProductList title="Sản phẩm đang hot" />
-            <HomeProductList title="Sản phẩm đang sale" />
-            <HomeProductList title="Sản phẩm nổi bật" />
+            <HomeProductList title="Sản phẩm đang hot" loai="hot" />
+            <HomeProductList title="Sản phẩm đang sale" loai="sale" />
+            <HomeProductList title="Sản phẩm nổi bật" loai="noibat"/>
         </div>
     );
 }

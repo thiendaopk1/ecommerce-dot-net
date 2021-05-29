@@ -1,4 +1,4 @@
-import { Badge, Box, fade, InputBase, Menu, MenuItem, withStyles } from '@material-ui/core';
+import { Badge, Box, fade, Menu, MenuItem, withStyles } from '@material-ui/core';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -9,7 +9,6 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { AccountCircle, Close } from '@material-ui/icons';
 import MenuIcon from '@material-ui/icons/Menu';
-import SearchIcon from '@material-ui/icons/Search';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -139,7 +138,16 @@ export default function Header() {
   const handleClickOpenLogin = () => {
     setOpenLogin(true);
   };
-
+  // const handleClickOpenForm = () => {
+  //  if(mode==MODE.LOGIN){
+  //   setOpenLogin(true);
+  //   setMode(MODE.LOGIN);
+  //  }
+  //  if(mode==MODE.REGISTER){
+  //   setOpen(true);
+  //   setMode(MODE.REGISTER);
+  //  }
+  // };
   const handleCloseLogin = () => {
     setOpenLogin(false);
   };
@@ -209,7 +217,7 @@ export default function Header() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" className={classes.title}>
-            <Link className={classes.link} to="/"> News</Link>
+            <Link className={classes.link} to="/"> Ecommerce-mobile</Link>
           </Typography>
           {/* search */}
           
@@ -258,7 +266,7 @@ export default function Header() {
         }}
         getContentAnchorEl={null}
       >
-        <MenuItem onClick={handleCloseMenuUser}>Profile</MenuItem>
+        {/* <MenuItem onClick={handleCloseMenuUser}>Profile</MenuItem> */}
         <a className={classes.link} href="/user-info" ><MenuItem onClick={handleCloseMenuUser}>My account</MenuItem></a>
         <MenuItem onClick={handleLogoutClick}>Logout</MenuItem>
       </Menu>

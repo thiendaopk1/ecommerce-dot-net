@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import './App.css';
+import Footer from './component/footer';
 import Header from './component/Header';
 import SlideShow from './component/Slider';
 import ProductFeature from './features';
@@ -21,7 +22,7 @@ function App() {
         <Route path="/products" component={ProductFeature} />
         <Route path="/cart" component={ShoppingCartFeature} />
       </Switch>
-      {/* <Footer /> */}
+      <Footer />
     </div>
   );
 }

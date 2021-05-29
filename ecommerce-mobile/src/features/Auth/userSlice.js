@@ -25,6 +25,20 @@ export const register = createAsyncThunk(
      return data.user;
     }
   );
+  export const updateUser = createAsyncThunk('user/updateUser',
+    async (payload) => {
+        const data = await userApi.updateUser(payload);
+
+        // luu data vao localStorage
+      
+        localStorage.removeItem(StorageKeys.TOKEN);
+        localStorage.removeItem(StorageKeys.USER);
+        localStorage.setItem(StorageKeys.TOKEN,data.jwt);
+        localStorage.setItem(StorageKeys.USER,JSON.stringify(data.user));
+
+     return data.user;
+    }
+  );
 const userSlice = createSlice({
     name: 'user',
     initialState: {
@@ -44,6 +58,9 @@ const userSlice = createSlice({
             state.current = action.payload;
         },
         [login.fulfilled]:(state, action)=>{
+            state.current = action.payload;
+        },
+        [updateUser.fulfilled]:(state, action)=>{
             state.current = action.payload;
         },
     },

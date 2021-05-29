@@ -37,13 +37,13 @@ LoginForm.propTypes = {
 function LoginForm(props) {
     const classes = useStyles();
     const schema = yup.object().shape({
-        username: yup.string().required('please enter your email').email('please enter a valid email address'),
+        email: yup.string().required('please enter your email').email('please enter a valid email address'),
        password: yup.string().required('please enter your password')
        .matches("(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}",'Password must contain at least 8 characters, including upper case letters, lower case letters, numbers and a special character'),
     });
     const form = useForm({
         defaultValues:{
-            username:'',
+            email:'',
             password:'',
         },
         resolver: yupResolver(schema),
@@ -67,7 +67,7 @@ function LoginForm(props) {
                 Sign In
             </Typography>
         <form onSubmit={form.handleSubmit(handleSubmit)}>
-            <InputField name="username" label="username" form={form} />
+            <InputField name="email" label="Email" form={form} />
             <PasswordField name="password" label="Password" form={form} />
             <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}

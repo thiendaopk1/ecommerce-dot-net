@@ -13,6 +13,11 @@ const userApi={
         const url = 'api/login/user';
         return axiosClient.post(url,data);
     },
+    updateUser(data){
+        // path den api dang ky
+        const url = '/users/'+data.id;
+        return axiosClient.post(url,data);
+    },
 };
 
 export default userApi;
