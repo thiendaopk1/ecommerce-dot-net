@@ -23,13 +23,24 @@ const useStyles = makeStyles(theme => ({
 
 function HomeProductList(props) {
     const title =props.title;
+    let _page="1";
+    let isHot="0";
+    const loai=props.loai;
+    if(loai =='hot'){
+        isHot = "1"
+    }else if (loai =='noibat'){
+        _page = "2"
+    }else{
+        _page = "3"
+    }
     const classes = useStyles();
     const [productList, setProductList] = useState([]);
     const [loading, setLoading] = useState([true]);
     const [filters, setFilters] = useState({
-        _page: 1,
+        isHot,
+        _page,
         _limit: 4,
-        _sort: 'salePrice:ASC'
+        // _sort: 'salePrice:ASC'
     });
 
     useEffect(() => {

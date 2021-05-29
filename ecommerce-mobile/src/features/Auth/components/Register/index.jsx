@@ -16,7 +16,7 @@ function Register(props) {
     const handleSubmit = async (values) =>{
         try {
             //auto set username = email
-            values.username = values.email;
+            // values.username = values.email;
 
             const action = register(values);
             const resultAction = await dispath(action)
