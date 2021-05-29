@@ -4,8 +4,10 @@ import RemoveIcon from '@material-ui/icons/Remove';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Controller } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
+import { setQuantity } from '../cartSlice';
 
-QuantityField.propTypes = {
+QuantityInputField.propTypes = {
     form: PropTypes.object.isRequired,
     name: PropTypes.string.isRequired,
     label: PropTypes.string,
@@ -23,9 +25,10 @@ const useStyles = makeStyles((theme) => ({
   
 }));
 
-function QuantityField(props) {
+function QuantityInputField(props) {
   const classes = useStyles();
-    const {form, name, label, disabled} = props;
+  const dispatch = useDispatch();
+    const {form,id, name, label, disabled} = props;
     const {errors, setValue} = form;
     const hasError =!!errors[name];
     return (
@@ -39,7 +42,11 @@ function QuantityField(props) {
             render={({ onChange, onBlur, value, name, }) => (
               <Box>
                 <IconButton >
-                  <RemoveIcon onClick={() => setValue(name, Number.parseInt(value) ? Number.parseInt(value) - 1 : 1)} />
+                  <RemoveIcon onClick={() => {setValue(name, Number.parseInt(value) ? Number.parseInt(value) - 1 : 1)
+                dispatch(setQuantity({
+                    id,
+                    quantity:value?value-1:1,
+                }))}} />
                 </IconButton>
 
                 <OutlinedInput 
@@ -49,12 +56,20 @@ function QuantityField(props) {
                 disabled={disabled}
                 value = { value}
                 onChange={onChange}
-                onBlur={onBlur}
+                onBlur={()=>{
+                    dispatch(setQuantity({
+                        id,
+                        quantity:value}))   
+                }}
                 
                 />
 
                 <IconButton className={classes.icon}>
-                  <AddIcon onClick={() => setValue(name, Number.parseInt(value) ? Number.parseInt(value) + 1 : 1)}/>
+                  <AddIcon onClick={() => {setValue(name, Number.parseInt(value) ? Number.parseInt(value) + 1 : 1)
+                   dispatch(setQuantity({
+                    id,
+                    quantity:value?value+1:1,}))}
+                }/>
                 </IconButton>
               </Box>
 
@@ -66,4 +81,4 @@ function QuantityField(props) {
     );
 }
 
-export default QuantityField;
+export default QuantityInputField;

@@ -5,6 +5,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import QuantityField from '../../../component/Form-control/QuantityField';
+import QuantityInputField from './QuantityInputFied';
 
 
 QuantityFormCart.propTypes = {
@@ -28,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
     }
     
 }));
-function QuantityFormCart({quantityItem, onChange = null}) {
+function QuantityFormCart({quantityItem,id, onChange = null}) {
     
     const classes = useStyles();
     const schema = yup.object().shape({
@@ -56,7 +57,7 @@ function QuantityFormCart({quantityItem, onChange = null}) {
   
     return (
         <form>
-            <QuantityField name="quantity" form={form} />
+            <QuantityInputField name="quantity" id={id} form={form} />
         </form>
     );
 }

@@ -54,13 +54,10 @@ const cartSlice = createSlice({
         },
 
         removeFromCart(state, action) {
-            const {cartItems} = state;
-            console.error({cartItems})
-            // const idNeedToRemove = action.payload;
-            // console.log(idNeedToRemove)
-            // state.cartItems = state.cartItems.filter(x => x.id !== idNeedToRemove);
-
-            // localStorage.setItem("cart", JSON.stringify(state.cartItems))
+            const idNeedToRemove = action.payload;
+            console.log(idNeedToRemove.id)
+            state.cartItems = state.cartItems.filter(x => x.id != idNeedToRemove.id);
+            localStorage.setItem("cart", JSON.stringify(state.cartItems))
             
             // get all product from local storage
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Box, makeStyles, Typography } from '@material-ui/core';
+import { Box, Button, makeStyles, Typography } from '@material-ui/core';
 import QuantityFormCart from './QuantityFormCart';
 import { setQuantity, removeFromCart} from '../cartSlice';
 import { useDispatch } from 'react-redux';
@@ -88,15 +88,15 @@ function ProductItemCart({items}) {
                     <Typography>{product.salePrice}</Typography>
                 </Box>
                 <Box className={classes.sl}>
-                    <QuantityFormCart quantityItem={quantityItem} onChange={handleOnChange} />
+                    <QuantityFormCart quantityItem={quantityItem} id={product.id} onChange={handleOnChange} />
                 </Box>
                 <Box className={classes.st}>
-                    so tien
+                <Typography>{product.salePrice*quantityItem}</Typography>
                 </Box>
-                <Box className={classes.tt} onClick={handleClickRemove}>
-                    <a >
+                <Box className={classes.tt} >
+                    <Button onClick={handleClickRemove}>
                         Xóa
-                    </a>
+                    </Button>
                 </Box>
             
         </Box>
