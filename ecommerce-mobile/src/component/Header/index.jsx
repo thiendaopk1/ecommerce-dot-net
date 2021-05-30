@@ -13,6 +13,8 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
+import ChangePassword from '../../features/Auth/components/changePassword';
+import ForgotPassword from '../../features/Auth/components/forgotpassword';
 import Login from '../../features/Auth/components/login';
 import Register from '../../features/Auth/components/Register';
 import { logout } from '../../features/Auth/userSlice';
@@ -123,31 +125,45 @@ export default function Header() {
   const [mode, setMode] = useState(MODE.REGISTER)
   // form dang nhap
   const [openLogin, setOpenLogin] = useState(false);
+  //form forgot pass
+  const [openForgotPass, setOpenForgotPass] = useState(false);
+  //form change pass
+  const [openChangePass, setOpenChangePass] = useState(false);
   //menu user
   const [anchorEl, setAnchorEl] = useState(null);
   // form dang ky
   const handleClickOpen = () => {
     setOpen(true);
+    setOpenLogin(false);
   };
 
   const handleClose = () => {
     setOpen(false);
   };
+  //form quen mat  khau
+  const handleClickOpenForgotPass = () => {
+    setOpenForgotPass(true);
+    setOpenLogin(false);
+  };
+
+  const handleCloseForgotPass = () => {
+    setOpenForgotPass(false);
+  };
+ //form doi mat  khau
+ const handleClickOpenChangePass = () => {
+  setOpenChangePass(true);
+  setOpenForgotPass(false);
+};
+
+const handleCloseChangePass = () => {
+  setOpenChangePass(false);
+  setOpenLogin(true);
+};
 
   // form dang nhap
   const handleClickOpenLogin = () => {
     setOpenLogin(true);
   };
-  // const handleClickOpenForm = () => {
-  //  if(mode==MODE.LOGIN){
-  //   setOpenLogin(true);
-  //   setMode(MODE.LOGIN);
-  //  }
-  //  if(mode==MODE.REGISTER){
-  //   setOpen(true);
-  //   setMode(MODE.REGISTER);
-  //  }
-  // };
   const handleCloseLogin = () => {
     setOpenLogin(false);
   };
@@ -279,33 +295,51 @@ export default function Header() {
           {mode == MODE.REGISTER && (
             <>
               <Register closeDialog={handleClose} />
-              <Box textAlign="center">
+              {/* <Box textAlign="center">
                 <Button color="primary" onClick={() => setMode(MODE.LOGIN)}>
                   Already have an account. Login here?
               </Button>
-              </Box>
+              </Box> */}
             </>
           )}
           {mode == MODE.LOGIN && (
             <>
               <Login closeDialog={handleClose} />
-              <Box textAlign="center">
+              {/* <Box textAlign="center">
                 <Button color="primary" onClick={() => setMode(MODE.REGISTER)}>
                   Don't have an account. Register here?
               </Button>
-              </Box>
+              </Box> */}
             </>
           )}
           {/* <Login closeDialog={handleClose}/> */}
         </DialogContent>
       </Dialog>
-
+      {/* form login */}
       <Dialog disableBackdropClick disableEscapeKeyDown open={openLogin} onClose={handleCloseLogin} aria-labelledby="form-dialog-title">
         <IconButton onClick={handleCloseLogin} className={classes.closeButton}>
           <Close />
         </IconButton>
         <DialogContent>
-          <Login closeDialog={handleCloseLogin} />
+          <Login closeDialog={handleCloseLogin} openForgot={handleClickOpenForgotPass} openRegister={handleClickOpen}/>
+        </DialogContent>
+      </Dialog>
+      {/* form forgot Pasword */}
+      <Dialog disableBackdropClick disableEscapeKeyDown open={openForgotPass} onClose={handleCloseForgotPass} aria-labelledby="form-dialog-title">
+        <IconButton onClick={handleCloseForgotPass} className={classes.closeButton}>
+          <Close />
+        </IconButton>
+        <DialogContent>
+          <ForgotPassword closeDialog={handleClickOpenChangePass} />
+        </DialogContent>
+      </Dialog>
+      {/* formchange pasword */}
+      <Dialog disableBackdropClick disableEscapeKeyDown open={openChangePass} onClose={handleCloseChangePass} aria-labelledby="form-dialog-title">
+        <IconButton onClick={handleCloseChangePass} className={classes.closeButton}>
+          <Close />
+        </IconButton>
+        <DialogContent>
+          <ChangePassword closeDialog={handleCloseChangePass} />
         </DialogContent>
       </Dialog>
     </div>

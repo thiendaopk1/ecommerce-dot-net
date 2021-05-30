@@ -1,15 +1,11 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Avatar, Button, Checkbox, Dialog, DialogContent, FormControlLabel, Grid, IconButton, LinearProgress, makeStyles, Typography } from '@material-ui/core';
-import { Close } from '@material-ui/icons';
+import { Avatar, Button, LinearProgress, makeStyles, Typography } from '@material-ui/core';
 import LockOutlined from '@material-ui/icons/LockOpenOutlined';
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
 import * as yup from 'yup';
 import InputField from '../../../../component/Form-control/InputField';
-import PasswordField from '../../../../component/Form-control/passwordField';
-import ForgotPassword from '../forgotpassword';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -28,51 +24,31 @@ const useStyles = makeStyles((theme) => ({
     },
     link:{
         textDecoration: 'none',
-    },
-    closeButton: {
-        position: 'absolute',
-        top: theme.spacing(1),
-        right: theme.spacing(1),
-        color: theme.palette.grey[500],
-      },
+    }
    
 }));
 
-LoginForm.propTypes = {
+ForgotPasswordForm.propTypes = {
     onSubmit: PropTypes.func,
-    onClose:PropTypes.func,
-    opendangky:PropTypes.func,
 };
 
-function LoginForm(props) {
-    const handleClickOpen = () => {
-        handleOncloseLogin();
-      };
-      const handleClickOpenRegister = () => {
-        const open = props.opendangky;
-        open();
-      };
-    const handleOncloseLogin = () => {
-        const onClose1 = props.onClose;
-            onClose1();
-    };
+function ForgotPasswordForm(props) {
     const classes = useStyles();
     const schema = yup.object().shape({
         email: yup.string().required('please enter your email').email('please enter a valid email address'),
-       password: yup.string().required('please enter your password')
-       .matches("(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}",'Password must contain at least 8 characters, including upper case letters, lower case letters, numbers and a special character'),
     });
     const form = useForm({
         defaultValues:{
             email:'',
-            password:'',
         },
         resolver: yupResolver(schema),
     });
 
     const handleSubmit = async (values) => {
-        const onSubmit1 = props.onSubmit;
-          await onSubmit1(values);
+        const { onSubmit } = props;
+        if(onSubmit){
+          await onSubmit(values);
+        }
 
     };
     const {isSubmitting} = form.formState;
@@ -83,33 +59,34 @@ function LoginForm(props) {
             <LockOutlined></LockOutlined>
             </Avatar>
             <Typography className={classes.title} component='h3' variant='h5'>
-                Sign In
+                Forgot Password
             </Typography>
         <form onSubmit={form.handleSubmit(handleSubmit)}>
             <InputField name="email" label="Email" form={form} />
-            <PasswordField name="password" label="Password" form={form} />
+            {/* <PasswordField name="password" label="Password" form={form} />
             <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
-          />
+          /> */}
         <Button type="submit" className={classes.submit} variant="contained" color="primary" fullWidth>
-            Sign In
+            Forgot password?
         </Button>
-        <Grid container>
+        {/* <Grid container>
             <Grid item xs>
-            <Button onClick={handleClickOpen} style={{marginRight: 24}} className={classes.link}>
+            <Link style={{marginRight: 24}} className={classes.link} to="/ForgotPassword">
                 Forgot password?
-              </Button>
+              </Link>
             </Grid>
             <Grid item>
-            <Button onClick={handleClickOpenRegister} className={classes.link}>
-                Don't have an account? Sign Up
-              </Button>
+            <Link className={classes.link} to="/signup">
+                {"Don't have an account? Sign Up"}
+              </Link>
             </Grid>
-          </Grid>
+          </Grid> */}
         </form>
+       
         </div>
     );
 }
 
-export default LoginForm;
+export default ForgotPasswordForm;

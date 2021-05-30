@@ -1,31 +1,23 @@
-import React from 'react';
-import { login } from '../../userSlice';
-import LoginForm from '../loginForm';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { useSnackbar } from 'notistack';
-import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
-Login.propTypes = {
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import { forgotPassword } from '../../userSlice';
+import ForgotPasswordForm from '../forgotpasswordForm';
+ForgotPassword.propTypes = {
     closeDialog: PropTypes.func,
-    openForgot:  PropTypes.func,
-    openRegister:PropTypes.func,
 };
 
-function Login(props) {
+function ForgotPassword(props) {
     const dispath = useDispatch();
     const { enqueueSnackbar } = useSnackbar();
-    const oncloseLogin=(value)=>{
-        const open = props.openForgot; 
-                open();
-    }
-    const openFormRegister=()=>{
-        const open1 = props.openRegister; 
-                open1();
-    }
+
     const handleSubmit = async (values) =>{
         try {
 
-            const action = login(values);
+            const action = forgotPassword(values);
+            await dispath(action)
             const resultAction = await dispath(action)
             const user = unwrapResult(resultAction)
             //close dialog
@@ -34,16 +26,16 @@ function Login(props) {
                 closeDialog();
             }
 
-            enqueueSnackbar('login successfully', {variant: 'success'});
+            enqueueSnackbar('Yêu cầu đã được tiếp nhận. Hãy kiểm tra email của bạn!', {variant: 'success'});
         } catch (error) {
             enqueueSnackbar(error.message, {variant: 'error'});
         }
     };
     return (
         <div>
-            <LoginForm onSubmit={handleSubmit} onClose={oncloseLogin} opendangky={openFormRegister}/>
+            <ForgotPasswordForm onSubmit={handleSubmit} />
         </div>
     );
 }
 
-export default Login;
+export default ForgotPassword;
