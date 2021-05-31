@@ -39,7 +39,7 @@ function RegisterForm(props) {
        email: yup.string().required('please enter your email').email('please enter a valid email address'),
        password: yup.string().required('please enter your password')
        .matches("(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}",'Password must contain at least 8 characters, including upper case letters, lower case letters, numbers and a special character'),
-       rePassword: yup.string().required('please retype your password').oneOf([yup.ref('password')],'passord does not match'),
+       repassword: yup.string().required('please retype your password').oneOf([yup.ref('password')],'passord does not match'),
        phone: yup.string().required('please enter your phone number').length(10,'please enter a valid phone number').matches("((09|03|07|08|05)+([0-9]{8}))","please enter a valid phone number"),
        address: yup.string().required('please enter your address')
     });
@@ -48,7 +48,7 @@ function RegisterForm(props) {
             fullName: '',
             email:'',
             password:'',
-            rePassword:'',
+            repassword:'',
             phone:'',
             address:'',
         },
@@ -77,7 +77,7 @@ function RegisterForm(props) {
             <InputField name="fullName" label="Full Name" form={form} />
             <InputField name="email" label="Email" form={form} />
             <PasswordField name="password" label="Password" form={form} />
-            <PasswordField name="rePassword" label="Retype Password" form={form} />
+            <PasswordField name="repassword" label="Retype Password" form={form} />
             <InputField name="phone" label="Phone Number" form={form} />
             <InputField name="address" label="Address" form={form} />
         <Button disabled={isSubmitting} type="submit" className={classes.submit} variant="contained" color="primary" fullWidth>
