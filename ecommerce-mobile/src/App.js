@@ -8,6 +8,7 @@ import ProductFeature from './features';
 import UserInfo from './features/Auth/components/userInfo';
 import ProductHome from './features/HomePageProduct/components';
 import ShoppingCartFeature from './features/ShoppingCart';
+import CheckOut from './features/ShoppingCart/components/CheckOut';
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
         <Route path="/user-info" component={UserInfo} exact />
         <Route path="/products" component={ProductFeature} />
         <Route path="/cart" component={ShoppingCartFeature} />
+        <Route path="/checkout" component={CheckOut}/>
       </Switch>
       <Footer />
     </div>

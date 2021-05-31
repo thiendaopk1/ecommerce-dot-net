@@ -138,16 +138,7 @@ export default function Header() {
   const handleClickOpenLogin = () => {
     setOpenLogin(true);
   };
-  // const handleClickOpenForm = () => {
-  //  if(mode==MODE.LOGIN){
-  //   setOpenLogin(true);
-  //   setMode(MODE.LOGIN);
-  //  }
-  //  if(mode==MODE.REGISTER){
-  //   setOpen(true);
-  //   setMode(MODE.REGISTER);
-  //  }
-  // };
+  
   const handleCloseLogin = () => {
     setOpenLogin(false);
   };

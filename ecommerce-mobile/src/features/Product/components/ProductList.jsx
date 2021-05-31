@@ -20,7 +20,7 @@ function ProductList({data}) {
             <Grid container>
                 {data.map((product) => (
                     <Grid item key={product.id} xs={12} sm={6} md={4} lg={3}>
-                        <Link to={`${match.url}/${product.id}`}>
+                        <Link to={`products/${product.id}`}>
                             <Product product={product} />
                         </Link>
                         

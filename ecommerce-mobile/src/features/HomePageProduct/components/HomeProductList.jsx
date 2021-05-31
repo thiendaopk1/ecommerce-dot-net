@@ -66,9 +66,9 @@ const match = useRouteMatch();
                     <Grid item className={classes.right}>
                         <Paper className={classes.contai} elevation={0}>
                             <h1 className={classes.title}>{title} </h1>
-                            {/* <Link to={`/products`}> */}
+                            
                                 {loading ? <ProductSkeletonList length={4}/> : <ProductList data={productList}/>}
-                            {/* </Link> */}
+                          
                         </Paper>
                     </Grid>
                 </Grid>

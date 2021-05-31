@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Button, makeStyles } from '@material-ui/core';
-
+import { Link } from 'react-router-dom';
+import brandsApi from '../../../api/brandsApi';
 Hang.propTypes = {
     hang: PropTypes.object,
 };
@@ -13,10 +14,29 @@ const useStyles = makeStyles((theme) => ({
         height: '8%',
     },
 }));
+
 function Hang({ hang }) {
     const classes = useStyles();
+    const [brandList, setBrandList] = useState([]);
+    useEffect(() =>{
+        (async () =>{
+            try {
+                const list = await brandsApi.getAll();
+                setBrandList(list.map((x) => ({
+                    id: x.id,
+                    name: x.name
+                }))
+                );
+            } catch (error) {
+                console.log(error);
+            }
+        })();
+    }, []);
     return (
+        <Link to={``}>
             <Button className={classes.button}><img src={hang.img}></img></Button>
+        </Link>
+            
     );
 }
 
