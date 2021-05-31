@@ -65,9 +65,13 @@ const cartSlice = createSlice({
 
             // save into local storage
         },
+        removeAll(state) {
+            localStorage.removeItem("cart");
+            state.current = {};
+        }
     },
 });
 
 const {actions, reducer} = cartSlice;
-export const {showMiniCart, hideMiniCart, addToCart, setQuantity, removeFromCart} = actions;
-export default reducer;
+export const {showMiniCart, hideMiniCart, addToCart, setQuantity, removeFromCart, removeAll} = actions;
+export default reducer; 

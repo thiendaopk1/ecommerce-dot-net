@@ -8,6 +8,8 @@ import LockOutlined from '@material-ui/icons/LockOpenOutlined';
 import { Link } from 'react-router-dom';
 import InputField from '../../../../component/Form-control/InputField';
 import PasswordField from '../../../../component/Form-control/passwordField';
+import { Close } from '@material-ui/icons';
+import ForgotPassword from '../forgotpassword';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -26,15 +28,34 @@ const useStyles = makeStyles((theme) => ({
     },
     link:{
         textDecoration: 'none',
-    }
+    },
+    closeButton: {
+        position: 'absolute',
+        top: theme.spacing(1),
+        right: theme.spacing(1),
+        color: theme.palette.grey[500],
+      },
    
 }));
 
 LoginForm.propTypes = {
     onSubmit: PropTypes.func,
+    onClose:PropTypes.func,
+    opendangky:PropTypes.func,
 };
 
 function LoginForm(props) {
+    const handleClickOpen = () => {
+        handleOncloseLogin();
+      };
+      const handleClickOpenRegister = () => {
+        const open = props.opendangky;
+        open();
+      };
+    const handleOncloseLogin = () => {
+        const onClose1 = props.onClose;
+            onClose1();
+    };
     const classes = useStyles();
     const schema = yup.object().shape({
         email: yup.string().required('please enter your email').email('please enter a valid email address'),
@@ -50,10 +71,8 @@ function LoginForm(props) {
     });
 
     const handleSubmit = async (values) => {
-        const { onSubmit } = props;
-        if(onSubmit){
-          await onSubmit(values);
-        }
+        const onSubmit1 = props.onSubmit;
+          await onSubmit1(values);
 
     };
     const {isSubmitting} = form.formState;
@@ -78,18 +97,17 @@ function LoginForm(props) {
         </Button>
         <Grid container>
             <Grid item xs>
-            <Link style={{marginRight: 24}} className={classes.link} to="/ForgotPassword">
+            <Button onClick={handleClickOpen} style={{marginRight: 24}} className={classes.link}>
                 Forgot password?
-              </Link>
+              </Button>
             </Grid>
             <Grid item>
-            <Link className={classes.link} to="/signup">
-                {"Don't have an account? Sign Up"}
-              </Link>
+            <Button onClick={handleClickOpenRegister} className={classes.link}>
+                Don't have an account? Sign Up
+              </Button>
             </Grid>
           </Grid>
         </form>
-       
         </div>
     );
 }

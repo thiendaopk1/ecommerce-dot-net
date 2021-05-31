@@ -85,13 +85,17 @@ function ProductItemCart({items}) {
                     </Box>
                 
                 <Box className={classes.dg}>
-                    <Typography>{product.salePrice}</Typography>
+                    <Typography>
+                    {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product.salePrice)}
+                    </Typography>
                 </Box>
                 <Box className={classes.sl}>
                     <QuantityFormCart quantityItem={quantityItem} id={product.id} onChange={handleOnChange} />
                 </Box>
                 <Box className={classes.st}>
-                <Typography>{product.salePrice*quantityItem}</Typography>
+                <Typography>
+                {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product.salePrice*quantityItem)}
+                </Typography>
                 </Box>
                 <Box className={classes.tt} >
                     <Button onClick={handleClickRemove}>

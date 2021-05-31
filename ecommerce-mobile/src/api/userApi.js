@@ -14,8 +14,18 @@ const userApi={
         return axiosClient.post(url,data);
     },
     updateUser(data){
-        // path den api dang ky
-        const url = '/users/'+data.id;
+        // path den api update user
+        const url = 'users/edit/'+data.id;
+        return axiosClient.put(url,data);
+    },
+    forgotPassword(data){
+        // path den api  quen mat khau
+        const url = 'users/forgot-pass';
+        return axiosClient.post(url,data);
+    },
+    changePassword(data){
+        // path den api doi mat khau
+        const url = 'users/reset-pass';
         return axiosClient.post(url,data);
     },
 };

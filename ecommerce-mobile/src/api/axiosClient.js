@@ -3,7 +3,7 @@ import axios from 'axios';
 const axiosClient = axios.create({
     baseURL: 'https://localhost:5001/',
     //baseURL: 'https://25.50.183.23:25002/',
-    headers: {'Content-Type': 'application/json'},
+    headers: {'Content-Type': 'application/json','authorization':`Bearer ${localStorage.getItem("access_token")}`},
     
 });
 // Add a request interceptor
@@ -25,7 +25,7 @@ axiosClient.interceptors.response.use(function (response) {
     // Do something with response error
     // console.log('loi email',error.response.data.message);
     const {config,status,data} =error.response;
-    const URLs = ['/auth/local/register','api/login/user']
+    const URLs = ['/auth/local/register','api/login/user','users/reset-pass','users/forgot-pass']
     if(URLs.includes(config.url)&& status==400){
       const errorList = data.message || [];
       // const firstError = errorList.length > 0 ? errorList[0] : {};

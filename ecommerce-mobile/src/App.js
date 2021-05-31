@@ -1,23 +1,30 @@
-import logo from './logo.svg';
+import React from 'react';
+import { Route, Switch } from 'react-router-dom';
 import './App.css';
+import Footer from './component/footer';
+import Header from './component/Header';
+import SlideShow from './component/Slider';
+import ProductFeature from './features';
+import UserInfo from './features/Auth/components/userInfo';
+import ProductHome from './features/HomePageProduct/components';
+import ShoppingCartFeature from './features/ShoppingCart';
+import CheckOut from './features/ShoppingCart/components/CheckOut';
+
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Dinh Dinh Learn React
-        </a>
-      </header>
+      <Header />
+      <Route path="/" component={SlideShow} exact />
+      {/* <Breadcrumb /> */}
+      <Switch >
+        <Route path="/" component={ProductHome} exact />
+        <Route path="/user-info" component={UserInfo} exact />
+        <Route path="/products" component={ProductFeature} />
+        <Route path="/cart" component={ShoppingCartFeature} />
+        <Route path="/checkout" component={CheckOut}/>
+      </Switch>
+      <Footer />
     </div>
   );
 }
