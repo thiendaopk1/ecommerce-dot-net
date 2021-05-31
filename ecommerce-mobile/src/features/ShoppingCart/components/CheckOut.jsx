@@ -9,7 +9,7 @@ CheckOut.propTypes = {
 function CheckOut(props) {
     return (
         <Box>
-            
+            checkout
         </Box>
     );
 }
