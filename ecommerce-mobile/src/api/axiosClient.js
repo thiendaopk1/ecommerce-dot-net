@@ -16,6 +16,7 @@ axiosClient.interceptors.request.use(function (config) {
     return config;
   }, function (error) {
     // Do something with request error
+    console.log("error1",{error})
     return Promise.reject(error);
   });
 
@@ -27,6 +28,10 @@ axiosClient.interceptors.response.use(function (response) {
   }, function (error) {
     // Any status codes that falls outside the range of 2xx cause this function to trigger
     // Do something with response error
+    if(error.response&&error.response.status===401){
+      console.log("token expire");
+      window.location="/auth/login";
+    }
     // console.log('loi email',error.response.data.message);
     const {config,status,data} =error.response;
     const URLs = ['/auth/local/register','api/login/user','users/reset-pass','users/forgot-pass']
