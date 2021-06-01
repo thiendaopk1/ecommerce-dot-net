@@ -20,8 +20,8 @@ function ProductList({data}) {
             <Grid container>
                 {data.map((product) => (
                     <Grid item key={product.id} xs={12} sm={6} md={4} lg={3}>
-                        <Link to={`products/${product.id}`}>
-                            <Product product={product} />
+                        <Link to={`products/${product.id}`} style={{textDecoration: 'none',color: 'black'}}>
+                            <Product product={product} comments={product.commentResponse}/>
                         </Link>
                         
                     </Grid>

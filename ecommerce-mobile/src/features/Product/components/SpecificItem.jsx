@@ -25,7 +25,7 @@ function SpecificItem({specific = {}, onClick, selected,index}) {
         <Box key={specific.id} component="li" className={classNames(classes.box2, selected && 'selected')} onClick={handleClick} >
             <Typography component="span" className={classes.colorProduct}>{specific.color}</Typography>
             <Typography component="span" className={classes.ram}>{specific.ram.ram}-{specific.rom.rom}</Typography>
-            <Box component="span" className={classes.colorPrice}>{formatPrice(specific.price)}</Box>
+            <Box component="span" className={classes.colorPrice}>{formatPrice(specific.salePrice)}</Box>
         </Box>
     );
 }

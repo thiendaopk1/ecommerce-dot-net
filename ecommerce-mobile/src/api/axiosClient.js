@@ -3,12 +3,16 @@ import axios from 'axios';
 const axiosClient = axios.create({
     baseURL: 'https://localhost:5001/',
     //baseURL: 'https://25.50.183.23:25002/',
-    headers: {'Content-Type': 'application/json','authorization':`Bearer ${localStorage.getItem("access_token")}`},
+    //headers: {'Content-Type': 'application/json','Authorization':`Bearer ${localStorage.getItem("access_token")}`},
     
 });
 // Add a request interceptor
 axiosClient.interceptors.request.use(function (config) {
     // Do something before request is sent
+	
+	config.headers.Authorization = `Bearer ${localStorage.getItem(
+      "access_token"
+    )}`;
     return config;
   }, function (error) {
     // Do something with request error

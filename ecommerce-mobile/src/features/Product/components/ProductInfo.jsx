@@ -12,25 +12,29 @@ import { keys } from '@material-ui/core/styles/createBreakpoints';
 
 ProductInfo.propTypes = {
     product: PropTypes.object,
+    comments: PropTypes.object,
 }
 
 
 
-function ProductInfo({product = {}, selected, setSelected}) {
+function ProductInfo({product = {}, selected, setSelected,comments = {} }) {
     console.log({product})
     const classes = ProductDetailStyles();
-    const { name, specifics } = product;
-    // console.log(specifics)
-
-
-    // const handleOnChange = (e) => {
-    //     setColor(e.target.value);
-    // }
+    const { name, specifics,commentResponse } = product;
+    const rate = comments.tbcRate;
+    console.log({rate})
+    const [value, setValue] = useState(1);
+    console.log('comments', {comments});
     const handleClickItem = (value,index) => {
         console.log(value);
         setSelected(index);
         
     }
+
+    useEffect(() => {
+        setValue(comments.tbcRate)
+       
+    }, [comments])
   
     return (
         <Box>
@@ -39,8 +43,8 @@ function ProductInfo({product = {}, selected, setSelected}) {
                     {name}
                 </Typography>
                 <Box component="span" >
-                    <Rating name="read-only" value={3}  readOnly className={classes.rate}/>
-                    <Typography variant="p" className={classes.comment}>5 đánh giá</Typography>
+                    <Rating name="half-rating-read" value={value} precision={0.1} readOnly className={classes.rate}/>
+                    <Typography variant="p" className={classes.comment}>{comments.tongCmt} đánh giá</Typography>
                 </Box>
             </Box>
             <Box mt={1}>

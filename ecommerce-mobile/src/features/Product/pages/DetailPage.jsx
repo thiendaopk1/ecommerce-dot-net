@@ -83,7 +83,9 @@ function DetailPage() {
                         </Grid>
                         
                         <Grid item>
-                            <Route exact path={`${url}/review`} component={ProductReview}/>
+                            <Route exact path={`${url}/review`}>
+                                <ProductReview product={product} />
+                            </Route>
                         </Grid>
                     </Paper>
                     

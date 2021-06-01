@@ -13,6 +13,8 @@ ProductContentCenter.propTypes = {
 function ProductContentCenter({product = {}}) {
     const [selected, setSelected] = useState(0);
     const dispatch = useDispatch();
+    const comments = product.commentResponse;
+    console.log('comments1',comments);
     const handleAddToCartSubmit = ({quantity }) => {
         // console.log('Form values:', formValues, selected);
         const action = addToCart({
@@ -33,7 +35,7 @@ function ProductContentCenter({product = {}}) {
 
     return (
         <Box>
-        <ProductInfo product={product} selected={selected} setSelected={setSelected}/>
+        <ProductInfo comments={comments} product={product} selected={selected} setSelected={setSelected}/>
         <AddToCartForm onSubmit={handleAddToCartSubmit}/>
         </Box>
         

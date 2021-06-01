@@ -34,7 +34,8 @@ const cartSlice = createSlice({
             if(index >= 0 ){
                 //increase quantity
                 state.cartItems[index].quantity += newItem.quantity;
-            }else{
+            }
+            else{
                 //add to cart
                 state.cartItems.push(newItem);
             }
@@ -58,16 +59,13 @@ const cartSlice = createSlice({
             console.log(idNeedToRemove.id)
             state.cartItems = state.cartItems.filter(x => x.id != idNeedToRemove.id);
             localStorage.setItem("cart", JSON.stringify(state.cartItems))
-            
-            // get all product from local storage
-
-            // delete the product
-
-            // save into local storage
+         
         },
         removeAll(state) {
             localStorage.removeItem("cart");
             state.current = {};
+            state.cartItems = []
+            
         }
     },
 });

@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Box, Container, Grid, makeStyles } from '@material-ui/core';
 import FormRating from './FormRating';
 import StarIcon from '@material-ui/icons/Star';
+import commentsApi from '../../../../api/commentsApi';
+import axios from 'axios';
+import { useSelector } from 'react-redux';
 
 FormComment.propTypes = {
-    
+    product: PropTypes.object,
 };
 const useStyles = makeStyles(theme => ({
     root: {
@@ -51,9 +54,30 @@ const useStyles = makeStyles(theme => ({
     },
 
     
+    
 
 }))
-function FormComment(props) {
+
+function FormComment({product = {}}) {
+    const {id} = useSelector(state => state.user.current);
+    const handleSubmit = (values) => { 
+        axios.post('https://localhost:5001/api/comment/new', {
+            ...values,
+            userId: id
+            
+          })
+          .then(function (response) {
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      
+            
+            
+    }
+   
+   
     const classes = useStyles();
     return (
         <Box>
@@ -70,7 +94,7 @@ function FormComment(props) {
                             </Box>
                         </Box>
                         <Box className={classes.right}>
-                            <FormRating />
+                            <FormRating onSubmit={handleSubmit} product={product}/>
                         </Box>
                     </Box>
                 </Grid>

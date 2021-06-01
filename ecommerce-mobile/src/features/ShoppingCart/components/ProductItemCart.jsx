@@ -4,7 +4,7 @@ import { Box, Button, makeStyles, Typography } from '@material-ui/core';
 import QuantityFormCart from './QuantityFormCart';
 import { setQuantity, removeFromCart} from '../cartSlice';
 import { useDispatch } from 'react-redux';
-
+import { Link } from 'react-router-dom';
 
 ProductItemCart.propTypes = {
     items: PropTypes.object,
@@ -23,7 +23,7 @@ const useStyle = makeStyles(theme =>({
 
         sp: {
             padding: '16px 0px',
-            width: '40.27949%',
+            width: '39.27949%',
             display: 'block',
         },
 
@@ -51,6 +51,13 @@ const useStyle = makeStyles(theme =>({
             display: 'block',
         },
 
+        items: {
+            display: 'flex',
+            flexFlow: 'row nowrap',
+           
+        },
+
+
     }))
 function ProductItemCart({items}) {
     const classes = useStyle();
@@ -76,14 +83,18 @@ function ProductItemCart({items}) {
     }
     return (
         <Box padding={1} className={classes.root}>
-                <Box className={classes.image}>
-                        <img src={product.images[0].image} alt={product.name} width="100%" height="100%" />
-                </Box>
-               
-                    <Box className={classes.sp}>
-                        <Typography>{product.name}</Typography>
-                    </Box>
-                
+    
+                        <Box className={classes.image}>
+                            <Link to={`products/${product.id}`} style={{textDecoration: 'none',color: 'black'}}>
+                                <img src={product.images[0].image} alt={product.name} width="100%" height="100%" />
+                            </Link>
+                        </Box>               
+                        <Box className={classes.sp}>
+                            <Link to={`products/${product.id}`} style={{textDecoration: 'none',color: 'black'}}>
+                                <Typography>{product.name}</Typography>
+                            </Link>
+                        </Box>
+
                 <Box className={classes.dg}>
                     <Typography>
                     {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product.salePrice)}

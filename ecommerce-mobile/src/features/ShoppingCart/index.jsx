@@ -30,6 +30,10 @@ const useStyles = makeStyles((theme) => ({
 
     bottom: {
         marginTop: '10px',
+        display: 'flex',
+        flexFlow: 'row nowrap',
+        overflow: 'hidden',
+        textTransform: 'capitalize',
     },
 
     header: {
@@ -111,10 +115,43 @@ const useStyles = makeStyles((theme) => ({
         height: '50px'
     },
 
+    removeAll: {
+        width: '65%',
+        marginTop: '17px',
+        // background: 'red'
+        // display: 'block',
+    },
+
+    sum: {
+        display: 'flex',
+        flexFlow: 'row nowrap',
+        marginRight: '50px'
+        
+    },
+
+    titleSumPrices: {
+        color: 'grey',
+        fontWeight: '600',
+        fontSize: '18px',
+        padding: '16px 0px',
+        
+        
+
+    },
+
+    sumPrices: {
+     marginTop: '17px',
+        color: 'red',
+        fontWeight: '600',
+        fontSize: '18px',
+        marginLeft: '5px'
+    },
+
 
      
 }));
-const cartEmpty1 = !localStorage.getItem("cart");
+//
+// const cartEmpty1 = localStorage.getItem("cart");
 // console.log('alo',cartEmpty1);
 function ShoppingCartFeature(props) {
     //check isLogin
@@ -155,10 +192,11 @@ function ShoppingCartFeature(props) {
     const cartItemsCount = useSelector(cartItemsCountSelectors);
     const cartTotal = useSelector(cartTotalCountSelectors);
     const classes = useStyles();
+    // console.log(cartEmpty1);
     return (
         <Box>
             <Container>
-                {cartEmpty1 && (
+                {(products.length === 0) && (
                     <>
                         <Container className={classes.container}>
                             <Box className={classes.box}>
@@ -174,7 +212,7 @@ function ShoppingCartFeature(props) {
                         </Container>
                     </>
                 )}
-                {!cartEmpty1 && (
+                {(products.length !== 0) && (
                     <>
                         <Grid item className={classes.top} >
                     <Paper elevation={0} mt={2}>
@@ -203,32 +241,34 @@ function ShoppingCartFeature(props) {
                     </Paper>
                     
                 </Grid>
-                <Grid item className={classes.bottom}> 
+                <Grid item > 
                     <Paper elevation={0}>
-                        <Box>
-                            <Box>
-                                <a onClick={handleRemoveAll}>
+                        <Box className={classes.bottom}>
+                            <Box className={classes.removeAll}>
+                                <Button onClick={handleRemoveAll} color="primary">
                                     Xóa tất cả
-                                </a>
+                                </Button>
+
+                                
                                
                             </Box>
-                            <Box>
-                                <Box>
+                            <Box className={classes.sum}>
+                                <Box className={classes.titleSumPrices}>
                                     Tổng thanh toán
                                 </Box>
-                                <Box>
+                                <Box className={classes.sumPrices}>
                                     {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(cartTotal)}
                                 </Box>
                                 </Box>
                             
                             {!isLoggedIn && (
                                 <>
-                                    <Button onClick={handleClickOpenLogin}>Check Out</Button>
+                                    <Button onClick={handleClickOpenLogin} variant="contained" color="secondary" style={{background: 'red'}}>Check Out</Button>
                                 </>
                             )}
                             {isLoggedIn && (
                                 <>
-                                    <Button onClick={handleClickCheckout}>Check Out</Button>
+                                    <Button onClick={handleClickCheckout} variant="contained" color="secondary" style={{ height:'32px', marginTop: '14px'}}>Check Out</Button>
                                 </>
                             )}
                                 
