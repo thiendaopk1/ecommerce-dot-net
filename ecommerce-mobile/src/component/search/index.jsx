@@ -1,10 +1,9 @@
-import { Link, makeStyles, TextField } from '@material-ui/core';
-import SearchIcon from '@material-ui/icons/Search';
+import { makeStyles, TextField } from '@material-ui/core';
 import { Autocomplete } from '@material-ui/lab';
+import queryString from 'query-string';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useLocation, useRouteMatch } from 'react-router';
 import productApi from '../../api/productApi';
-import queryString from 'query-string';
 // import SearchForm from '../search';
 
 SearchForm.propTypes = {

@@ -155,27 +155,14 @@ const useStyles = makeStyles((theme) => ({
 // console.log('alo',cartEmpty1);
 function ShoppingCartFeature(props) {
     //check isLogin
-  const loggedInUser = useSelector(state => state.user.current);
-  const isLoggedIn = !!loggedInUser.id;
+ 
   const history = useHistory();
   const dispatch = useDispatch();
-  // form dang nhap
-  const [openLogin, setOpenLogin] = useState(false);
-  // form dang nhap
-  const handleClickOpenLogin = () => {
-    setOpenLogin(true);
-    history.push('/checkout');
-  };
-
-  const handleCloseLogin = () => {
-    setOpenLogin(false);
-  };
+  
 
     const products = useSelector((state) => {
         return state.cart.cartItems
     })
-
-    console.log(products);
 
     const handleClickCheckout = () => {
         history.push('/checkout');
@@ -260,17 +247,9 @@ function ShoppingCartFeature(props) {
                                     {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(cartTotal)}
                                 </Box>
                                 </Box>
-                            
-                            {!isLoggedIn && (
-                                <>
-                                    <Button onClick={handleClickOpenLogin} variant="contained" color="secondary" style={{background: 'red'}}>Check Out</Button>
-                                </>
-                            )}
-                            {isLoggedIn && (
-                                <>
-                                    <Button onClick={handleClickCheckout} variant="contained" color="secondary" style={{ height:'32px', marginTop: '14px'}}>Check Out</Button>
-                                </>
-                            )}
+                         
+                                <Button onClick={handleClickCheckout} variant="contained" color="secondary" style={{ height:'32px', marginTop: '14px'}}>Check Out</Button>
+                           
                                 
                         </Box>
                     </Paper>
@@ -279,14 +258,7 @@ function ShoppingCartFeature(props) {
                 )}
                 
             </Container>
-            <Dialog disableBackdropClick disableEscapeKeyDown open={openLogin} onClose={handleCloseLogin} aria-labelledby="form-dialog-title">
-                <IconButton onClick={handleCloseLogin} className={classes.closeButton}>
-                    <Close />
-                </IconButton>
-                <DialogContent>
-                    <Login closeDialog={handleCloseLogin} />
-                </DialogContent>
-            </Dialog>
+            
             
         </Box>
     );

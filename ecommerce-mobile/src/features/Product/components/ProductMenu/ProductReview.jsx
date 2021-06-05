@@ -17,7 +17,7 @@ function ProductReview({product = {}}) {
     return (
         <Box>
             <Box>
-                <FormComment product={product}/>
+                <FormComment product={product} comments={comments}/>
             </Box>
             
             <Box>

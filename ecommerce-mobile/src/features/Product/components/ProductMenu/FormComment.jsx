@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux';
 
 FormComment.propTypes = {
     product: PropTypes.object,
+    comments: PropTypes.object,
 };
 const useStyles = makeStyles(theme => ({
     root: {
@@ -58,23 +59,21 @@ const useStyles = makeStyles(theme => ({
 
 }))
 
-function FormComment({product = {}}) {
+function FormComment({product = {}, comments = {}}) {
+    const star = comments.tbcRate;
+    console.log('star', star);
     const {id} = useSelector(state => state.user.current);
-    const handleSubmit = (values) => { 
+    const  handleSubmit = (values) => { 
         axios.post('https://localhost:5001/api/comment/new', {
             ...values,
             userId: id
-            
           })
           .then(function (response) {
             console.log(response);
           })
           .catch(function (error) {
             console.log(error);
-          });
-      
-            
-            
+          });                  
     }
    
    
@@ -86,10 +85,10 @@ function FormComment({product = {}}) {
                     <Box className={classes.root}>
                         <Box className={classes.left}>
                             <Box className={classes.title}>
-                                <h4> Tổng số sao</h4>
+                                <h4>Trung bình cộng số sao</h4>
                             </Box>
                             <Box component="p" className={classes.rates}> 
-                                <span>1</span>
+                                <span>{star}</span>
                                 <StarIcon className={classes.star}/>
                             </Box>
                         </Box>
