@@ -13,11 +13,13 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
+import cartApi from '../../api/cartApi';
 import ChangePassword from '../../features/Auth/components/changePassword';
 import ForgotPassword from '../../features/Auth/components/forgotpassword';
 import Login from '../../features/Auth/components/login';
 import Register from '../../features/Auth/components/Register';
 import { logout } from '../../features/Auth/userSlice';
+import { removeAll } from '../../features/ShoppingCart/cartSlice';
 import { cartItemsCountSelectors } from '../../features/ShoppingCart/selectors';
 import SearchForm from '../search';
 import Hang from './Hang';
@@ -176,10 +178,26 @@ const handleCloseChangePass = () => {
     setAnchorEl(e.currentTarget);
   };
   //logOut
+  const [cart,setCart] = useState({});
+  const data1 = JSON.parse(localStorage.getItem("cart"));
+  console.log('data1', data1);
   const handleLogoutClick = () => {
-    const action = logout();
-    dispatch(action);
-    handleCloseMenuUser();
+    (async () =>{
+      try {
+          const list = await cartApi.add(data1);
+          const action = logout();
+          const action1 = removeAll();
+          dispatch(action1);
+          dispatch(action);
+          handleCloseMenuUser();
+         
+      } catch (error) {
+          console.log(error);
+      }
+  })();
+  };
+  const handleRemoveAll= () => {
+    
   };
 
   const classes = useStyles();
@@ -241,9 +259,20 @@ const handleCloseChangePass = () => {
           <SearchForm />
           <Box>
           <IconButton aria-label="cart">
-            <Badge badgeContent={cartItemsCount} color="secondary" onClick={handleClickCart}>
-              <ShoppingCartIcon className={classes.cartIcon} />
-            </Badge>
+            {!isLoggedIn && (
+              <>
+                <Badge badgeContent={cartItemsCount} color="secondary" onClick={handleClickOpenLogin}>
+                  <ShoppingCartIcon className={classes.cartIcon} />
+                </Badge>
+              </>
+            )}
+            {isLoggedIn && (
+              <>
+                <Badge badgeContent={cartItemsCount} color="secondary" onClick={handleClickCart}>
+                  <ShoppingCartIcon className={classes.cartIcon} />
+                </Badge>
+              </>
+            )} 
           </IconButton>
           {!isLoggedIn && (
             <>

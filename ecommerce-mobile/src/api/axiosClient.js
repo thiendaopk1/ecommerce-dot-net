@@ -30,7 +30,7 @@ axiosClient.interceptors.response.use(function (response) {
     // console.log('loi email',error.response.data.message);
     const {config,status,data} =error.response;
     const URLs = ['/auth/local/register','api/login/user','users/reset-pass','users/forgot-pass']
-    if(URLs.includes(config.url)&& status==400){
+    if(URLs.includes(config.url)&& status===400){
       const errorList = data.message || [];
       // const firstError = errorList.length > 0 ? errorList[0] : {};
       // const messageList = firstError.messages || [];

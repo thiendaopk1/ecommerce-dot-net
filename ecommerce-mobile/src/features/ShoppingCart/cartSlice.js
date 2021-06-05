@@ -1,4 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import cartApi from "../../api/cartApi";
 import StorageKeys from "../../constants/storage-keys";
 // import localStorage from "redux-persist/es/storage";
 
@@ -8,7 +9,18 @@ if(localStorage.getItem("cart"))
     cartItemsStore = JSON.parse(localStorage.getItem("cart"))
 
     console.log(cartItemsStore)
+// export const addToCart = createAsyncThunk(
+//     'api/cart',
+//     async (payload) =>{
+//         const data = await cartApi.add(payload);
+
+//         //luu data vao localStorage
+
+//     }
     
+
+
+// )  
 const cartSlice = createSlice({
     name: 'cart',
     initialState: {
@@ -26,7 +38,8 @@ const cartSlice = createSlice({
         },
 
         addToCart(state, action) {
-            // console.log({state.cartItems})
+            // console.log(state);
+            console.log(action.payload);
             
             const newItem = action.payload;
             const index = state.cartItems.findIndex((x) => x.id === newItem.id);
@@ -39,7 +52,6 @@ const cartSlice = createSlice({
                 //add to cart
                 state.cartItems.push(newItem);
             }
-
             localStorage.setItem("cart", JSON.stringify(state.cartItems))
         },
 

@@ -11,7 +11,7 @@ import ProductDescription from '../components/ProductMenu/ProductDescription';
 import ProductInfomation from '../components/ProductMenu/ProductInfomation';
 import ProductReview from '../components/ProductMenu/ProductReview';
 import ProductContentCenter from '../components/ProductContentCenter';
-
+import "react-responsive-carousel/lib/styles/carousel.css";
 
 DetailPage.propTypes = {
     
