@@ -94,7 +94,7 @@ function ProductItemCart({items}) {
                         <Box className={classes.sp}>
                             <Link to={`products/${product.id}`} style={{textDecoration: 'none',color: 'black'}}>
                                 <Typography>{product.name}</Typography>
-                                <Typography>{slected.color}-{slected.ram.ram}-{slected.rom.rom}</Typography>
+                                <Typography>a</Typography>
                             </Link>
                         </Box>
 

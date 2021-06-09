@@ -178,13 +178,19 @@ const handleCloseChangePass = () => {
     setAnchorEl(e.currentTarget);
   };
   //logOut
-  const [cart,setCart] = useState({});
+  const [cart, setCart] = useState({});
   const data1 = JSON.parse(localStorage.getItem("cart"));
-  console.log('data1', data1);
+ 
   const handleLogoutClick = () => {
     (async () =>{
       try {
-          const list = await cartApi.add(data1);
+          if(!localStorage.getItem("cart")){
+            return;
+          }
+          else{
+            const thien={"cartItems": data1};
+            const list = await cartApi.add(thien);
+          }
           const action = logout();
           const action1 = removeAll();
           dispatch(action1);
@@ -195,9 +201,6 @@ const handleCloseChangePass = () => {
           console.log(error);
       }
   })();
-  };
-  const handleRemoveAll= () => {
-    
   };
 
   const classes = useStyles();

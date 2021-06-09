@@ -17,8 +17,9 @@ ProductInfo.propTypes = {
 
 
 
-function ProductInfo({product = {}, selected, setSelected,comments = {} }) {
+function ProductInfo({product = {}, selected={}, setSelected,comments = {} }) {
 
+    console.log(selected);
     const classes = ProductDetailStyles();
     const { name, specifics } = product;
   
@@ -54,7 +55,7 @@ function ProductInfo({product = {}, selected, setSelected,comments = {} }) {
                 <Typography component="span" className={classes.titleColor}>Màu sắc:</Typography>
                 <Box component="ul" className={classes.colors}>
                     {specifics &&  specifics.map((specific,index)  => (
-                        <SpecificItem specific={specific} onClick={handleClickItem} index={index} selected={selected === specific.id} />
+                        <SpecificItem specific={specific} onClick={handleClickItem} index={index} selected={selected.id === specific.id} />
                     ))}
                 </Box>
                 
