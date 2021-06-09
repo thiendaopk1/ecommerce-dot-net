@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import ProductInfo from './ProductInfo';
 import AddToCartForm from './AddToCartForm';
@@ -12,17 +12,28 @@ ProductContentCenter.propTypes = {
 };
 
 function ProductContentCenter({product = {}}) {
-    const [selected, setSelected] = useState(0);
+    
+    const [selected, setSelected] = useState({});
     const dispatch = useDispatch();
     const comments = product.commentResponse;
+    const productSpecificId=selected.id;
+    
+    useEffect(() => {
+        if( product.specifics){
+            const idx = product.specifics[0]?.id;
+            setSelected({...selected,id:idx});
+        }
+        
+    },[product]);
+    console.log(selected);
     const handleAddToCartSubmit = ({quantity }) => {
-        // console.log('Form values:', formValues, selected);
         console.log(selected);
         const action = addToCart({
             id: product.id,
             product,
             quantity,
-            selected
+            productSpecificId,
+            selected,
         });
         console.log('action1',action);
         
@@ -30,11 +41,10 @@ function ProductContentCenter({product = {}}) {
            
     };
     const handleSetSelected = async (value,index)=>{
-      
+        console.log(value);
         setSelected(value);
-// console.log(value,index);
-    }
-    // console.log(selected);
+    };
+
     return (
         <Box>
         <ProductInfo comments={comments} product={product} selected={selected} setSelected={handleSetSelected}/>
