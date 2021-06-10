@@ -12,32 +12,41 @@ ProductContentCenter.propTypes = {
 };
 
 function ProductContentCenter({product = {}}) {
-    
+ 
     const [selected, setSelected] = useState({});
     const dispatch = useDispatch();
     const comments = product.commentResponse;
+    
     const productSpecificId=selected.id;
     
     useEffect(() => {
         if( product.specifics){
-            const idx = product.specifics[0]?.id;
-            setSelected({...selected,id:idx});
+            setSelected(product.specifics[0]);
         }
         
     },[product]);
-    console.log(selected);
+    const productSpecific = product.specifics;
+    
+    
     const handleAddToCartSubmit = ({quantity }) => {
         console.log(selected);
+        const productSpecific = product.specifics;
+        const productSpecifics = productSpecific.filter(productSpecific => productSpecific === selected);
+        product.specifics = productSpecifics;
+        console.log('productSpecificId',productSpecifics);
         const action = addToCart({
-            id: product.id,
+            // id: product.id,
             product,
-            quantity,
             productSpecificId,
-            selected,
+            quantity,
+            
+            // selected,
         });
-        console.log('action1',action);
+        
         
         dispatch(action);
+        console.log('action', action);
+        
            
     };
     const handleSetSelected = async (value,index)=>{
