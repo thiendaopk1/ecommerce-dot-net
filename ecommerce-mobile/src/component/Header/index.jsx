@@ -190,6 +190,7 @@ const handleCloseChangePass = () => {
           else{
             const thien={"cartItems": data1};
             const list = await cartApi.add(thien);
+            console.log('cart post lên database nè:', list);
           }
           const action = logout();
           const action1 = removeAll();

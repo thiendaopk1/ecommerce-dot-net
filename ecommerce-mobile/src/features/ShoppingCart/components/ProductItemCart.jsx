@@ -62,8 +62,7 @@ const useStyle = makeStyles(theme =>({
 function ProductItemCart({items}) {
     const classes = useStyle();
     const product = items.product;
-    const slected = items.selected;
-    console.log('selected', slected);
+    const specifics = items.product.specifics;
     const quantityItem = items.quantity;
     const dispatch = useDispatch();
     const handleOnChange = ({quantity}) => {
@@ -94,7 +93,7 @@ function ProductItemCart({items}) {
                         <Box className={classes.sp}>
                             <Link to={`products/${product.id}`} style={{textDecoration: 'none',color: 'black'}}>
                                 <Typography>{product.name}</Typography>
-                                <Typography>a</Typography>
+                                <Typography>{specifics.color}</Typography>
                             </Link>
                         </Box>
 
