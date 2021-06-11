@@ -19,7 +19,7 @@ function App() {
       {/* <Breadcrumb /> */}
       <Switch >
         <Route path="/" component={ProductHome} exact />
-        <Route path="/user-info" component={UserInfo} exact />
+        <Route path="/user-info" component={UserInfo} />
         <Route path="/products" component={ProductFeature} />
         <Route path="/cart" component={ShoppingCartFeature} />
         {/* <Route path="/checkout" component={CheckOut}/> */}

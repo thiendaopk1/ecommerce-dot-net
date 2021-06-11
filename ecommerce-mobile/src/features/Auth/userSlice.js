@@ -44,6 +44,17 @@ export const changePassword = createAsyncThunk('user/changePassword',
      return data;
     }
   );
+  export const doiMatKhau = createAsyncThunk('user/doiMatKhau',
+    async (payload) => {
+        const data = await userApi.doiMatKhau(payload);
+
+        // luu data vao localStorage
+        localStorage.setItem(StorageKeys.TOKEN,data.jwt);
+        localStorage.setItem(StorageKeys.USER,JSON.stringify(data.user));
+
+     return data.user;
+    }
+  );
   export const updateUser = createAsyncThunk('user/updateUser',
     async (payload) => {
         const data = await userApi.updateUser(payload);
@@ -83,6 +94,9 @@ const userSlice = createSlice({
             state.current = action.payload;
         },
         [changePassword.fulfilled]:(state, action)=>{
+            state.current = action.payload;
+        },
+        [doiMatKhau.fulfilled]:(state, action)=>{
             state.current = action.payload;
         },
     },
