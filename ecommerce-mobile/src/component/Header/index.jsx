@@ -185,18 +185,24 @@ const handleCloseChangePass = () => {
     (async () =>{
       try {
           if(!localStorage.getItem("cart")){
+            const action = logout();
+            const action1 = removeAll();
+            dispatch(action1);
+            dispatch(action);
+            handleCloseMenuUser();
             return;
           }
           else{
             const thien={"cartItems": data1};
             const list = await cartApi.add(thien);
             console.log('cart post lên database nè:', list);
+            const action = logout();
+            const action1 = removeAll();
+            dispatch(action1);
+            dispatch(action);
+            handleCloseMenuUser();
           }
-          const action = logout();
-          const action1 = removeAll();
-          dispatch(action1);
-          dispatch(action);
-          handleCloseMenuUser();
+          
          
       } catch (error) {
           console.log(error);

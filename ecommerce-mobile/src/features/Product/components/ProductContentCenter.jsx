@@ -35,12 +35,10 @@ function ProductContentCenter({product = {}}) {
         product.specifics = productSpecifics;
         console.log('productSpecificId',productSpecifics);
         const action = addToCart({
-            // id: product.id,
+            id: product.id,
             product,
             productSpecificId,
             quantity,
-            
-            // selected,
         });
         
         

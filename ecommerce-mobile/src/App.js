@@ -22,7 +22,7 @@ function App() {
         <Route path="/user-info" component={UserInfo} />
         <Route path="/products" component={ProductFeature} />
         <Route path="/cart" component={ShoppingCartFeature} />
-        {/* <Route path="/checkout" component={CheckOut}/> */}
+        <Route path="/checkout" component={CheckOut}/>
       </Switch>
       <Footer />
     </div>

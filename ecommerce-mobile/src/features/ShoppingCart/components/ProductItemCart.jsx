@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Box, Button, makeStyles, Typography } from '@material-ui/core';
 import QuantityFormCart from './QuantityFormCart';
@@ -63,8 +63,12 @@ function ProductItemCart({items}) {
     const classes = useStyle();
     const product = items.product;
     const specifics = items.product.specifics;
+    console.log('specifics',{specifics});
     const quantityItem = items.quantity;
     const dispatch = useDispatch();
+    // useEffect(() => {
+    //     items.product.specifics
+    // },[])
     const handleOnChange = ({quantity}) => {
 
         const action = setQuantity({
@@ -78,13 +82,11 @@ function ProductItemCart({items}) {
     const handleClickRemove = ({cartItems}) => {
         const action = removeFromCart({
             id: product.id,
-            
         });
         dispatch(action);
     }
     return (
         <Box padding={1} className={classes.root}>
-    
                         <Box className={classes.image}>
                             <Link to={`products/${product.id}`} style={{textDecoration: 'none',color: 'black'}}>
                                 <img src={product.images[0].image} alt={product.name} width="100%" height="100%" />
@@ -93,7 +95,7 @@ function ProductItemCart({items}) {
                         <Box className={classes.sp}>
                             <Link to={`products/${product.id}`} style={{textDecoration: 'none',color: 'black'}}>
                                 <Typography>{product.name}</Typography>
-                                <Typography>{specifics.color}</Typography>
+                                <Typography>{specifics[0].color}</Typography>
                             </Link>
                         </Box>
 

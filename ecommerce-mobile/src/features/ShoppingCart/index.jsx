@@ -5,9 +5,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Box, Button, Container, Dialog, DialogContent, Grid, IconButton, makeStyles, Paper, Typography } from '@material-ui/core';
 // import ProductItem from './components/ProductItem';
 import ProductItem from './components/ProductItem';
-import { Close, ContactSupportOutlined } from '@material-ui/icons';
+
 import { useHistory } from 'react-router';
-import Login from '../Auth/components/login';
+
 import { cartItemsCountSelectors } from './selectors';
 import { removeAll } from './cartSlice';
 import  img  from '../../images/cartEmpty.png';
