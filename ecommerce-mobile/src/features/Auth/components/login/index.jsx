@@ -3,9 +3,10 @@ import { login } from '../../userSlice';
 import LoginForm from '../loginForm';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { useSnackbar } from 'notistack';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import cartApi from '../../../../api/cartApi';
+import { setCart } from '../../../ShoppingCart/cartSlice';
 
 Login.propTypes = {
     closeDialog: PropTypes.func,
@@ -16,8 +17,7 @@ Login.propTypes = {
 function Login(props) {
     const dispath = useDispatch();
     const { enqueueSnackbar } = useSnackbar();
-    const [cart, setCart] = useState();
-    console.log('cart',cart);
+   
     const oncloseLogin=(value)=>{
         const open = props.openForgot; 
                 open();
@@ -31,15 +31,14 @@ function Login(props) {
         (async () => {
             try {
                 
-
                 const action = login(values);
                 const resultAction = await dispath(action);
                 const user = unwrapResult(resultAction);
                 
                 //gọi api
-                const res = await cartApi.getAll();
-                setCart(res);
-                localStorage.getItem("cart", JSON.stringify(cart));
+                const {items} = await cartApi.getAll();
+                
+                dispath(setCart(items))
                 const { closeDialog } = props;
                 if(closeDialog){
                     closeDialog();

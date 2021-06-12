@@ -50,6 +50,11 @@ const useStyles = makeStyles((theme) => ({
         textAlign: 'center'
     },
 
+    name:{
+        fontSize: '14px',
+        fontWeight: '600'
+    },
+
     center: {
         marginTop: '10px',
         display: 'flex',
@@ -98,7 +103,7 @@ function ProductItem({items}) {
                         <img src={product.images[0].image} alt={product.name} width="100%" height="100%" />
                     </Box>               
                     <Box className={classes.sp}>
-                        <Typography>{product.name}</Typography>
+                        <Typography className={classes.name}>{product.name}</Typography>
                         <Typography>{product.specifics[0].color}-{product.specifics[0].ram.ram}-{product.specifics[0].rom.rom}</Typography>
                     </Box>
                 </Box>

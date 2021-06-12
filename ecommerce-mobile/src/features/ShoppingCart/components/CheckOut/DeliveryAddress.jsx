@@ -45,7 +45,7 @@ function DeliveryAddress({user ={}}) {
                     <InputField name="fullname" label="Full Name" form={form} className={classes.fullname}/>
                     <Box className={classes.phoneAndEmail}>
                         <InputField name="phone" label="Phone" form={form} className={classes.phone}/>
-                        <InputField name="email" label="Email" form={form} className={classes.email}/>
+                        <InputField name="email" label="Email" disabled form={form} className={classes.email}/>
                     </Box>
                     
                     <InputField name="address" label="Adress" form={form}/>

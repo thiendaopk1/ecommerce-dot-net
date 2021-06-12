@@ -64,10 +64,18 @@ const cartSlice = createSlice({
             state.current = {};
             state.cartItems = []
             
+        },
+        setCart(state,action){
+           const cart = action.payload 
+           console.log({cart});
+           
+           state.cartItems = cart
+
+           localStorage.setItem("cart", JSON.stringify(cart))
         }
     },
 });
 
 const {actions, reducer} = cartSlice;
-export const {showMiniCart, hideMiniCart, addToCart, setQuantity, removeFromCart, removeAll} = actions;
+export const {showMiniCart, hideMiniCart, addToCart, setQuantity, removeFromCart, removeAll, setCart} = actions;
 export default reducer; 

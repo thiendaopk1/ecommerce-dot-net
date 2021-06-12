@@ -57,6 +57,7 @@ const useStyle = makeStyles(theme =>({
            
         },
 
+      
 
     }))
 function ProductItemCart({items}) {
@@ -94,8 +95,8 @@ function ProductItemCart({items}) {
                         </Box>               
                         <Box className={classes.sp}>
                             <Link to={`products/${product.id}`} style={{textDecoration: 'none',color: 'black'}}>
-                                <Typography>{product.name}</Typography>
-                                <Typography>{specifics[0].color}</Typography>
+                                <Typography >{product.name}</Typography>
+                                <Typography>{specifics[0].color}-{specifics[0].ram.ram}-{specifics[0].rom.rom}</Typography>
                             </Link>
                         </Box>
 
