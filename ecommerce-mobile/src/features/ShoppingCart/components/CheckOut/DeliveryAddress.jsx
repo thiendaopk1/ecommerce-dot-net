@@ -10,14 +10,7 @@ DeliveryAddress.propTypes = {
 };
 
 const useStyles = makeStyles((theme) => ({
-    fullname:{
-        width: '150px',
-        padding: '0px 0px !important'
-    },
-
-    phone:{
-        width: '50px'
-    }
+    
 }))
 
 function DeliveryAddress({user ={}}) {

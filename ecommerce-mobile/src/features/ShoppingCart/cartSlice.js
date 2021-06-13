@@ -45,7 +45,7 @@ const cartSlice = createSlice({
             const { id,quantity } = action.payload;
             //check product available in cart
             const index = state.cartItems.findIndex((x) => x.id === id);
-            if(index >= 0){
+            if(index > 0){
                 //update quantity
                 state.cartItems[index].quantity = quantity;
             }
@@ -54,7 +54,6 @@ const cartSlice = createSlice({
 
         removeFromCart(state, action) {
             const idNeedToRemove = action.payload;
-            console.log(idNeedToRemove.id)
             state.cartItems = state.cartItems.filter(x => x.id != idNeedToRemove.id);
             localStorage.setItem("cart", JSON.stringify(state.cartItems))
          

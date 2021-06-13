@@ -11,6 +11,7 @@ import FormLabel from "@material-ui/core/FormLabel";
 import cod from '../../../images/iconCOD.png';
 import vnpay from '../../../images/iconVNPay.png';
 import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
+import { useForm } from 'react-hook-form';
 
 CheckOut.propTypes = {
     
@@ -148,7 +149,10 @@ function CheckOut(props) {
         setValue(event.target.value);
     };
 
+    const form = useForm({
 
+    })
+    
     const cartItemsCount = useSelector(cartItemsCountSelectors);
     const cartTotal = useSelector(cartTotalCountSelectors);
     console.log('product', products);
