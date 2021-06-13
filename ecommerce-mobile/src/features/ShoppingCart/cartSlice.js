@@ -46,8 +46,13 @@ const cartSlice = createSlice({
             //check product available in cart
             const index = state.cartItems.findIndex((x) => x.id === id);
             if(index >= 0){
+                if(quantity==0){
+                    state.cartItems = state.cartItems.filter(x => x.id !== id);
+                    localStorage.setItem("cart", JSON.stringify(state.cartItems));
+                }else{
                 //update quantity
                 state.cartItems[index].quantity = quantity;
+            }
             }
             localStorage.setItem("cart", JSON.stringify(state.cartItems))
         },
