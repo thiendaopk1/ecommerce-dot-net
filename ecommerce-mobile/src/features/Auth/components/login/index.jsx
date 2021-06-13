@@ -36,8 +36,7 @@ function Login(props) {
                 const user = unwrapResult(resultAction);
                 
                 //gọi api
-                const {items} = await cartApi.getAll();
-                
+                const {items} = await cartApi.getAll();  
                 dispath(setCart(items))
                 const { closeDialog } = props;
                 if(closeDialog){

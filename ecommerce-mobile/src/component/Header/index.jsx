@@ -185,6 +185,8 @@ const handleCloseChangePass = () => {
     (async () =>{
       try {
           if(!localStorage.getItem("cart")){
+            const thien={"cartItems": data1};
+            const list = await cartApi.add(thien);
             const action = logout();
             const action1 = removeAll();
             dispatch(action1);

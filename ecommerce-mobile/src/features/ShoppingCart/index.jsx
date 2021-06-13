@@ -202,58 +202,58 @@ function ShoppingCartFeature(props) {
                 {(products.length !== 0) && (
                     <>
                         <Grid item className={classes.top} >
-                    <Paper elevation={0} mt={2}>
-                        <Box className={classes.header}>
-                            <Box className={classes.sp}>
-                                Sản Phẩm
-                            </Box>
-                            <Box className={classes.dg}>
-                                Đơn Giá
-                            </Box>
-                            <Box className={classes.sl}>
-                                Số Lượng
-                            </Box>
-                            <Box className={classes.st}>
-                                Số Tiền
-                            </Box>
-                            <Box className={classes.tt}>
-                                Thao tác
-                            </Box>
-                        </Box>
-                    </Paper>
-                </Grid>
-                <Grid item className={classes.center}>
-                    <Paper elevation={0}>
-                        <ProductItem spi={products}/>
-                    </Paper>
-                    
-                </Grid>
-                <Grid item > 
-                    <Paper elevation={0}>
-                        <Box className={classes.bottom}>
-                            <Box className={classes.removeAll}>
-                                <Button onClick={handleRemoveAll} color="primary">
-                                    Xóa tất cả
-                                </Button>
+                            <Paper elevation={0} mt={2}>
+                                <Box className={classes.header}>
+                                    <Box className={classes.sp}>
+                                        Sản Phẩm
+                                    </Box>
+                                    <Box className={classes.dg}>
+                                        Đơn Giá
+                                    </Box>
+                                    <Box className={classes.sl}>
+                                        Số Lượng
+                                    </Box>
+                                    <Box className={classes.st}>
+                                        Số Tiền
+                                    </Box>
+                                    <Box className={classes.tt}>
+                                        Thao tác
+                                    </Box>
+                                </Box>
+                            </Paper>
+                        </Grid>
+                        <Grid item className={classes.center}>
+                            <Paper elevation={0}>
+                                <ProductItem spi={products}/>
+                            </Paper>
+                            
+                        </Grid>
+                        <Grid item > 
+                            <Paper elevation={0}>
+                                <Box className={classes.bottom}>
+                                    <Box className={classes.removeAll}>
+                                        <Button onClick={handleRemoveAll} color="primary">
+                                            Xóa tất cả
+                                        </Button>
 
+                                        
+                                    
+                                    </Box>
+                                    <Box className={classes.sum}>
+                                        <Box className={classes.titleSumPrices}>
+                                            Tổng thanh toán
+                                        </Box>
+                                        <Box className={classes.sumPrices}>
+                                            {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(cartTotal)}
+                                        </Box>
+                                        </Box>
                                 
-                               
-                            </Box>
-                            <Box className={classes.sum}>
-                                <Box className={classes.titleSumPrices}>
-                                    Tổng thanh toán
-                                </Box>
-                                <Box className={classes.sumPrices}>
-                                    {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(cartTotal)}
-                                </Box>
-                                </Box>
-                         
-                                <Button onClick={handleClickCheckout} variant="contained" color="secondary" style={{ height:'32px', marginTop: '14px'}}>Check Out</Button>
-                           
+                                        <Button onClick={handleClickCheckout} variant="contained" color="secondary" style={{ height:'32px', marginTop: '14px'}}>Check Out</Button>
                                 
-                        </Box>
-                    </Paper>
-                </Grid>
+                                        
+                                </Box>
+                            </Paper>
+                        </Grid>
                     </>
                 )}
                 
