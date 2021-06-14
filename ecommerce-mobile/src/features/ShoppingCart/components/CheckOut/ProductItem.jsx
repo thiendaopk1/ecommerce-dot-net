@@ -104,17 +104,16 @@ function ProductItem({items}) {
                     </Box>               
                     <Box className={classes.sp}>
                         <Typography className={classes.name}>{product.name}</Typography>
-                        <Typography>{product.specifics[0].color}-{product.specifics[0].ram.ram}-{product.specifics[0].rom.rom}</Typography>
                     </Box>
                 </Box>
                 <Box className={classes.donGia}>
-                    <Typography>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product.specifics[0].salePrice)}</Typography>
+                    <Typography>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product.salePrice)}</Typography>
                 </Box>
                 <Box className={classes.soLuong}>
                     <Typography>{quantity}</Typography>
                 </Box>
                 <Box className={classes.thanhTien}>
-                    <Typography>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product.specifics[0].salePrice*quantity)}</Typography>
+                    <Typography>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product.salePrice*quantity)}</Typography>
                 </Box>
             </Box>
             

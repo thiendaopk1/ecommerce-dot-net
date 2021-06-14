@@ -17,18 +17,14 @@ ProductInfo.propTypes = {
 
 
 
-function ProductInfo({product = {}, selected={}, setSelected,comments = {} }) {
+function ProductInfo({product = {},comments = {} }) {
 
-    console.log(selected);
     const classes = ProductDetailStyles();
-    const { name, specifics } = product;
+    const { name, ram } = product;
   
     const [value, setValue] = useState();
   
-    const handleClickItem = (value,index) => {
-        setSelected(value,index);
-        
-    }
+    
     console.log('value1', value);
     useEffect(() => {
         setValue(comments.tbcRate)
@@ -52,12 +48,8 @@ function ProductInfo({product = {}, selected={}, setSelected,comments = {} }) {
             </Box>
             
              <Box mt={2} >
-                <Typography component="span" className={classes.titleColor}>Màu sắc:</Typography>
-                <Box component="ul" className={classes.colors}>
-                    {specifics &&  specifics.map((specific,index)  => (
-                        <SpecificItem specific={specific} onClick={handleClickItem} index={index} selected={selected.id === specific.id} />
-                    ))}
-                </Box>
+                <Typography className={classes.titleColor}>Ram:</Typography>
+                {/* <Typography  className={classes.colors}>{ram.ram}</Typography> */}
                 
             </Box>
             <Box className={classes.promotionWapper}>
