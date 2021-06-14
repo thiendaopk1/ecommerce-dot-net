@@ -31,7 +31,7 @@ function ProductContentCenter({product = {}}) {
     const handleAddToCartSubmit = ({quantity }) => {
        
         const action = addToCart({
-            id: product.id,
+            idp: product.id,
             product,
             
             quantity,

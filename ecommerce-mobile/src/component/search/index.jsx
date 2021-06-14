@@ -68,6 +68,7 @@ const match = useRouteMatch();
               freeSolo
               options={products.map((product) => (product.name))}
               renderInput={(params) => (
+                  
                 //   <Link to={`products/${products.id}`}>
                     <TextField
                         className={classes.search}

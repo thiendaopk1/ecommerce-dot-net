@@ -20,8 +20,8 @@ ProductInfo.propTypes = {
 function ProductInfo({product = {},comments = {} }) {
 
     const classes = ProductDetailStyles();
-    const { name, ram } = product;
-  
+    const { name,ram,rom } = product;
+   
     const [value, setValue] = useState();
   
     
@@ -49,8 +49,9 @@ function ProductInfo({product = {},comments = {} }) {
             
              <Box mt={2} >
                 <Typography className={classes.titleColor}>Ram:</Typography>
-                {/* <Typography  className={classes.colors}>{ram.ram}</Typography> */}
-                
+                <Typography  className={classes.colors}>{ram?.ram}</Typography>
+                <Typography className={classes.titleColor}>Rom:</Typography>
+                <Typography  className={classes.colors}>{rom?.ram}</Typography>
             </Box>
             <Box className={classes.promotionWapper}>
                 <Box component="b" className={classes.promotionHeader}>

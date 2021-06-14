@@ -71,7 +71,7 @@ function ProductItemCart({items}) {
     const handleOnChange = ({quantity}) => {
 
         const action = setQuantity({
-            id: product.id,
+            idp: product.id,
             quantity,
             product
         });
@@ -80,7 +80,7 @@ function ProductItemCart({items}) {
     }
     const handleClickRemove = ({cartItems}) => {
         const action = removeFromCart({
-            id: product.id,
+            idp: product.id,
         });
         dispatch(action);
     }
@@ -104,7 +104,7 @@ function ProductItemCart({items}) {
                     </Typography>
                 </Box>
                 <Box className={classes.sl}>
-                    <QuantityFormCart quantityItem={quantityItem} id={product.id} onChange={handleOnChange} />
+                    <QuantityFormCart quantityItem={quantityItem} idp={product.id} onChange={handleOnChange} />
                 </Box>
                 <Box className={classes.st}>
                 <Typography>
