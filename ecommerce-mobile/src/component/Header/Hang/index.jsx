@@ -33,7 +33,7 @@ function Hang({ hang }) {
         })();
     }, []);
     return (
-        <Link to={``}>
+        <Link to={`products?brand_id=${hang.id}`}>
             <Button className={classes.button}><img src={hang.img}></img></Button>
         </Link>
             

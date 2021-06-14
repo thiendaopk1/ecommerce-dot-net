@@ -29,15 +29,11 @@ function ProductContentCenter({product = {}}) {
     
     
     const handleAddToCartSubmit = ({quantity }) => {
-        console.log(selected);
-        const productSpecific = product.specifics;
-        const productSpecifics = productSpecific.filter(productSpecific => productSpecific === selected);
-        product.specifics = productSpecifics;
-        console.log('productSpecificId',productSpecifics);
+       
         const action = addToCart({
             id: product.id,
             product,
-            productSpecificId,
+            
             quantity,
         });
         
@@ -47,14 +43,11 @@ function ProductContentCenter({product = {}}) {
         
            
     };
-    const handleSetSelected = async (value,index)=>{
-        console.log(value);
-        setSelected(value);
-    };
+   
 
     return (
         <Box>
-        <ProductInfo comments={comments} product={product} selected={selected} setSelected={handleSetSelected}/>
+        <ProductInfo comments={comments} product={product} />
         <AddToCartForm onSubmit={handleAddToCartSubmit}/>
         </Box>
         

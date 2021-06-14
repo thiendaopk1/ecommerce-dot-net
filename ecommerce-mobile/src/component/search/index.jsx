@@ -4,7 +4,7 @@ import queryString from 'query-string';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useLocation, useRouteMatch } from 'react-router';
 import productApi from '../../api/productApi';
-// import SearchForm from '../search';
+import { Link } from 'react-router-dom';
 
 SearchForm.propTypes = {
     
@@ -25,6 +25,7 @@ const useStyles = makeStyles((theme) => ({
 function SearchForm(props) {
     const classes = useStyles();
     const [products, setProducts] = useState([]);
+    console.log(products.id);
     const location = useLocation();
     const queryParams = useMemo(() => {
         const params = queryString.parse(location.search);
@@ -56,7 +57,7 @@ function SearchForm(props) {
     },[])
 
 const match = useRouteMatch();
-// const product = rp.product;
+    // const product = rp.product;
     return (
     // <Link to={`/products/${product.id}`}>
         <div className={classes.root}>
@@ -67,14 +68,17 @@ const match = useRouteMatch();
               freeSolo
               options={products.map((product) => (product.name))}
               renderInput={(params) => (
-              <TextField
-                  className={classes.search}
-                  {...params}
-                  placeholder="Tìm kiếm"
-                  margin="normal"
-                  variant="outlined"   
-              >
-              </TextField>
+                //   <Link to={`products/${products.id}`}>
+                    <TextField
+                        className={classes.search}
+                        {...params}
+                        placeholder="Tìm kiếm"
+                        margin="normal"
+                        variant="outlined"   
+                    >
+                    </TextField>
+                //   </Link>
+              
               
               )}
               

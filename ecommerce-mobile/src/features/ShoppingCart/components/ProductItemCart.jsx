@@ -63,8 +63,6 @@ const useStyle = makeStyles(theme =>({
 function ProductItemCart({items}) {
     const classes = useStyle();
     const product = items.product;
-    const specifics = items.product.specifics;
-    console.log('specifics',{specifics});
     const quantityItem = items.quantity;
     const dispatch = useDispatch();
     // useEffect(() => {
@@ -96,7 +94,7 @@ function ProductItemCart({items}) {
                         <Box className={classes.sp}>
                             <Link to={`products/${product.id}`} style={{textDecoration: 'none',color: 'black'}}>
                                 <Typography >{product.name}</Typography>
-                                <Typography>{specifics[0].color}-{specifics[0].ram.ram}-{specifics[0].rom.rom}</Typography>
+                                <Typography></Typography>
                             </Link>
                         </Box>
 

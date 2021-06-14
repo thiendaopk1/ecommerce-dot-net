@@ -24,6 +24,7 @@ import { cartItemsCountSelectors } from '../../features/ShoppingCart/selectors';
 import SearchForm from '../search';
 import Hang from './Hang';
 
+
 const useStyles = makeStyles((theme) => ({
   root: {
     // flexGrow: 1,
@@ -225,36 +226,37 @@ const handleCloseChangePass = () => {
   };
   const hang3 = {
     id: 3,
-    name: "iphone",
-    img: "https://images.fpt.shop/unsafe/fit-in/108x40/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2020/8/26/637340490193124614_iPhone-Apple@2x.jpg",
+    name: "huawei",
+    img: "https://images.fpt.shop/unsafe/fit-in/108x40/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2020/8/26/637340494667486283_Huawei@2x.jpg",
   };
   const hang4 = {
     id: 4,
-    name: "oppo",
-    img: "https://images.fpt.shop/unsafe/fit-in/108x40/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2020/8/26/637340491304997311_Oppo@2x.jpg",
+    name: "realme",
+    img: "https://images.fpt.shop/unsafe/fit-in/108x40/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2020/8/26/637340491898745716_Realme@2x.jpg",
   };
   const hang5 = {
     id: 5,
-    name: "realme",
-    img: "https://images.fpt.shop/unsafe/fit-in/108x40/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2020/8/26/637340491898745716_Realme@2x.jpg",
+    name: "oppo",
+    img: "https://images.fpt.shop/unsafe/fit-in/108x40/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2020/8/26/637340491304997311_Oppo@2x.jpg",
   };
   const hang6 = {
     id: 6,
     name: "vinsmart",
     img: "https://images.fpt.shop/unsafe/fit-in/108x40/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2020/8/26/637340491898901930_Vsmart@2x.jpg",
   };
-  const hang7 = {
-    id: 7,
+  const hang8 = {
+    id: 8,
+    name: "iphone",
+    img: "https://images.fpt.shop/unsafe/fit-in/108x40/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2020/8/26/637340490193124614_iPhone-Apple@2x.jpg",
+  };
+  const hang9 = {
+    id: 9,
     name: "nokia",
     img: "https://images.fpt.shop/unsafe/fit-in/108x40/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2020/8/26/637340493755614653_Nokia@2x.jpg",
   };
-  const hang8 = {
-    id: 8,
-    name: "huawei",
-    img: "https://images.fpt.shop/unsafe/fit-in/108x40/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2020/8/26/637340494667486283_Huawei@2x.jpg",
-  };
+  
 
-  const data = [hang, hang2, hang3, hang4, hang5, hang6, hang7, hang8];
+  const data = [hang, hang2, hang3, hang4, hang5, hang6, hang8,hang9];
 
   return (
     <div className={classes.root}>
@@ -304,8 +306,8 @@ const handleCloseChangePass = () => {
           </Box>
         </Toolbar>
         <div className={classes.hang} >
-          {data.map((hang) => (
-            <Hang hang={hang} />
+          {data.map((hang) => (       
+              <Hang hang={hang} />
           ))}
         </div>
       </AppBar>
