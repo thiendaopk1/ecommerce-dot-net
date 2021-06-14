@@ -28,6 +28,7 @@ import Hang from './Hang';
 const useStyles = makeStyles((theme) => ({
   root: {
     // flexGrow: 1,
+    /
     maxWidth: 1232,
     margin: 'auto',
     height:116,
