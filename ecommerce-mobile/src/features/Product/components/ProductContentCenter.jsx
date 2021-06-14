@@ -37,7 +37,7 @@ function ProductContentCenter({product = {}}) {
         const action = addToCart({
             id: product.id,
             product,
-            productSpecificId,
+            // productSpecificId,
             quantity,
         });
         

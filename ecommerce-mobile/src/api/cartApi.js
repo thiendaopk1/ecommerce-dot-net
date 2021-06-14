@@ -7,7 +7,9 @@ const cartApi = {
     }, 
     add(data){
         const url = '/api/cart';
+        console.log('du lieu day len sever',data);
         return axiosClient.post(url, data);
+        
     }, 
     remove(id){
         const url = `/api/cart/${id}`;
