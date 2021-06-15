@@ -18,6 +18,8 @@ Product.propTypes = {
 function Product({product}) {
     // console.log('commentalo', {comments});
     const comments = product.commentResponse;
+    
+    console.log('tongCmt',comments);
     // console.log('commentalo', {product});
     const [value, setValue] = useState(2);
     const classes = ProductStyles();
@@ -50,7 +52,7 @@ function Product({product}) {
             <Box component="span" ml={0}>
                 <Rating name="half-rating-read" value={value} precision={0.1} readOnly className={classes.rate} mr={2}/>
                 {/* <Rating name="read-only" value={value} readOnly className={classes.rate}  /> */}
-                <Typography variant="p" className={classes.comment} >1 đánh giá</Typography>
+                <Typography variant="p" className={classes.comment} >{comments?.tongCmt} đánh giá</Typography>
             </Box>
             <Box className={classes.button}>
                 <Button variant="outlined" color="secondary" size="small">Mua ngay</Button>
