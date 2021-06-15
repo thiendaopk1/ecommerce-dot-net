@@ -57,19 +57,18 @@ function SearchForm(props) {
     },[])
 
 const match = useRouteMatch();
-    // const product = rp.product;
+    
     return (
-    // <Link to={`/products/${product.id}`}>
+    
         <div className={classes.root}>
-          
+        {/* <Link to={`products/${products.id}`}> */}
           <Autocomplete
               size='small'
               id="free-solo-demo"
               freeSolo
               options={products.map((product) => (product.name))}
               renderInput={(params) => (
-                  
-                //   <Link to={`products/${products.id}`}>
+
                     <TextField
                         className={classes.search}
                         {...params}
@@ -78,13 +77,11 @@ const match = useRouteMatch();
                         variant="outlined"   
                     >
                     </TextField>
-                //   </Link>
-              
-              
+
               )}
               
           />
-    
+        {/* </Link> */}
         </div>
     // </Link>
         

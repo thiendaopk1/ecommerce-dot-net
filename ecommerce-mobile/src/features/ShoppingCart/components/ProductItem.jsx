@@ -16,7 +16,7 @@ function productItem({spi}) {
         <Box>
             <Grid container>
                 {spi.map((item) => (
-                    <Grid item key={item.id} xs={12}>
+                    <Grid item key={item.idp} xs={12}>
                         <ProductItemCart items={item}/>
                     </Grid>
                     

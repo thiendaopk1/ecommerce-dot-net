@@ -270,8 +270,10 @@ const handleCloseChangePass = () => {
             <Link className={classes.link} to="/"> Ecommerce-mobile</Link>
           </Typography>
           {/* search */}
+  
+            <SearchForm />
+
           
-          <SearchForm />
           <Box>
           <IconButton aria-label="cart">
             {!isLoggedIn && (

@@ -15,17 +15,14 @@ function ProductContentCenter({product = {}}) {
  
     const [selected, setSelected] = useState({});
     const dispatch = useDispatch();
-    const comments = product.commentResponse;
-    
-    const productSpecificId=selected.id;
-    
+    const comments = product.commentResponse; 
     useEffect(() => {
         if( product.specifics){
             setSelected(product.specifics[0]);
         }
         
     },[product]);
-    const productSpecific = product.specifics;
+
     
     
     const handleAddToCartSubmit = ({quantity }) => {
@@ -33,11 +30,10 @@ function ProductContentCenter({product = {}}) {
         const action = addToCart({
             idp: product.id,
             product,
-            
             quantity,
         });
-        
-        
+
+
         dispatch(action);
         console.log('action', action);
         
