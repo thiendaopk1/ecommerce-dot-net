@@ -1,14 +1,18 @@
+import { yupResolver } from '@hookform/resolvers/yup';
 import { Box, Button, Container, Grid, makeStyles, Paper, Radio, RadioGroup, Typography } from '@material-ui/core';
 import FormControl from "@material-ui/core/FormControl";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import * as yup from 'yup';
 import ordersApi from '../../../api/ordersApi';
 import InputField from '../../../component/Form-control/InputField';
 import cod from '../../../images/iconCOD.png';
 import vnpay from '../../../images/iconVNPay.png';
+import { removeAll } from '../cartSlice';
 import { cartItemsCountSelectors, cartTotalCountSelectors } from '../selectors';
 import CartItems from './CheckOut/CartItems';
 
@@ -133,7 +137,8 @@ const useStyles = makeStyles(theme => ({
 }))
 function CheckOut(props) {
     const classes = useStyles();
-
+    const dispatch = useDispatch();
+    const histtory = useHistory();
     const user = useSelector((state) => {
         return state.user;
     })
@@ -142,11 +147,21 @@ function CheckOut(props) {
         return state.cart.cartItems
     })
    
-    const [value, setValue] = useState("cod");
+    const [ship, setShip] = useState("cod");
 
     const handleChange = (event) => {
-        setValue(event.target.value);
+        setShip(event.target.value);
     };
+
+    // const schema = yup.object().shape({
+    //     fullName: yup.string().required('please enter your full name')
+    //     .test('should has at least two words', 'please enter at least two words',(value) => {
+    //         return value.split(' ').length>=2;
+    //     }),
+    //     email: yup.string().required('please enter your email').email('please enter a valid email address'),
+    //     phone: yup.string().required('please enter your phone number').length(10,'please enter a valid phone number').matches("((09|03|07|08|05)+([0-9]{8}))","please enter a valid phone number"),
+    //     address: yup.string().required('please enter your address')
+    //  });
 
     const form = useForm({
         defaultValues: {
@@ -155,17 +170,52 @@ function CheckOut(props) {
             phone:user.current.phone,
             email:user.current.email,
             note:'',
-        }
-       
+        },
+        // resolver: yupResolver(schema),
     })
 
-    const handleSubmit =async (values) =>{
+    const handleSubmit =async (value) =>{
             try {
-                const data = {
-                    values,
-                    cartItems: products  
+                if(ship === 'cod'){
+                    const data = {
+                        fullname:value.fullname,
+                        phone:value.phone,
+                        email:value.email,
+                        address:value.address,
+                        note:value.note,
+                        cartItems: products ,
+                        urlReturn: 'http://localhost:3000/payment-success' 
+                    }
+                         const list = await ordersApi.add(data);
+                         const action = removeAll();
+                         dispatch(action);
+                         histtory.push('/payment-success');
+                         console.log('du lieu day len sever',list);
+        
+                }else{
+                    const data = {
+                        fullname:value.fullname,
+                        phone:value.phone,
+                        email:value.email,
+                        address:value.address,
+                        note:value.note,
+                        cartItems: products,
+                        urlReturn: 'http://localhost:3000/payment-success' 
+                    }
+                    const list = await ordersApi.add(data); 
+                    if(!list.status){
+                        window.location = list.payment.urlPay;
+                        const action = removeAll();
+                        dispatch(action);
+                    }else{
+                        histtory.push('/');
+
+                    }
+                    
+                    console.log('du lieu day len sever',list);
+                    
                 }
-                    console.log(data); 
+                
                 
             } catch (error) {
                 console.log(error);
@@ -189,7 +239,7 @@ function CheckOut(props) {
                                 <Typography className={classes.sl}>Số Lượng</Typography>
                                 <Typography className={classes.tt}>Thành tiền</Typography>
                             </Box>
-                            <CartItems spi={products} form={form}/>
+                            <CartItems spi={products}/>
                             <Box className={classes.tongTien}>
                                 <Typography className={classes.tongTienTitle}>Tổng tiền:</Typography>
                                 <Typography className={classes.price}>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(cartTotal)}</Typography>
@@ -222,26 +272,28 @@ function CheckOut(props) {
                                         <RadioGroup
                                             aria-label="payment"
                                             name="payment"
-                                            value={value}
+                                            value={ship}
                                             onChange={handleChange}
-                                            className={classes.raidoForm}
+                                            className={classes.raidoForm} 
                                         >
                                             <FormControlLabel 
-                                            value="cod" 
+                                            value="cod"                             
                                             control={<Radio />} 
                                             label={
                                                 <Box className={classes.radio}>
                                                     <img src={cod} className={classes.img}/>
                                                     <Typography className={classes.label}>COD</Typography>
-                                                </Box>} />
+                                                </Box>} 
+                                            />
                                             <FormControlLabel 
-                                            value="vnpay" 
+                                            value="vnpay"                                          
                                             control={<Radio />} 
                                             label={
                                                 <Box className={classes.radio}>
                                                     <img src={vnpay} className={classes.img}/>
                                                     <Typography className={classes.label}>VNPay</Typography>
-                                                </Box>} />
+                                                </Box>} 
+                                            />
                                         </RadioGroup>
                                     </FormControl>
                                     <Box className={classes.bottomCheckOut}>

@@ -9,6 +9,7 @@ import UserInfo from './features/Auth/components/userInfo';
 import ProductHome from './features/HomePageProduct/components';
 import ShoppingCartFeature from './features/ShoppingCart';
 import CheckOut from './features/ShoppingCart/components/CheckOut';
+import PaymentSuccess from './features/ShoppingCart/components/CheckOut/PaymentSuccess';
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
         <Route path="/products" component={ProductFeature} />
         <Route path="/cart" component={ShoppingCartFeature} />
         <Route path="/checkout" component={CheckOut}/>
+        <Route path="/payment-success" component={PaymentSuccess}/>
       </Switch>
       <Footer />
     </div>

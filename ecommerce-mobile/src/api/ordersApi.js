@@ -7,9 +7,8 @@ const ordersApi = {
     }, 
     add(data){
         const url = '/api/order';
-        console.log('du lieu day len sever',data);
         return axiosClient.post(url, data);
-        
+   
     }, 
     remove(id){
         const url = `/api/order${id}`;

@@ -185,8 +185,7 @@ const handleCloseChangePass = () => {
  
   const handleLogoutClick = () => {
     (async () =>{
-      try {
-          
+      try {      
             const thien={"cartItems": data1};
             const list = await cartApi.add(thien);
             const action = logout();
