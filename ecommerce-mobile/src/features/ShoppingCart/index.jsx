@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { cartTotalCountSelectors } from './selectors';
 import { useDispatch, useSelector } from 'react-redux';
@@ -235,9 +235,6 @@ function ShoppingCartFeature(props) {
                                         <Button onClick={handleRemoveAll} color="primary">
                                             Xóa tất cả
                                         </Button>
-
-                                        
-                                    
                                     </Box>
                                     <Box className={classes.sum}>
                                         <Box className={classes.titleSumPrices}>

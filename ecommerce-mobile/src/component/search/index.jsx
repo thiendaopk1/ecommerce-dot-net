@@ -2,9 +2,9 @@ import { makeStyles, TextField } from '@material-ui/core';
 import { Autocomplete } from '@material-ui/lab';
 import queryString from 'query-string';
 import React, { useEffect, useMemo, useState } from 'react';
-import { useLocation, useRouteMatch } from 'react-router';
+import { useLocation} from 'react-router';
+import { useHistory } from 'react-router-dom';
 import productApi from '../../api/productApi';
-import { Link, useHistory } from 'react-router-dom';
 
 SearchForm.propTypes = {
     
@@ -54,6 +54,10 @@ function SearchForm(props) {
         
        })();
     },[])
+    // for(var i =0; i <= products.length; i++){
+    //     const image = products[i].images[0].image;
+    // }
+   
     const handleOnChange = (event,value,reason) => {
         // console.log('reason',reason);
        
@@ -66,7 +70,7 @@ function SearchForm(props) {
         
         
     };
-const match = useRouteMatch();
+// const match = useRouteMatch();
     return (
     
         <div className={classes.root}>
@@ -90,7 +94,7 @@ const match = useRouteMatch();
                     </TextField>
           
               )}
-              
+            
           />
         
         </div>

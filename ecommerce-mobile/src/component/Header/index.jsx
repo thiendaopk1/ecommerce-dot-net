@@ -1,4 +1,4 @@
-import { Badge, Box, fade, Menu, MenuItem, withStyles } from '@material-ui/core';
+import { Badge, Box, fade, Menu, MenuItem} from '@material-ui/core';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -98,14 +98,14 @@ const useStyles = makeStyles((theme) => ({
     background: '#fff',
   },
 }));
-const StyledBadge = withStyles((theme) => ({
-  badge: {
-    right: -3,
-    top: 13,
-    border: `2px solid ${theme.palette.background.paper}`,
-    padding: '0 4px',
-  },
-}))(Badge);
+// const StyledBadge = withStyles((theme) => ({
+//   badge: {
+//     right: -3,
+//     top: 13,
+//     border: `2px solid ${theme.palette.background.paper}`,
+//     padding: '0 4px',
+//   },
+// }))(Badge);
 
 const MODE = {
   LOGIN: 'login',
@@ -180,7 +180,7 @@ const handleCloseChangePass = () => {
     setAnchorEl(e.currentTarget);
   };
   //logOut
-  const [cart, setCart] = useState({});
+  // const [cart, setCart] = useState({});
   const data1 = JSON.parse(localStorage.getItem("cart"));
  
   const handleLogoutClick = () => {
@@ -326,13 +326,13 @@ const handleCloseChangePass = () => {
           <Close />
         </IconButton>
         <DialogContent>
-          {mode == MODE.REGISTER && (
+          {mode === MODE.REGISTER && (
             <>
               <Register closeDialog={handleClose} />
               
             </>
           )}
-          {mode == MODE.LOGIN && (
+          {mode === MODE.LOGIN && (
             <>
               <Login closeDialog={handleClose} />
              

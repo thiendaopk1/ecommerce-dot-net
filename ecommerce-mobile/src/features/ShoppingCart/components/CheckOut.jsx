@@ -1,17 +1,16 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Box, Container, Grid, makeStyles, Paper, RadioGroup, Radio, Typography, Button } from '@material-ui/core';
-import { useSelector } from 'react-redux';
-import DeliveryAddress from './CheckOut/DeliveryAddress';
-import CartItems from './CheckOut/CartItems';
-import { cartItemsCountSelectors,cartTotalCountSelectors } from '../selectors';
-import FormControlLabel from "@material-ui/core/FormControlLabel";
+import { Box, Button, Container, Grid, makeStyles, Paper, Radio, RadioGroup, Typography } from '@material-ui/core';
 import FormControl from "@material-ui/core/FormControl";
-import FormLabel from "@material-ui/core/FormLabel";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
+import React, { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { useSelector } from 'react-redux';
+import ordersApi from '../../../api/ordersApi';
+import InputField from '../../../component/Form-control/InputField';
 import cod from '../../../images/iconCOD.png';
 import vnpay from '../../../images/iconVNPay.png';
-import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
-import { useForm } from 'react-hook-form';
+import { cartItemsCountSelectors, cartTotalCountSelectors } from '../selectors';
+import CartItems from './CheckOut/CartItems';
 
 CheckOut.propTypes = {
     
@@ -142,22 +141,58 @@ function CheckOut(props) {
     const products = useSelector((state) => {
         return state.cart.cartItems
     })
-    
-    const [value, setValue] = React.useState("cod");
+   
+    const [value, setValue] = useState("cod");
 
     const handleChange = (event) => {
         setValue(event.target.value);
     };
 
     const form = useForm({
-
+        defaultValues: {
+            fullname: user.current.fullname,
+            address:user.current.address,
+            phone:user.current.phone,
+            email:user.current.email,
+            note:'',
+        }
+       
     })
+
+        
     
+    
+        
+
+    
+   
+    const handleSubmit = (value) => {
+        (async () =>{
+            try {
+                const data = {
+                    fullname: user.current.fullname,
+                    address:user.current.address,
+                    phone:user.current.phone,
+                    email:user.current.email,
+                    note:'',
+                    urlReturn:'456',
+                    value,
+                    cartItems: products  
+                }
+                    console.log(data); 
+                
+            } catch (error) {
+                console.log(error);
+            }
+        })();
+       
+    }
+
     const cartItemsCount = useSelector(cartItemsCountSelectors);
     const cartTotal = useSelector(cartTotalCountSelectors);
-    console.log('product', products);
+
     return (
-        <form>
+        <form onSubmit={form.handleSubmit(handleSubmit)}>
             <Box>
                 <Container>
                     <Grid item >
@@ -170,14 +205,28 @@ function CheckOut(props) {
                                 <Typography className={classes.sl}>Số Lượng</Typography>
                                 <Typography className={classes.tt}>Thành tiền</Typography>
                             </Box>
-                            <CartItems spi={products}/>
+                            <CartItems spi={products} form={form}/>
                             <Box className={classes.tongTien}>
                                 <Typography className={classes.tongTienTitle}>Tổng tiền:</Typography>
                                 <Typography className={classes.price}>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(cartTotal)}</Typography>
                             </Box>
                             </Paper>
                             <Paper elevation={1} className={classes.deleveryAddress}>
-                                <DeliveryAddress user={user}/>
+                            <Box>
+                                <Box>
+                                    <p>Địa chỉ giao hàng</p>
+                                </Box>
+                                <Box>
+                                    <InputField name="fullname" label="Full Name" form={form} className={classes.fullname}/>
+                                    <Box className={classes.phoneAndEmail}>
+                                        <InputField name="phone" label="Phone" form={form} className={classes.phone}/>
+                                        <InputField name="email" label="Email" disabled form={form} className={classes.email}/>
+                                    </Box>
+                                    
+                                    <InputField name="address" label="Adress" form={form}/>
+                                    <InputField name="note" label="Note" form={form}/>
+                                </Box>
+                            </Box>
                             </Paper>
                         </Box>
                     </Grid>
@@ -197,10 +246,10 @@ function CheckOut(props) {
                                             value="cod" 
                                             control={<Radio />} 
                                             label={
-                                            <Box className={classes.radio}>
-                                                <img src={cod} className={classes.img}/>
-                                                <Typography className={classes.label}>COD</Typography>
-                                            </Box>} />
+                                                <Box className={classes.radio}>
+                                                    <img src={cod} className={classes.img}/>
+                                                    <Typography className={classes.label}>COD</Typography>
+                                                </Box>} />
                                             <FormControlLabel 
                                             value="vnpay" 
                                             control={<Radio />} 
@@ -219,6 +268,7 @@ function CheckOut(props) {
                                             </Box>
                                             <Box>
                                             <Button
+                                                type="submit"
                                                 variant="contained"
                                                 color="secondary"
                                                 size="normal"

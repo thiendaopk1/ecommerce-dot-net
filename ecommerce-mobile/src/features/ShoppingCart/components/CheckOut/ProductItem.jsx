@@ -92,7 +92,6 @@ const useStyles = makeStyles((theme) => ({
 function ProductItem({items}) {
     const product = items.product;
     const quantity = items.quantity;
-    console.log('product', {product});
     const classes = useStyles();
  
     return (

@@ -1,7 +1,6 @@
 import { Box, Grid, makeStyles } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { useHistory, useRouteMatch } from 'react-router';
 import { Link } from 'react-router-dom';
 import Product from './Product';
 
@@ -17,7 +16,7 @@ const useStyle = makeStyles(theme => ({
     }
 }))
 function ProductList({data}) {
-    const match = useRouteMatch();
+    // const match = useRouteMatch();
     const  classes = useStyle();
 //   Link
     return (

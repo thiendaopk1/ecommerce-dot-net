@@ -2,9 +2,8 @@ import { Box, Button, Typography } from '@material-ui/core';
 import Rating from '@material-ui/lab/Rating';
 // import { STATIC_HOST, THUMBNAIL_PLACEHOLDER } from 'constants/index';
 import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import ProductStyles from './ProductStyles';
-import { STATIC_HOST, THUMBNAIL_PLACEHOLDER } from '../../../constants/index';
 // import { useHistory } from 'react-router';
 // import {}
 // import img from '../../../images/tagSale.png';
@@ -30,7 +29,6 @@ function Product({product}) {
     
     return (
         <Box padding={1} className={classes.root}>
-            {/* nhớ sửa lại thành img */}
             <Box className={classes.image}>
                 
                 <Typography component="span" className={classes.percent}>-{product.promotionPercents}%</Typography>
