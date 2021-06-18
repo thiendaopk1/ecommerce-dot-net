@@ -159,24 +159,10 @@ function CheckOut(props) {
        
     })
 
-        
-    
-    
-        
-
-    
-   
-    const handleSubmit = (value) => {
-        (async () =>{
+    const handleSubmit =async (values) =>{
             try {
                 const data = {
-                    fullname: user.current.fullname,
-                    address:user.current.address,
-                    phone:user.current.phone,
-                    email:user.current.email,
-                    note:'',
-                    urlReturn:'456',
-                    value,
+                    values,
                     cartItems: products  
                 }
                     console.log(data); 
@@ -184,8 +170,6 @@ function CheckOut(props) {
             } catch (error) {
                 console.log(error);
             }
-        })();
-       
     }
 
     const cartItemsCount = useSelector(cartItemsCountSelectors);
