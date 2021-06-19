@@ -1,17 +1,16 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import PropTypes from 'prop-types';
-import queryString from 'query-string';
 import { Box, Container, Grid, Paper } from '@material-ui/core';
-import PurchaseMenu from './components/PurchaseMenu';
-import { Route, Switch, useLocation } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import ordersApi from '../../../../api/ordersApi';
 import OrdersList from './components/OrdersList';
+import PurchaseMenu from './components/PurchaseMenu';
 
 Purchase.propTypes = {
     
 };
 
 function Purchase(props) {
+    const loggedInUser = useSelector(state => state.user.current);
     const [ordersList, setOrdersList] = useState([]);
     console.log('ordersList',ordersList);
     // const location = useLocation();
@@ -27,7 +26,7 @@ function Purchase(props) {
                 // const params2={...queryParams};
                 // const rp = await ordersApi.getAll(params2);
                 // console.log('params', params2);
-                const rp = await ordersApi.gettAll();
+                const rp = await ordersApi.getAll(loggedInUser.id);
                 console.log('rp', rp);
                 setOrdersList(rp.map((x) => ({
                     id: x.id,
@@ -42,14 +41,15 @@ function Purchase(props) {
                 console.log(error)
             }
         })();
-    },[])
+    },[]);
+    
     return (
         <Box>
             <Container>
                 <Grid item>
                     <Paper elevation={0}>
                         <PurchaseMenu />
-                        alo alo
+                        alo 
                     </Paper>
                 </Grid>
                 <Grid item>

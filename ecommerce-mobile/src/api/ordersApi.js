@@ -1,12 +1,11 @@
-import { useSelector } from 'react-redux';
 import axiosClient from './axiosClient';
 
 
 const ordersApi = {
     
     getAll(params){
-        const url = '/users/orders-manage';
-        return axiosClient.get(url, {userID: params});
+        const url =`users/orders-manage?userID=${params}`;
+        return axiosClient.get(url);
     }, 
     add(data){
         const url = '/api/order';
