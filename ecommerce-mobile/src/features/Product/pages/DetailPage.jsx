@@ -67,7 +67,6 @@ function DetailPage() {
                     </Grid>
                 </Paper>
                 <ProductMenu />
-
                 <Switch>
                     <Paper elevation={0} style={{ padding : '20px'}}>
                         <Grid item>

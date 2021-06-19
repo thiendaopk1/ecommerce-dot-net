@@ -110,6 +110,9 @@ function UserInfo(props) {
             enqueueSnackbar(error.message, {variant: 'error'});
         }
     };
+    const handleClickPurchase = () => {
+        
+    }
     return (
         <div className={classes.root}>
             <Grid container spacing={1}>
@@ -132,11 +135,8 @@ function UserInfo(props) {
                             <ListItemText primary="Đổi mật khẩu" />
                         </ListItem>
                         <ListItem button>
-                            {/* <ListItemIcon>
-          <InboxIcon />
-        </ListItemIcon> */}
                             <ListItemText primary="Đơn hàng của tôi" />
-                            {open ? <ExpandLess /> : <ExpandMore />}
+                            {/* {open ? <ExpandLess /> : <ExpandMore />} */}
                         </ListItem>
                         <Collapse in={open} timeout="auto" unmountOnExit>
                             <List component="div" disablePadding>

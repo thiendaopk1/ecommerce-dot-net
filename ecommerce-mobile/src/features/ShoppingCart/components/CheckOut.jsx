@@ -3,6 +3,7 @@ import { Box, Button, Container, Grid, makeStyles, Paper, Radio, RadioGroup, Typ
 import FormControl from "@material-ui/core/FormControl";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
+import { useSnackbar } from 'notistack';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
@@ -136,6 +137,7 @@ const useStyles = makeStyles(theme => ({
 
 }))
 function CheckOut(props) {
+    const { enqueueSnackbar } = useSnackbar();
     const classes = useStyles();
     const dispatch = useDispatch();
     const histtory = useHistory();
@@ -190,6 +192,7 @@ function CheckOut(props) {
                          const action = removeAll();
                          dispatch(action);
                          histtory.push('/payment-success');
+                         enqueueSnackbar('Thanh toán thành công', {variant: 'success'});
                          console.log('du lieu day len sever',list);
         
                 }else{
@@ -206,10 +209,11 @@ function CheckOut(props) {
                     if(!list.status){
                         window.location = list.payment.urlPay;
                         const action = removeAll();
-                        dispatch(action);
+                        enqueueSnackbar('Thanh toán thành công', {variant: 'success'});
+                        dispatch(action);  
                     }else{
                         histtory.push('/');
-
+                        enqueueSnackbar('Thanh toán thất bại', {variant: 'error'});
                     }
                     
                     console.log('du lieu day len sever',list);
@@ -219,6 +223,7 @@ function CheckOut(props) {
                 
             } catch (error) {
                 console.log(error);
+                enqueueSnackbar(error.message, {variant: 'error'});
             }
     }
 
