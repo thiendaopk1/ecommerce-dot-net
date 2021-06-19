@@ -1,13 +1,10 @@
 import { Avatar, Collapse, Grid, List, ListItem, ListItemText, ListSubheader, makeStyles } from '@material-ui/core';
-import { ExpandLess, ExpandMore } from '@material-ui/icons';
-import { unwrapResult } from '@reduxjs/toolkit';
-import { useSnackbar } from 'notistack';
-import PropTypes from 'prop-types';
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { doiMatKhau, updateUser } from '../../userSlice';
-import DoiMatKhauForm from '../DoiMatKhau/form';
-import UpdateForm from './form';
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { Route, useRouteMatch } from 'react-router';
+import { NavLink } from 'react-router-dom';
+import DoiMatKhau from '../DoiMatKhau';
+import UserInfomation from './userInfo';
 const useStyles = makeStyles((theme) => ({
     root: {
         maxWidth: 1232,
@@ -44,74 +41,17 @@ const useStyles = makeStyles((theme) => ({
         background: '#fff',
         borderRadius: 6,
     },
-    title: {
-        borderBottom: 'solid 1px #efefef',
-        padding: '2% 0 2% 1%',
-        margin: 0,
-    },
-    text: {
-        width: '60%',
-        margin: '3% 0 0 3%',
-    },
-    info: {
-        marginTop: '2%',
-    },
-    closeButton: {
-        position: 'absolute',
-        top: theme.spacing(1),
-        right: theme.spacing(1),
-        color: theme.palette.grey[500],
-      },
 }));
 UserInfo.propTypes = {
-    onSubmit: PropTypes.func,
 };
-function UserInfo(props) {
-    //form change pass
-    const [openChangePass, setOpenChangePass] = useState(false);
-    //form doi mat  khau
-    const handleClickOpenChangePass = () => {
-        setOpenChangePass(true);
-        setopenUserInfo(false);
-    };
-    const handleCloseChangePass = () => {
-        setOpenChangePass(false);
-    };
-    const [openUserInfo, setopenUserInfo] = useState(true);
-    //form doi mat  khau
-    const handleClickUserInfo = () => {
-        setopenUserInfo(true);
-        setOpenChangePass(false);
-    };
-    const classes = useStyles();
+function UserInfo() {
     const loggedInUser = useSelector(state => state.user.current);
+    const classes = useStyles();
     const [open, setOpen] = React.useState(false);
-    const dispath = useDispatch();
-    const { enqueueSnackbar } = useSnackbar();
-    const handleSubmit = async (values) => {
-        try {
-            values.id = loggedInUser.id;
-            const action = updateUser(values);
-            const resultAction = await dispath(action)
-            const user = unwrapResult(resultAction)
-            enqueueSnackbar('Update successfully', { variant: 'success' });
-        } catch (error) {
-            enqueueSnackbar(error.message, { variant: 'error' });
-        }
-    };
-    const handleSubmitDoiPass = async (values) =>{
-        try {
-            values.id = loggedInUser.id;
-            const action = doiMatKhau(values);
-            const resultAction = await dispath(action)
-            const user = unwrapResult(resultAction)
-            enqueueSnackbar('Change password success!', {variant: 'success'});
-        } catch (error) {
-            enqueueSnackbar(error.message, {variant: 'error'});
-        }
-    };
+   
+    const {url} = useRouteMatch();
     const handleClickPurchase = () => {
-        
+
     }
     return (
         <div className={classes.root}>
@@ -128,11 +68,15 @@ function UserInfo(props) {
                         }
                         className={classes.menu}
                     >
-                        <ListItem onClick={handleClickUserInfo} button>
+                        <ListItem button>
+                            <NavLink to={url} >
                             <ListItemText primary="Thông tin cá nhân" />
+                            </NavLink>
                         </ListItem>
-                        <ListItem onClick={handleClickOpenChangePass} button>
+                        <ListItem button>
+                            <NavLink to={`${url}/change-pass`} >
                             <ListItemText primary="Đổi mật khẩu" />
+                            </NavLink>
                         </ListItem>
                         <ListItem button>
                             <ListItemText primary="Đơn hàng của tôi" />
@@ -142,8 +86,8 @@ function UserInfo(props) {
                             <List component="div" disablePadding>
                                 <ListItem button className={classes.nested}>
                                     {/* <ListItemIcon>
-              <StarBorder />
-            </ListItemIcon> */}
+                                        <StarBorder />
+                                         </ListItemIcon> */}
                                     <ListItemText primary="Starred" />
                                 </ListItem>
                             </List>
@@ -151,23 +95,8 @@ function UserInfo(props) {
                     </List>
                 </Grid>
                 <Grid item className={classes.right}>
-                    {openUserInfo&&(
-                        <div>
-                    <h2 className={classes.title}>Thông tin của bạn</h2>
-                    <Grid container>
-                        <Grid item className={classes.left}>
-                            <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" className={classes.large} />
-                            <p className={classes.ten}>{loggedInUser.fullName}</p>
-                        </Grid>
-                        <UpdateForm onSubmit={handleSubmit} />
-                    </Grid>
-                    </div>
-                    )}
-                     {openChangePass&&(
-                    <div style={{width:'50%',margin:'auto'}}>
-                    <DoiMatKhauForm onSubmit={handleSubmitDoiPass} />
-                    </div>
-                    )}
+                <Route path="/user-info" component={UserInfomation} exact/>
+                <Route path="/user-info/change-pass" component={DoiMatKhau} exact/>
                 </Grid>
             </Grid>
         </div>

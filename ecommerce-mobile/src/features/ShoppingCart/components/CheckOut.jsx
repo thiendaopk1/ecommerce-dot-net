@@ -155,15 +155,15 @@ function CheckOut(props) {
         setShip(event.target.value);
     };
 
-    // const schema = yup.object().shape({
-    //     fullName: yup.string().required('please enter your full name')
-    //     .test('should has at least two words', 'please enter at least two words',(value) => {
-    //         return value.split(' ').length>=2;
-    //     }),
-    //     email: yup.string().required('please enter your email').email('please enter a valid email address'),
-    //     phone: yup.string().required('please enter your phone number').length(10,'please enter a valid phone number').matches("((09|03|07|08|05)+([0-9]{8}))","please enter a valid phone number"),
-    //     address: yup.string().required('please enter your address')
-    //  });
+    const schema = yup.object().shape({
+        fullname: yup.string().required('please enter your full name')
+        .test('should has at least two words', 'please enter at least two words',(value) => {
+            return value.split(' ').length>=2;
+        }),
+        email: yup.string().required('please enter your email').email('please enter a valid email address'),
+        phone: yup.string().required('please enter your phone number').length(10,'please enter a valid phone number').matches("((09|03|07|08|05)+([0-9]{8}))","please enter a valid phone number"),
+        address: yup.string().required('please enter your address')
+     });
 
     const form = useForm({
         defaultValues: {
@@ -173,7 +173,7 @@ function CheckOut(props) {
             email:user.current.email,
             note:'',
         },
-        // resolver: yupResolver(schema),
+        resolver: yupResolver(schema),
     })
 
     const handleSubmit =async (value) =>{

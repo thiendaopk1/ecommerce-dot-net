@@ -316,8 +316,11 @@ const handleCloseChangePass = () => {
         getContentAnchorEl={null}
       >
         {/* <MenuItem onClick={handleCloseMenuUser}>Profile</MenuItem> */}
-        <a className={classes.link} href="/user-info" ><MenuItem onClick={handleCloseMenuUser}>My account</MenuItem></a>
+        <Link className={classes.link} to="/user-info" ><MenuItem onClick={handleCloseMenuUser}>My account</MenuItem></Link>
         <MenuItem onClick={handleLogoutClick}>Logout</MenuItem>
+        {isLoggedIn&&loggedInUser.userRoles[0].role.name=='ADMIN'&&(
+          <Link className={classes.link} to="/admin" ><MenuItem onClick={handleCloseMenuUser}>Admin Manager</MenuItem></Link>
+        )}
       </Menu>
       {/* form sign up */}
       <Dialog disableBackdropClick disableEscapeKeyDown open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
