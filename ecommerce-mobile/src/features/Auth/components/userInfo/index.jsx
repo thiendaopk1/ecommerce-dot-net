@@ -5,6 +5,7 @@ import { Route, useRouteMatch } from 'react-router';
 import { NavLink } from 'react-router-dom';
 import DoiMatKhau from '../DoiMatKhau';
 import UserInfomation from './userInfo';
+import Purchase from '../Purchase/index'
 const useStyles = makeStyles((theme) => ({
     root: {
         maxWidth: 1232,
@@ -48,7 +49,7 @@ function UserInfo() {
     const loggedInUser = useSelector(state => state.user.current);
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
-   
+
     const {url} = useRouteMatch();
     const handleClickPurchase = () => {
 
@@ -79,7 +80,9 @@ function UserInfo() {
                             </NavLink>
                         </ListItem>
                         <ListItem button>
-                            <ListItemText primary="Đơn hàng của tôi" />
+                            <NavLink to={`${url}/orders-manage`} >
+                                <ListItemText primary="Đơn hàng của tôi" />
+                            </NavLink>
                             {/* {open ? <ExpandLess /> : <ExpandMore />} */}
                         </ListItem>
                         <Collapse in={open} timeout="auto" unmountOnExit>
@@ -97,6 +100,7 @@ function UserInfo() {
                 <Grid item className={classes.right}>
                 <Route path="/user-info" component={UserInfomation} exact/>
                 <Route path="/user-info/change-pass" component={DoiMatKhau} exact/>
+                <Route path="/user-info/orders-manage" component={Purchase} exact/>
                 </Grid>
             </Grid>
         </div>
