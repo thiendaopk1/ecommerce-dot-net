@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
     },
     right: {
         flex: '1 1 0',
-        background: '#fff',
+        // background: '#fff',
         borderRadius: 6,
     },
 }));

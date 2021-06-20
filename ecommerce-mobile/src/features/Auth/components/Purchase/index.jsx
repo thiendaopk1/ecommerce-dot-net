@@ -1,6 +1,5 @@
-import { Box, Container, Grid, Paper } from '@material-ui/core';
+import { Box, Container, Grid, makeStyles, Paper } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 import ordersApi from '../../../../api/ordersApi';
 import OrdersList from './components/OrdersList';
 import PurchaseMenu from './components/PurchaseMenu';
@@ -8,26 +7,20 @@ import PurchaseMenu from './components/PurchaseMenu';
 Purchase.propTypes = {
     
 };
-
+const useStyles = makeStyles((theme) => ({
+    // orders: {
+    //  background: '#f8f9fa'
+    // }
+}))
 function Purchase(props) {
-    const loggedInUser = useSelector(state => state.user.current);
+    const classes = useStyles();
     const [ordersList, setOrdersList] = useState([]);
     console.log('ordersList',ordersList);
-    // const location = useLocation();
-    // const queryParams = useMemo(() => {
-    //     const params = queryString.parse(location.search);
-    //     return {
-    //         ...params,
-    //     };
-    // }, [location.search]);
     useEffect(() => {
         (async () => {
             try {
-                // const params2={...queryParams};
-                // const rp = await ordersApi.getAll(params2);
-                // console.log('params', params2);
-                const rp = await ordersApi.getAll(loggedInUser.id);
-                console.log('rp', rp);
+               
+                const rp = await ordersApi.getAll();
                 setOrdersList(rp.map((x) => ({
                     id: x.id,
                     status: x.status,
@@ -44,16 +37,17 @@ function Purchase(props) {
     },[]);
     
     return (
-        <Box>
-            <Container>
+        <Box >
+            <Container >
                 <Grid item>
                     <Paper elevation={0}>
                         <PurchaseMenu />
-                        alo 
                     </Paper>
                 </Grid>
-                <Grid item>
-                    <OrdersList data={ordersList}/>
+                <Grid item >
+                    <Paper elevation={0} mt={2}>
+                        <OrdersList data={ordersList}/>
+                    </Paper>
                 </Grid>
             </Container>
         </Box>

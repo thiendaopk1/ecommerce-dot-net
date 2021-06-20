@@ -1,3 +1,4 @@
+import { Paper } from '@material-ui/core';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { useSnackbar } from 'notistack';
 import React from 'react';
@@ -26,7 +27,9 @@ function DoiMatKhau(props) {
     };
     return (
         <div style={{ width: '50%', margin: 'auto' }}>
-            <DoiMatKhauForm onSubmit={handleSubmitDoiPass} />
+            <Paper elevation={0}>
+                <DoiMatKhauForm onSubmit={handleSubmitDoiPass} />
+            </Paper>
         </div>
     );
 }

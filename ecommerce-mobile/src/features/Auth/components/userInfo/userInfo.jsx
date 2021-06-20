@@ -1,3 +1,4 @@
+import { Paper } from '@material-ui/core';
 import { Avatar, Grid, makeStyles } from '@material-ui/core';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { useSnackbar } from 'notistack';
@@ -46,15 +47,17 @@ function UserInfomation(props) {
     };
     return (
         <div>
-        <h2 className={classes.title}>Thông tin của bạn</h2>
-        <Grid container>
-            <Grid item className={classes.left}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" className={classes.large} />
-                <p className={classes.ten}>{loggedInUser.fullName}</p>
-            </Grid>
-            <UpdateForm onSubmit={handleSubmit} />
-        </Grid>
-    </div>
+            <Paper elevation={0}>
+                <h2 className={classes.title}>Thông tin của bạn</h2>
+                <Grid container>
+                    <Grid item className={classes.left}>
+                        <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" className={classes.large} />
+                        <p className={classes.ten}>{loggedInUser.fullName}</p>
+                    </Grid>
+                    <UpdateForm onSubmit={handleSubmit} />
+                </Grid>
+            </Paper>
+        </div>
     );
 }
 

@@ -4,8 +4,8 @@ import axiosClient from './axiosClient';
 const ordersApi = {
     
     getAll(params){
-        const url =`users/orders-manage?userID=${params}`;
-        return axiosClient.get(url);
+        const url ='/users/orders-manage';
+        return axiosClient.get(url, {params: params});
     }, 
     add(data){
         const url = '/api/order';
