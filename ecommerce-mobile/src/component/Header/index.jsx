@@ -36,7 +36,12 @@ const useStyles = makeStyles((theme) => ({
   header: {
     background: '#cd1817',
     position:'fixed',
+    // maxWidth: '100%',
     maxWidth: 1232,
+  },
+  toolbar:{
+    maxWidth:1232,
+    // left:'3%',
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -96,6 +101,8 @@ const useStyles = makeStyles((theme) => ({
   },
   hang: {
     background: '#fff',
+    // left:'3%',
+    // maxWidth:1232,
   },
 }));
 // const StyledBadge = withStyles((theme) => ({
@@ -248,7 +255,7 @@ const handleCloseChangePass = () => {
   return (
     <div className={classes.root}>
       <AppBar position="static" className={classes.header}>
-        <Toolbar>
+        <Toolbar className={classes.toolbar}>
           <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
             <MenuIcon />
           </IconButton>
