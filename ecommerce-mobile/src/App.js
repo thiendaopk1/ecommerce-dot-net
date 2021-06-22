@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
+import Admin from './admin/Admin';
 import './App.css';
 import Footer from './component/footer';
 import Header from './component/Header';
@@ -25,6 +26,7 @@ function App() {
         <Route path="/cart" component={ShoppingCartFeature} />
         <Route path="/checkout" component={CheckOut}/>
         <Route path="/payment-success" component={PaymentSuccess}/>
+        <Route path="/Admin" component={Admin}/>
       </Switch>
       <Footer />
     </div>

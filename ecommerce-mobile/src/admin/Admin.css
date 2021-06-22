@@ -1,0 +1,12 @@
+.container{
+    display: flex;
+    margin-top: 10px;
+    margin: auto;
+    max-width: 1232px;
+}
+
+
+.link{
+    text-decoration: none;
+    color: inherit;
+}
