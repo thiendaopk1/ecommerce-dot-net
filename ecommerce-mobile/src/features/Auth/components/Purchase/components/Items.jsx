@@ -26,6 +26,10 @@ const useStyles = makeStyles(theme => ({
         display: 'flex',
         float: 'right'
     },
+
+    prices: {
+        color: '#ee4d2d'
+    }
 }))
 function Items({items}) {
     const classes = useStyles();
@@ -41,7 +45,7 @@ function Items({items}) {
                 </Box>
             </Box>
             <Box className={classes.price}>
-                <Typography>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(priceAll)}</Typography>
+                <Typography className={classes.prices}>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(priceAll)}</Typography>
             </Box>
         </Box>
     );

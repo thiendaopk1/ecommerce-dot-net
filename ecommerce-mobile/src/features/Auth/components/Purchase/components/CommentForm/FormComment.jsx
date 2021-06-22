@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Box, Container, Grid, makeStyles } from '@material-ui/core';
-import FormRating from './FormRating';
-import StarIcon from '@material-ui/icons/Star';
-import commentsApi from '../../../../api/commentsApi';
-import axios from 'axios';
+import commentsApi from '../../../../../../api/commentsApi';
 import { useSelector } from 'react-redux';
+import FormRating from './FormRating';
 
 FormComment.propTypes = {
     product: PropTypes.object,
@@ -65,16 +63,6 @@ function FormComment({product = {}, comments = {}}) {
     const {id} = useSelector(state => state.user.current);
     const [comment, setComment] = useState();
     const  handleSubmit = (values) => { 
-        // axios.post('https://localhost:5001/api/comment/new', {
-        //     ...values,
-        //     userId: id
-        //   })
-        //   .then(function (response) {
-        //     console.log(response);
-        //   })
-        //   .catch(function (error) {
-        //     console.log(error);
-        //   });     
         (async () => {
             try {
                 const result = await commentsApi.addComment(values)
@@ -93,15 +81,6 @@ function FormComment({product = {}, comments = {}}) {
             <Container>
                 <Grid item>
                     <Box className={classes.root}>
-                        <Box className={classes.left}>
-                            <Box className={classes.title}>
-                                <h4>Trung bình cộng số sao</h4>
-                            </Box>
-                            <Box component="p" className={classes.rates}> 
-                                <span>{star}</span>
-                                <StarIcon className={classes.star}/>
-                            </Box>
-                        </Box>
                         <Box className={classes.right}>
                             <FormRating onSubmit={handleSubmit} product={product}/>
                         </Box>

@@ -47,8 +47,8 @@ function DetailPage() {
 
     const { product, loading} = useProductDetail(productId);
 
-   
-    
+   //
+    // set value product
     return (
         <Box>
             <Container>
