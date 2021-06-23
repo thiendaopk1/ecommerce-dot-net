@@ -67,10 +67,10 @@ function FormComment({product = {} , onSubmit}) {
     const {id} = useSelector(state => state.user.current);
     // const [comment, setComment] = useState();
     const  handleSubmit = async (values) => {  
-        
+        console.log({values});
             try {
                 const result = await commentsApi.addComment(values)
-                console.log('res', {result});
+                console.log('res', result);
                 onSubmit(result);
             } catch (error) {
                 console.error('Failed to fetch product', error);

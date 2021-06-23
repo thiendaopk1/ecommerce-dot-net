@@ -62,6 +62,7 @@ function FormRating({product = {}, onSubmit}) {
     const handleSubmitComment = async (values) => {  
         values.rate = value;
         values.productId = product.id;
+
         if(onSubmit){
             await onSubmit(values);
             console.log('123', values);

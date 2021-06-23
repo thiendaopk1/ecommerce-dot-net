@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 Comment.propTypes = {
-    comments: PropTypes.object,
+    comments: PropTypes.array,
 };
 const useStyles = makeStyles(theme => ({
     root: {
@@ -41,10 +41,8 @@ const useStyles = makeStyles(theme => ({
 
     },
 }));
-function Comment({comments = {}}) {
-    const [value, setValue] = useState(2);
-    const {listCommentByProduct} =  comments;
-    console.log('listCommentByProduct',listCommentByProduct);
+function Comment({comments = []}) {
+ 
     const classes = useStyles();
 //    console.log('aloalo',comments);
     return (
@@ -52,7 +50,7 @@ function Comment({comments = {}}) {
             <Container>
                 
                 <Grid item >
-                    {listCommentByProduct && listCommentByProduct.map((listCommentByProducts) => (
+                    {comments && comments.map((listCommentByProducts) => (
                         <Box key={listCommentByProducts.id} className={classes.root}>
                             <Box className={classes.header}>
                                 <Typography className={classes.username}>

@@ -1,5 +1,5 @@
 import { Box } from '@material-ui/core';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Comment from './Comment';
 import FormComment from './FormComment';
 import PropTypes from 'prop-types';
@@ -8,11 +8,20 @@ ProductReview.propTypes = {
     product: PropTypes.object,
     onSubmit: PropTypes.func,
 };
-function ProductReview({product = {},onSubmit}) {
-    const [comments, setComments] = useState(product.commentResponse);
+function ProductReview({product = {}, onSubmit}) {
+    const [comments, setComments] = useState([]);
+    
+
+    useEffect(() => {
+        if(product.commentResponse)
+            setComments(product.commentResponse.listCommentByProduct)
+    }, [product])
+    
+    console.log('comments',comments);
 
     const handleSubmitReview = (value) => {
-        setComments([...comments,value])
+        
+        setComments(value.listCommentByProduct)
     }
     console.log('alo alo ', comments);
     return (
