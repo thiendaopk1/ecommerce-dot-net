@@ -44,7 +44,7 @@ const useStyles = makeStyles(theme => ({
 function Comment({comments = {}}) {
     const [value, setValue] = useState(2);
     const {listCommentByProduct} =  comments;
-
+    console.log('listCommentByProduct',listCommentByProduct);
     const classes = useStyles();
 //    console.log('aloalo',comments);
     return (

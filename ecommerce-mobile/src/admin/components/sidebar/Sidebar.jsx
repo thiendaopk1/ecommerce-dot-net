@@ -1,19 +1,13 @@
-import "../../components/sidebar/sidebar.css";
 import {
-  LineStyle,
-  Timeline,
-  TrendingUp,
-  PermIdentity,
-  Storefront,
-  AttachMoney,
-  BarChart,
-  MailOutline,
-  DynamicFeed,
-  ChatBubbleOutline,
-  WorkOutline,
-  Report,
+  LineStyle, PermIdentity,
+  Storefront, Timeline,
+  TrendingUp
 } from "@material-ui/icons";
+import CategoryIcon from '@material-ui/icons/Category';
+import FeedbackIcon from '@material-ui/icons/Feedback';
+import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 import { Link } from "react-router-dom";
+import "../../components/sidebar/sidebar.css";
 function Sidebar() {
   return (
     <div className="sidebar">
@@ -53,47 +47,19 @@ function Sidebar() {
               </li>
             </Link>
             <li className="sidebarListItem">
-              <AttachMoney className="sidebarIcon" />
-              Transactions
+              <ShoppingBasketIcon className="sidebarIcon" />
+              Orders
             </li>
             <li className="sidebarListItem">
-              <BarChart className="sidebarIcon" />
-              Reports
+              <FeedbackIcon className="sidebarIcon" />
+              Comments
             </li>
-          </ul>
-        </div>
-        <div className="sidebarMenu">
-          <h3 className="sidebarTitle">Notifications</h3>
-          <ul className="sidebarList">
-            <li className="sidebarListItem">
-              <MailOutline className="sidebarIcon" />
-              Mail
-            </li>
-            <li className="sidebarListItem">
-              <DynamicFeed className="sidebarIcon" />
-              Feedback
-            </li>
-            <li className="sidebarListItem">
-              <ChatBubbleOutline className="sidebarIcon" />
-              Messages
-            </li>
-          </ul>
-        </div>
-        <div className="sidebarMenu">
-          <h3 className="sidebarTitle">Staff</h3>
-          <ul className="sidebarList">
-            <li className="sidebarListItem">
-              <WorkOutline className="sidebarIcon" />
-              Manage
-            </li>
-            <li className="sidebarListItem">
-              <Timeline className="sidebarIcon" />
-              Analytics
-            </li>
-            <li className="sidebarListItem">
-              <Report className="sidebarIcon" />
-              Reports
-            </li>
+            <Link to="/Admin/categories" className="link">
+              <li className="sidebarListItem">
+                <CategoryIcon className="sidebarIcon" />
+                Categorys
+              </li>
+            </Link>
           </ul>
         </div>
       </div>

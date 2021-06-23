@@ -10,6 +10,7 @@ import User from './pages/user/User';
 import UserList from './pages/userList/UserList';
 import Product from './pages/product/Product';
 import NewProduct from './pages/newProduct/NewProduct';
+import Categories from './pages/category/Categories'
 import './Admin.css';
 
 Admin.propTypes = {
@@ -43,6 +44,9 @@ function Admin(props) {
           </Route>
           <Route path="/Admin/newproduct">
             <NewProduct />
+          </Route>
+          <Route path="/Admin/categories">
+            <Categories />
           </Route>
         </Switch>
       </div>

@@ -1,5 +1,5 @@
 import { Box, Container, Grid, makeStyles, Paper } from '@material-ui/core';
-import React from 'react';
+import React, { useState } from 'react';
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
 import ProductInfo from '../components/ProductInfo';
 import ProductThumbnail from '../components/ProductThumbnail';
@@ -46,7 +46,8 @@ function DetailPage() {
     const { params: { productId }, url } = useRouteMatch();
 
     const { product, loading} = useProductDetail(productId);
-
+    const [comment, setComment] = useState();
+   
    //
     // set value product
     return (
@@ -83,7 +84,7 @@ function DetailPage() {
                         
                         <Grid item>
                             <Route exact path={`${url}/review`}>
-                                <ProductReview product={product} />
+                                <ProductReview product={product}  commented={comment}/>
                             </Route>
                         </Grid>
                     </Paper>

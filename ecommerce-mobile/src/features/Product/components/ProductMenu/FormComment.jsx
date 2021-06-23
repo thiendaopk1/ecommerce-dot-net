@@ -9,7 +9,9 @@ import { useSelector } from 'react-redux';
 
 FormComment.propTypes = {
     product: PropTypes.object,
-    comments: PropTypes.object,
+    // setComments: PropTypes.func,
+    // comments: PropTypes.object,
+    onSubmit: PropTypes.func,
 };
 const useStyles = makeStyles(theme => ({
     root: {
@@ -59,31 +61,21 @@ const useStyles = makeStyles(theme => ({
 
 }))
 
-function FormComment({product = {}, comments = {}}) {
-    const star = comments.tbcRate;
-    console.log('star', star);
+function FormComment({product = {} , onSubmit}) {
+    // const star = onSubmit.tbcRate;
+    // console.log('star', star);
     const {id} = useSelector(state => state.user.current);
-    const [comment, setComment] = useState();
-    const  handleSubmit = (values) => { 
-        // axios.post('https://localhost:5001/api/comment/new', {
-        //     ...values,
-        //     userId: id
-        //   })
-        //   .then(function (response) {
-        //     console.log(response);
-        //   })
-        //   .catch(function (error) {
-        //     console.log(error);
-        //   });     
-        (async () => {
+    // const [comment, setComment] = useState();
+    const  handleSubmit = async (values) => {  
+        
             try {
                 const result = await commentsApi.addComment(values)
-                setComment(result);
+                console.log('res', {result});
+                onSubmit(result);
             } catch (error) {
                 console.error('Failed to fetch product', error);
             }
-            
-        })()             
+                        
     }
    
    
@@ -91,19 +83,19 @@ function FormComment({product = {}, comments = {}}) {
     return (
         <Box>
             <Container>
-                <Grid item>
+                <Grid item >
                     <Box className={classes.root}>
                         <Box className={classes.left}>
                             <Box className={classes.title}>
                                 <h4>Trung bình cộng số sao</h4>
                             </Box>
                             <Box component="p" className={classes.rates}> 
-                                <span>{star}</span>
+                                {/* <span>{star}</span> */}
                                 <StarIcon className={classes.star}/>
                             </Box>
                         </Box>
                         <Box className={classes.right}>
-                            <FormRating onSubmit={handleSubmit} product={product}/>
+                            <FormRating  onSubmit={handleSubmit} product={product} />
                         </Box>
                     </Box>
                 </Grid>

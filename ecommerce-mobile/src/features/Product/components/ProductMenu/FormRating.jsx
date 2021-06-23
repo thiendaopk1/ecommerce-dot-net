@@ -53,16 +53,18 @@ function FormRating({product = {}, onSubmit}) {
             content: '',
            rate: value,
         },
+
+        
        
     });
-    console.log('123', form);
+    
+    
     const handleSubmitComment = async (values) => {  
         values.rate = value;
         values.productId = product.id;
-        
         if(onSubmit){
             await onSubmit(values);
-            // console.log('123', values);
+            console.log('123', values);
         }
 
            
@@ -92,7 +94,7 @@ function FormRating({product = {}, onSubmit}) {
             )}
             {isLoggedIn && (
                 <>
-                    <Button type="submit" variant="contained" color="primary" className={classes.button}>Bình luận</Button>
+                    <Button type="submit" variant="contained" color="primary" className={classes.button} >Bình luận</Button>
                 </>
             )}
             

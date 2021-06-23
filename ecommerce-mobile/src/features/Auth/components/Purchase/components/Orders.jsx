@@ -85,7 +85,9 @@ function Orders({orders}) {
     const [openComment, setOpenComment] = useState(false);
     const handleCloseComment = () => {
         setOpenComment(false);
-        
+      };
+    const handleClickOpenComment = () => {
+        setOpenComment(true);
       };
     const [cancel, setCancel] = useState();
     console.log('cancel', cancel);
@@ -132,9 +134,9 @@ function Orders({orders}) {
                                     <Button variant="contained" color="secondary" onClick={handleCancelOrder}>Hủy đơn hàng</Button>
                                 </>
                             )}
-                            {(status === "Hủy đơn hàng") && (
+                            {(status === "Đang tiếp nhận") && (
                                 <>
-                                    <Button variant="contained" color="secondary">Đánh giá</Button>
+                                    <Button variant="contained" color="secondary" onClick={handleClickOpenComment}>Đánh giá</Button>
                                 </>
                             )}
                                  
