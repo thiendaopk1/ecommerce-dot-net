@@ -34,7 +34,7 @@ const useStyles = makeStyles(theme => ({
 function Items({items}) {
     const classes = useStyles();
     const {priceAll, pricePerOne, productImg, productName, quatity} = items;
-    
+    console.log('items', items);
     return (
         <Box className={classes.root}>
             <Box className={classes.product}>

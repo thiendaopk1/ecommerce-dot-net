@@ -5,20 +5,17 @@ const brandsApi = {
         const url = '/product/brands';
         return axiosClient.get(url, {params: params});
     }, 
-    get(id){
-        const url = `/product/brands/${id}`;
-        return axiosClient.get(url);
-    },
+ 
     add(data){
-        const url = '/product/brands';
+        const url = '/product/brand';
         return axiosClient.post(url, data);
     }, 
-    update(data){
-        const url = `/product/brands/${data.id}`;
-        return axiosClient.patch(url, data);
+    edit(data){
+        const url = `/product/brand/${data.id}`;
+        return axiosClient.put(url, data);
     }, 
     remove(id){
-        const url = `/product/brands/${id}`;
+        const url = `/product/brand/${id}`;
         return axiosClient.delete(url);
     },
 };

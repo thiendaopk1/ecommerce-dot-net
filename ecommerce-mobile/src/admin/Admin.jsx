@@ -11,6 +11,7 @@ import UserList from './pages/userList/UserList';
 import Product from './pages/product/Product';
 import NewProduct from './pages/newProduct/NewProduct';
 import Categories from './pages/category/Categories'
+import EditBrands from './pages/category/component/editForm/EditBrands'
 import './Admin.css';
 
 Admin.propTypes = {
@@ -47,6 +48,9 @@ function Admin(props) {
           </Route>
           <Route path="/Admin/categories">
             <Categories />
+          </Route>
+          <Route path="/Admin/categories/edit-brand">
+            <EditBrands />
           </Route>
         </Switch>
       </div>
