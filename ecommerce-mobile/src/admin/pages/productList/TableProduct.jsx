@@ -17,7 +17,19 @@ function TableProduct({data}) {
     
     const columns = [
         { field: 'id', headerName: 'ID', width: 90},
-        { field: 'name', headerName: 'Product', width: 350 },
+        {
+          field: "product",
+          headerName: "Product",
+          width: 300,
+          renderCell: (params) => {
+            return (
+              <div className="productListItem">
+                <img className="productListImg" src={params.row.images[0].image} alt="" />
+                {params.row.name}
+              </div>
+            );
+          },
+        },
         { field: 'originalPrice', headerName: 'Original Price', width: 164 },
         { field: 'promotionPercents', headerName: 'Promotion Percents', width: 204 },
         { field: 'salePrice', headerName: 'Sale Price', width: 145 },
@@ -31,10 +43,10 @@ function TableProduct({data}) {
                   <Link to={"/Admin/product/" + params.row.id}>
                     <button className="productListEdit">Edit</button>
                   </Link>
-                  {/* <DeleteOutline
+                  <DeleteOutline
                     className="productListDelete"
-                    onClick={() => handleDelete(params.row.id)}
-                  /> */}
+                    // onClick={() => handleDelete(params.row.id)}
+                  />
                 </>
               );
             },
@@ -42,7 +54,7 @@ function TableProduct({data}) {
     ]
 
     return (
-        <div style={{ height: 500, width: '100%' }}>
+        <div style={{ height: 500, width: '100%',  }} >
             <Box style={{ height: 50, width: '100%',margin: '10px 10px'}}>
                 <Button>Them</Button>
             </Box>

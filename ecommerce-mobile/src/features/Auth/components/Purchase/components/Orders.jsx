@@ -81,14 +81,11 @@ const useStyles = makeStyles(theme => ({
 function Orders({orders}) {
     const classes = useStyles();
     const {status, date, lastPrice, paymentType, listItems,id } = orders;
-
+   
+    
     const [openComment, setOpenComment] = useState(false);
-    const handleCloseComment = () => {
-        setOpenComment(false);
-      };
-    const handleClickOpenComment = () => {
-        setOpenComment(true);
-      };
+
+
     const [cancel, setCancel] = useState();
     console.log('cancel', cancel);
     const handleCancelOrder = (e) => {
@@ -133,26 +130,13 @@ function Orders({orders}) {
                                 <>
                                     <Button variant="contained" color="secondary" onClick={handleCancelOrder}>Hủy đơn hàng</Button>
                                 </>
-                            )}
-                            {(status === "Đang tiếp nhận") && (
-                                <>
-                                    <Button variant="contained" color="secondary" onClick={handleClickOpenComment}>Đánh giá</Button>
-                                </>
-                            )}
-                                 
+                            )}   
                         </Box>
                     </Box>
                 </Grid>
                 
             </Container>
-            <Dialog disableBackdropClick disableEscapeKeyDown open={openComment} onClose={handleCloseComment} aria-labelledby="form-dialog-title">
-                <IconButton onClick={handleCloseComment} className={classes.closeButton}>
-                    <Close />
-                </IconButton>
-                <DialogContent>
-                    <FormComment closeDialog={handleCloseComment} />
-                </DialogContent>
-            </Dialog>
+            
         </Box>
        
     

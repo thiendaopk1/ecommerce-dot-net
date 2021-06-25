@@ -39,7 +39,10 @@ function ProductList() {
   
 
   return (
-    <TableProduct data ={productList}/>
+    <div style={{ height: 600, width: '100%',  }} >
+      <TableProduct data ={productList}/>
+    </div>
+    
   
   );
 }
