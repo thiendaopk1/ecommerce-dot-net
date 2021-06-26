@@ -6,19 +6,19 @@ const ramsApi = {
         return axiosClient.get(url, {params: params});
     }, 
     get(id){
-        const url = `/product/rams/${id}`;
+        const url = `/api/ram/${id}`;
         return axiosClient.get(url);
     },
     add(data){
-        const url = '/product/rams';
+        const url = '/api/ram';
         return axiosClient.post(url, data);
     }, 
     update(data){
-        const url = `/product/rams/${data.id}`;
+        const url = `/api/ram/${data.id}`;
         return axiosClient.patch(url, data);
     }, 
     remove(id){
-        const url = `/product/rams/${id}`;
+        const url = `/api/ram/${id}`;
         return axiosClient.delete(url);
     },
 };

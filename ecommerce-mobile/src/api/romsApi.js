@@ -6,19 +6,19 @@ const romsApi = {
         return axiosClient.get(url, {params: params});
     }, 
     get(id){
-        const url = `/product/roms/${id}`;
+        const url = `/api/rom/${id}`;
         return axiosClient.get(url);
     },
     add(data){
-        const url = '/product/roms';
+        const url = '/api/rom';
         return axiosClient.post(url, data);
     }, 
     update(data){
-        const url = `/product/roms/${data.id}`;
+        const url = `/api/rom/${data.id}`;
         return axiosClient.patch(url, data);
     }, 
     remove(id){
-        const url = `/product/roms/${id}`;
+        const url = `/api/rom/${id}`;
         return axiosClient.delete(url);
     },
 };

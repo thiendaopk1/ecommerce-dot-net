@@ -55,7 +55,7 @@ function Rams(props) {
     ]
     return (
         <div style={{ height: 320, marginTop: '30px' }}>
-            <Button style={{marginTop: '30px', marginBottom: '10px'}}>Them</Button>
+            <Button style={{marginTop: '30px', marginBottom: '10px',color:'#fff',background:'red'}}>Thêm mới</Button>
             <DataGrid rows={data} columns={columns} pageSize={4}  checkboxSelection />
         </div>
     );

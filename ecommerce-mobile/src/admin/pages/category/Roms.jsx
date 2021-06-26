@@ -56,7 +56,7 @@ function Roms(props) {
     ]
     return (
         <div style={{ height: 320 }}>
-            <Button style={{margin: '10px 10px'}}>Them</Button>
+            <Button style={{margin: '10px 10px',color:'#fff',background:'red'}}>Thêm mới</Button>
             <DataGrid rows={data} columns={columns} pageSize={4}  checkboxSelection />
         </div>
     );

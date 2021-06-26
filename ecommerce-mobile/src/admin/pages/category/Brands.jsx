@@ -4,7 +4,7 @@ import { useSnackbar } from 'notistack';
 import brandsApi from '../../../api/brandsApi';
 import { DataGrid } from '@material-ui/data-grid';
 import { DeleteOutline } from "@material-ui/icons";
-import { Button } from '@material-ui/core';
+import { Button, Link } from '@material-ui/core';
 Brands.propTypes = {
     
 };
@@ -39,9 +39,9 @@ function Brands(props) {
             renderCell: (params) => {
               return (
                 <>
-                  {/* <Link to={"/Admin/product/" + params.row.id}> */}
+                  <Link to={"/Admin/brand/"+ params.row.id}>
                     <button className="productListEdit">Edit</button>
-                  {/* </Link> */}
+                  </Link>
                   <DeleteOutline
                     className="productListDelete"
                     onClick={() => handleDelete(params.row.id)}
@@ -52,8 +52,8 @@ function Brands(props) {
           },
     ]
     return (
-        <div style={{ height: 500, width: '50%' }}>
-            <Button style={{margin: '10px 10px'}}>Them</Button>
+        <div style={{ height: 692, width: '50%' }}>
+            <Button style={{margin: '10px 10px',color:'#fff',background:'red'}}>Thêm mới</Button>
             <DataGrid rows={data} columns={columns} pageSize={10}  checkboxSelection />
         </div>
     );

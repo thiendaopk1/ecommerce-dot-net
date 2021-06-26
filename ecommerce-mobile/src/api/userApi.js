@@ -38,8 +38,8 @@ const userApi={
         return axiosClient.get(url,{params: params});
     },
     blockUser(id){
-        const url = 'api/admin/users/blocked';
-        return axiosClient.post(url,{id:id});
+        const url = 'api/admin/users/blocked/'+id;
+        return axiosClient.put(url,{userID:id});
     },
 };
 

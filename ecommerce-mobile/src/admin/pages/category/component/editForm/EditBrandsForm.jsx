@@ -12,6 +12,7 @@ EditBrandsForm.propTypes = {
 };
 
 function EditBrandsForm(props) {
+
     const schema = yup.object().shape({
         name: yup.string().required('please enter brand name').test('should has at least two words', 'please enter at least two words',(value) => {
             return value.split(' ').length>=2;
