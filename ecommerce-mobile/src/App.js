@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
+import Admin from './admin/Admin';
 import './App.css';
 import Footer from './component/footer';
 import Header from './component/Header';
@@ -9,6 +10,7 @@ import UserInfo from './features/Auth/components/userInfo';
 import ProductHome from './features/HomePageProduct/components';
 import ShoppingCartFeature from './features/ShoppingCart';
 import CheckOut from './features/ShoppingCart/components/CheckOut';
+import PaymentSuccess from './features/ShoppingCart/components/CheckOut/PaymentSuccess';
 
 
 function App() {
@@ -19,10 +21,12 @@ function App() {
       {/* <Breadcrumb /> */}
       <Switch >
         <Route path="/" component={ProductHome} exact />
-        <Route path="/user-info" component={UserInfo} exact />
+        <Route path="/user-info" component={UserInfo} />
         <Route path="/products" component={ProductFeature} />
         <Route path="/cart" component={ShoppingCartFeature} />
         <Route path="/checkout" component={CheckOut}/>
+        <Route path="/payment-success" component={PaymentSuccess}/>
+        <Route path="/Admin" component={Admin}/>
       </Switch>
       <Footer />
     </div>

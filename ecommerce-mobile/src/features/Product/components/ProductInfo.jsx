@@ -12,26 +12,24 @@ import { keys } from '@material-ui/core/styles/createBreakpoints';
 
 ProductInfo.propTypes = {
     product: PropTypes.object,
+    comments: PropTypes.object,
 }
 
 
 
-function ProductInfo({product = {}, selected, setSelected}) {
-    console.log({product})
+function ProductInfo({product = {},comments = {} }) {
+
     const classes = ProductDetailStyles();
-    const { name, specifics } = product;
-    // console.log(specifics)
-
-
-    // const handleOnChange = (e) => {
-    //     setColor(e.target.value);
-    // }
-    const handleClickItem = (value,index) => {
-        console.log(value);
-        setSelected(index);
-        
-    }
+    const { name,ram,rom } = product;
+   
+    const [value, setValue] = useState();
   
+    
+    console.log('value1', value);
+    useEffect(() => {
+        setValue(comments.tbcRate)
+    }, [comments])
+        
     return (
         <Box>
             <Box className={classes.nameProduct}>
@@ -39,8 +37,8 @@ function ProductInfo({product = {}, selected, setSelected}) {
                     {name}
                 </Typography>
                 <Box component="span" >
-                    <Rating name="read-only" value={3}  readOnly className={classes.rate}/>
-                    <Typography variant="p" className={classes.comment}>5 đánh giá</Typography>
+                    <Rating name="half-rating-read" value={value} precision={0.1} readOnly className={classes.rate}/>
+                    <Typography variant="p" className={classes.comment}>{comments.tongCmt} đánh giá</Typography>
                 </Box>
             </Box>
             <Box mt={1}>
@@ -50,13 +48,10 @@ function ProductInfo({product = {}, selected, setSelected}) {
             </Box>
             
              <Box mt={2} >
-                <Typography component="span" className={classes.titleColor}>Màu sắc:</Typography>
-                <Box component="ul" className={classes.colors}>
-                    {specifics &&  specifics.map((specific,index)  => (
-                        <SpecificItem specific={specific} onClick={handleClickItem} index={index} selected={selected === index} />
-                    ))}
-                </Box>
-                
+                <Typography className={classes.titleColor}>Ram:</Typography>
+                <Typography  className={classes.colors}>{ram?.ram}</Typography>
+                <Typography className={classes.titleColor}>Rom:</Typography>
+                <Typography  className={classes.colors}>{rom?.ram}</Typography>
             </Box>
             <Box className={classes.promotionWapper}>
                 <Box component="b" className={classes.promotionHeader}>

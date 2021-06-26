@@ -1,5 +1,5 @@
 import { Box, Container, Grid, makeStyles, Paper } from '@material-ui/core';
-import React from 'react';
+import React, { useState } from 'react';
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
 import ProductInfo from '../components/ProductInfo';
 import ProductThumbnail from '../components/ProductThumbnail';
@@ -11,7 +11,7 @@ import ProductDescription from '../components/ProductMenu/ProductDescription';
 import ProductInfomation from '../components/ProductMenu/ProductInfomation';
 import ProductReview from '../components/ProductMenu/ProductReview';
 import ProductContentCenter from '../components/ProductContentCenter';
-
+import "react-responsive-carousel/lib/styles/carousel.css";
 
 DetailPage.propTypes = {
     
@@ -46,9 +46,10 @@ function DetailPage() {
     const { params: { productId }, url } = useRouteMatch();
 
     const { product, loading} = useProductDetail(productId);
-
+    const [comment, setComment] = useState();
    
-    
+   //
+    // set value product
     return (
         <Box>
             <Container>
@@ -67,7 +68,6 @@ function DetailPage() {
                     </Grid>
                 </Paper>
                 <ProductMenu />
-
                 <Switch>
                     <Paper elevation={0} style={{ padding : '20px'}}>
                         <Grid item>
@@ -83,7 +83,9 @@ function DetailPage() {
                         </Grid>
                         
                         <Grid item>
-                            <Route exact path={`${url}/review`} component={ProductReview}/>
+                            <Route exact path={`${url}/review`}>
+                                <ProductReview product={product}  commented={comment}/>
+                            </Route>
                         </Grid>
                     </Paper>
                     

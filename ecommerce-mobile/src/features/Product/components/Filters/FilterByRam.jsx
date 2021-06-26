@@ -20,7 +20,6 @@ function FilterByRam({onChange}) {
                 setRamList(list.map((x) => ({
                     id: x.id,
                     ram: x.ram
-                    
                 }))
                 );
             } catch (error) {

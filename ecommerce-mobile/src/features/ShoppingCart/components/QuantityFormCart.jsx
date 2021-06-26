@@ -32,10 +32,7 @@ const useStyles = makeStyles((theme) => ({
 function QuantityFormCart({quantityItem,id, onChange = null}) {
     
     const classes = useStyles();
-    const schema = yup.object().shape({
-        quantity: yup.number().required('làm ơn nhập').min(1, 'Tối thiểu là 1 sản phẩm').typeError('Làm ơn nhập số'),
-      });
-    // console.log('quantity', quantityItem);
+    
     const handleOnChange = async (values) => {
         if(onChange){
             await onChange(values);
@@ -43,12 +40,11 @@ function QuantityFormCart({quantityItem,id, onChange = null}) {
     }
     const form = useForm({
         defaultValues:{
+            
             quantity:quantityItem,  
         },
-        // onChange:{
-        //      quantity:handleOnChange,
-        // },
-        resolver: yupResolver(schema),
+        
+       
        
     });
     // console.log('onchange', onChange);

@@ -28,6 +28,19 @@ const userApi={
         const url = 'users/reset-pass';
         return axiosClient.post(url,data);
     },
+    doiMatKhau(data){
+        // path den api doi mat khau
+        const url = 'users/update-pass';
+        return axiosClient.post(url,data);
+    },
+    getAll(params){
+        const url = 'api/admin/users'
+        return axiosClient.get(url,{params: params});
+    },
+    blockUser(id){
+        const url = 'api/admin/users/blocked';
+        return axiosClient.post(url,{id:id});
+    },
 };
 
 export default userApi;

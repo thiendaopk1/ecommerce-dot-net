@@ -1,15 +1,11 @@
-import { yupResolver } from '@hookform/resolvers/yup';
-import { Avatar, Button, Collapse, Grid, List, ListItem, ListItemText, ListSubheader, makeStyles, TextField } from '@material-ui/core';
-import { ExpandLess, ExpandMore } from '@material-ui/icons';
-import { unwrapResult } from '@reduxjs/toolkit';
-import { useSnackbar } from 'notistack';
-import PropTypes from 'prop-types';
+import { Avatar, Collapse, Grid, List, ListItem, ListItemText, ListSubheader, makeStyles } from '@material-ui/core';
 import React from 'react';
-import { useForm } from 'react-hook-form';
-import { useDispatch, useSelector } from 'react-redux';
-import * as yup from 'yup';
-import { updateUser } from '../../userSlice';
-import UpdateForm from './form';
+import { useSelector } from 'react-redux';
+import { Route, useRouteMatch } from 'react-router';
+import { NavLink } from 'react-router-dom';
+import DoiMatKhau from '../DoiMatKhau';
+import UserInfomation from './userInfo';
+import Purchase from '../Purchase/index'
 const useStyles = makeStyles((theme) => ({
     root: {
         maxWidth: 1232,
@@ -25,10 +21,10 @@ const useStyles = makeStyles((theme) => ({
     large: {
         width: '60%',
         height: '50%',
-        margin:'6% 3% 2% 6%',
+        margin: '6% 3% 2% 6%',
     },
-    ten:{
-        marginLeft:'13%',
+    ten: {
+        marginLeft: '13%',
     },
     menu: {
         width: '100%',
@@ -38,48 +34,26 @@ const useStyles = makeStyles((theme) => ({
     nested: {
         paddingLeft: theme.spacing(4),
     },
-    left:{
-        width:'20%',
+    left: {
+        width: '20%',
     },
     right: {
         flex: '1 1 0',
-        background: '#fff',
+        // background: '#fff',
         borderRadius: 6,
-    },
-    title: {
-        borderBottom: 'solid 1px #efefef',
-        padding: '2% 0 2% 1%',
-        margin: 0,
-    },
-    text:{
-        width:'60%',
-        margin:'3% 0 0 3%',
-    },
-    info:{
-        marginTop:'2%',
     },
 }));
 UserInfo.propTypes = {
-    onSubmit: PropTypes.func,
 };
-function UserInfo(props) {
-    const classes = useStyles();
+function UserInfo() {
     const loggedInUser = useSelector(state => state.user.current);
+    const classes = useStyles();
     const [open, setOpen] = React.useState(false);
-    const dispath = useDispatch();
-    const { enqueueSnackbar } = useSnackbar();
-    const handleSubmit = async (values) =>{
-        try {
-            //auto set username = email
-            values.id = loggedInUser.id;
-            const action = updateUser(values);
-            const resultAction = await dispath(action)
-            const user = unwrapResult(resultAction)
-            enqueueSnackbar('Update successfully', {variant: 'success'});
-        } catch (error) {
-            enqueueSnackbar(error.message, {variant: 'error'});
-        }
-    };
+
+    const {url} = useRouteMatch();
+    const handleClickPurchase = () => {
+
+    }
     return (
         <div className={classes.root}>
             <Grid container spacing={1}>
@@ -89,37 +63,34 @@ function UserInfo(props) {
                             <ListSubheader component="div" id="nested-list-subheader">
                                 <div>
                                     <Avatar style={{ float: 'left', margin: '5% 3% 0 2%' }} alt="Remy Sharp" src="/static/images/avatar/1.jpg" className={classes.small} />
-                            {loggedInUser.fullName}
-                            </div>
+                                    {loggedInUser.fullName}
+                                </div>
                             </ListSubheader>
                         }
                         className={classes.menu}
                     >
                         <ListItem button>
-                            {/* <ListItemIcon>
-          <SendIcon />
-        </ListItemIcon> */}
+                            <NavLink to={url} >
                             <ListItemText primary="Thông tin cá nhân" />
+                            </NavLink>
                         </ListItem>
                         <ListItem button>
-                            {/* <ListItemIcon>
-          <DraftsIcon />
-        </ListItemIcon> */}
+                            <NavLink to={`${url}/change-pass`} >
                             <ListItemText primary="Đổi mật khẩu" />
+                            </NavLink>
                         </ListItem>
                         <ListItem button>
-                            {/* <ListItemIcon>
-          <InboxIcon />
-        </ListItemIcon> */}
-                            <ListItemText primary="Đơn hàng của tôi" />
-                            {open ? <ExpandLess /> : <ExpandMore />}
+                            <NavLink to={`${url}/orders-manage`} >
+                                <ListItemText primary="Đơn hàng của tôi" />
+                            </NavLink>
+                            {/* {open ? <ExpandLess /> : <ExpandMore />} */}
                         </ListItem>
                         <Collapse in={open} timeout="auto" unmountOnExit>
                             <List component="div" disablePadding>
                                 <ListItem button className={classes.nested}>
                                     {/* <ListItemIcon>
-              <StarBorder />
-            </ListItemIcon> */}
+                                        <StarBorder />
+                                         </ListItemIcon> */}
                                     <ListItemText primary="Starred" />
                                 </ListItem>
                             </List>
@@ -127,14 +98,9 @@ function UserInfo(props) {
                     </List>
                 </Grid>
                 <Grid item className={classes.right}>
-                    <h2 className={classes.title}>Thông tin của bạn</h2>
-                    <Grid container>
-                        <Grid item className={classes.left}>
-                            <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" className={classes.large} />
-                            <p className={classes.ten}>{loggedInUser.fullName}</p>
-                        </Grid>
-                        <UpdateForm onSubmit={handleSubmit} />
-                    </Grid>
+                <Route path="/user-info" component={UserInfomation} exact/>
+                <Route path="/user-info/change-pass" component={DoiMatKhau} exact/>
+                <Route path="/user-info/orders-manage" component={Purchase} exact/>
                 </Grid>
             </Grid>
         </div>

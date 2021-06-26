@@ -1,15 +1,12 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import * as yup from  'yup';
-import { yupResolver } from '@hookform/resolvers/yup'
-import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup';
 import { Avatar, Button, Checkbox, FormControlLabel, Grid, LinearProgress, makeStyles, Typography } from '@material-ui/core';
 import LockOutlined from '@material-ui/icons/LockOpenOutlined';
-import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { useForm } from 'react-hook-form';
+import * as yup from 'yup';
 import InputField from '../../../../component/Form-control/InputField';
 import PasswordField from '../../../../component/Form-control/passwordField';
-import { Close } from '@material-ui/icons';
-import ForgotPassword from '../forgotpassword';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -59,8 +56,8 @@ function LoginForm(props) {
     const classes = useStyles();
     const schema = yup.object().shape({
         email: yup.string().required('please enter your email').email('please enter a valid email address'),
-       password: yup.string().required('please enter your password')
-       .matches("(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}",'Password must contain at least 8 characters, including upper case letters, lower case letters, numbers and a special character'),
+    //    password: yup.string().required('please enter your password')
+    //    .matches("(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{4,}",'Password must contain at least 8 characters, including upper case letters, lower case letters, numbers and a special character'),
     });
     const form = useForm({
         defaultValues:{

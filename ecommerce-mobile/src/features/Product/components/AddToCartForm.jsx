@@ -1,12 +1,16 @@
 
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Box, Button, makeStyles } from '@material-ui/core';
+import { Box, Button, Dialog, makeStyles, DialogContent, IconButton } from '@material-ui/core';
+import { Close } from '@material-ui/icons';
 import PropTypes from 'prop-types';
-import { default as React} from 'react';
+import { default as React, useState} from 'react';
 import { useForm } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router';
 import * as yup from 'yup';
 import InputField from '../../../component/Form-control/InputField';
 import QuantityField from '../../../component/Form-control/QuantityField';
+import Login from '../../Auth/components/login';
 
 AddToCartForm.propTypes = {
     onSubmit: PropTypes.func,
@@ -28,6 +32,22 @@ const useStyles = makeStyles((theme) => ({
     
 }));
 function AddToCartForm({onSubmit = null }) {
+    //check isLogin
+  const loggedInUser = useSelector(state => state.user.current);
+  const isLoggedIn = !!loggedInUser.id;
+  const history = useHistory();
+  const dispatch = useDispatch();
+  // form dang nhap
+  const [openLogin, setOpenLogin] = useState(false);
+  // form dang nhap
+  const handleClickOpenLogin = () => {
+    setOpenLogin(true);
+
+  };
+
+  const handleCloseLogin = () => {
+    setOpenLogin(false);
+  };
     const classes = useStyles();
     const schema = yup.object().shape({
         quantity: yup.number().required('làm ơn nhập').min(1, 'Tối thiểu là 1 sản phẩm').typeError('Làm ơn nhập số'),
@@ -35,30 +55,52 @@ function AddToCartForm({onSubmit = null }) {
     const form = useForm({
         defaultValues:{
             quantity:1,
-            
         },
         resolver: yupResolver(schema),
     });
 
     const handleSubmit = async (values) => {
-        if(onSubmit){
-          await onSubmit(values);
+        if(!isLoggedIn){
+            return;
+        }else{
+            if(onSubmit){
+                await onSubmit(values);
+              }
         }
 
     };
     return (
-        <form onSubmit={form.handleSubmit(handleSubmit)} >
+        <Box>
+            <form onSubmit={form.handleSubmit(handleSubmit)} >
             <Box className={classes.form}>
                 <QuantityField name="quantity" label="Quantity" form={form}  />
-                   
-                <Button type="submit" variant="contained" color="primary" size="large" className={classes.button}>
-                    Mua ngay
-                </Button>
-
-            </Box>
-            
-        
+                {!isLoggedIn && (
+                    <>
+                        <Button type="submit" variant="contained" color="primary" size="large" className={classes.button} onClick={handleClickOpenLogin}>
+                            Mua ngay
+                        </Button>
+                    </>
+                )}
+                {isLoggedIn && (
+                    <>
+                        <Button type="submit" variant="contained" color="primary" size="large" className={classes.button}>
+                             Mua ngay
+                        </Button>
+                    </>
+                    
+                )}
+            </Box>        
         </form>
+        <Dialog disableBackdropClick disableEscapeKeyDown open={openLogin} onClose={handleCloseLogin} aria-labelledby="form-dialog-title">
+                <IconButton onClick={handleCloseLogin} className={classes.closeButton}>
+                    <Close />
+                </IconButton>
+                <DialogContent>
+                    <Login closeDialog={handleCloseLogin} />
+                </DialogContent>
+            </Dialog> 
+        </Box>
+        
     );
 }
 

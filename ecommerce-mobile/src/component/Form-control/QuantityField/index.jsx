@@ -1,4 +1,4 @@
-import { Box, FormControl, FormHelperText, IconButton, InputLabel, makeStyles, OutlinedInput, Typography } from '@material-ui/core';
+import { Box, FormControl, FormHelperText, IconButton, makeStyles, OutlinedInput, Typography } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 import PropTypes from 'prop-types';

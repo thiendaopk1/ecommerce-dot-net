@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { cartTotalCountSelectors } from './selectors';
 import { useDispatch, useSelector } from 'react-redux';
 import { Box, Button, Container, Dialog, DialogContent, Grid, IconButton, makeStyles, Paper, Typography } from '@material-ui/core';
 // import ProductItem from './components/ProductItem';
 import ProductItem from './components/ProductItem';
-import { Close, ContactSupportOutlined } from '@material-ui/icons';
+
 import { useHistory } from 'react-router';
-import Login from '../Auth/components/login';
+
 import { cartItemsCountSelectors } from './selectors';
 import { removeAll } from './cartSlice';
 import  img  from '../../images/cartEmpty.png';
@@ -30,6 +30,10 @@ const useStyles = makeStyles((theme) => ({
 
     bottom: {
         marginTop: '10px',
+        display: 'flex',
+        flexFlow: 'row nowrap',
+        overflow: 'hidden',
+        textTransform: 'capitalize',
     },
 
     header: {
@@ -111,34 +115,54 @@ const useStyles = makeStyles((theme) => ({
         height: '50px'
     },
 
+    removeAll: {
+        width: '65%',
+        marginTop: '17px',
+        // background: 'red'
+        // display: 'block',
+    },
+
+    sum: {
+        display: 'flex',
+        flexFlow: 'row nowrap',
+        marginRight: '50px'
+        
+    },
+
+    titleSumPrices: {
+        color: 'grey',
+        fontWeight: '600',
+        fontSize: '18px',
+        padding: '16px 0px',
+        
+        
+
+    },
+
+    sumPrices: {
+     marginTop: '17px',
+        color: 'red',
+        fontWeight: '600',
+        fontSize: '18px',
+        marginLeft: '5px'
+    },
+
 
      
 }));
-const cartEmpty1 = !localStorage.getItem("cart");
+//
+// const cartEmpty1 = localStorage.getItem("cart");
 // console.log('alo',cartEmpty1);
 function ShoppingCartFeature(props) {
     //check isLogin
-  const loggedInUser = useSelector(state => state.user.current);
-  const isLoggedIn = !!loggedInUser.id;
+ 
   const history = useHistory();
   const dispatch = useDispatch();
-  // form dang nhap
-  const [openLogin, setOpenLogin] = useState(false);
-  // form dang nhap
-  const handleClickOpenLogin = () => {
-    setOpenLogin(true);
-    history.push('/checkout');
-  };
-
-  const handleCloseLogin = () => {
-    setOpenLogin(false);
-  };
+  
 
     const products = useSelector((state) => {
         return state.cart.cartItems
     })
-
-    console.log(products);
 
     const handleClickCheckout = () => {
         history.push('/checkout');
@@ -155,10 +179,11 @@ function ShoppingCartFeature(props) {
     const cartItemsCount = useSelector(cartItemsCountSelectors);
     const cartTotal = useSelector(cartTotalCountSelectors);
     const classes = useStyles();
+    // console.log(cartEmpty1);
     return (
         <Box>
             <Container>
-                {cartEmpty1 && (
+                {(products.length === 0) && (
                     <>
                         <Container className={classes.container}>
                             <Box className={classes.box}>
@@ -174,79 +199,63 @@ function ShoppingCartFeature(props) {
                         </Container>
                     </>
                 )}
-                {!cartEmpty1 && (
+                {(products.length !== 0) && (
                     <>
                         <Grid item className={classes.top} >
-                    <Paper elevation={0} mt={2}>
-                        <Box className={classes.header}>
-                            <Box className={classes.sp}>
-                                Sản Phẩm
-                            </Box>
-                            <Box className={classes.dg}>
-                                Đơn Giá
-                            </Box>
-                            <Box className={classes.sl}>
-                                Số Lượng
-                            </Box>
-                            <Box className={classes.st}>
-                                Số Tiền
-                            </Box>
-                            <Box className={classes.tt}>
-                                Thao tác
-                            </Box>
-                        </Box>
-                    </Paper>
-                </Grid>
-                <Grid item className={classes.center}>
-                    <Paper elevation={0}>
-                        <ProductItem spi={products}/>
-                    </Paper>
-                    
-                </Grid>
-                <Grid item className={classes.bottom}> 
-                    <Paper elevation={0}>
-                        <Box>
-                            <Box>
-                                <a onClick={handleRemoveAll}>
-                                    Xóa tất cả
-                                </a>
-                               
-                            </Box>
-                            <Box>
-                                <Box>
-                                    Tổng thanh toán
+                            <Paper elevation={0} mt={2}>
+                                <Box className={classes.header}>
+                                    <Box className={classes.sp}>
+                                        Sản Phẩm
+                                    </Box>
+                                    <Box className={classes.dg}>
+                                        Đơn Giá
+                                    </Box>
+                                    <Box className={classes.sl}>
+                                        Số Lượng
+                                    </Box>
+                                    <Box className={classes.st}>
+                                        Số Tiền
+                                    </Box>
+                                    <Box className={classes.tt}>
+                                        Thao tác
+                                    </Box>
                                 </Box>
-                                <Box>
-                                    {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(cartTotal)}
-                                </Box>
-                                </Box>
+                            </Paper>
+                        </Grid>
+                        <Grid item className={classes.center}>
+                            <Paper elevation={0}>
+                                <ProductItem spi={products}/>
+                            </Paper>
                             
-                            {!isLoggedIn && (
-                                <>
-                                    <Button onClick={handleClickOpenLogin}>Check Out</Button>
-                                </>
-                            )}
-                            {isLoggedIn && (
-                                <>
-                                    <Button onClick={handleClickCheckout}>Check Out</Button>
-                                </>
-                            )}
+                        </Grid>
+                        <Grid item > 
+                            <Paper elevation={0}>
+                                <Box className={classes.bottom}>
+                                    <Box className={classes.removeAll}>
+                                        <Button onClick={handleRemoveAll} color="primary">
+                                            Xóa tất cả
+                                        </Button>
+                                    </Box>
+                                    <Box className={classes.sum}>
+                                        <Box className={classes.titleSumPrices}>
+                                            Tổng thanh toán
+                                        </Box>
+                                        <Box className={classes.sumPrices}>
+                                            {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(cartTotal)}
+                                        </Box>
+                                        </Box>
                                 
-                        </Box>
-                    </Paper>
-                </Grid>
+                                        <Button onClick={handleClickCheckout} variant="contained" color="secondary" style={{ height:'32px', marginTop: '14px'}}>Check Out</Button>
+                                
+                                        
+                                </Box>
+                            </Paper>
+                        </Grid>
                     </>
                 )}
                 
             </Container>
-            <Dialog disableBackdropClick disableEscapeKeyDown open={openLogin} onClose={handleCloseLogin} aria-labelledby="form-dialog-title">
-                <IconButton onClick={handleCloseLogin} className={classes.closeButton}>
-                    <Close />
-                </IconButton>
-                <DialogContent>
-                    <Login closeDialog={handleCloseLogin} />
-                </DialogContent>
-            </Dialog>
+            
             
         </Box>
     );

@@ -1,11 +1,17 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Box, Container, Grid, makeStyles } from '@material-ui/core';
 import FormRating from './FormRating';
 import StarIcon from '@material-ui/icons/Star';
+import commentsApi from '../../../../api/commentsApi';
+import axios from 'axios';
+import { useSelector } from 'react-redux';
 
 FormComment.propTypes = {
-    
+    product: PropTypes.object,
+    // setComments: PropTypes.func,
+    // comments: PropTypes.object,
+    onSubmit: PropTypes.func,
 };
 const useStyles = makeStyles(theme => ({
     root: {
@@ -51,26 +57,45 @@ const useStyles = makeStyles(theme => ({
     },
 
     
+    
 
 }))
-function FormComment(props) {
+
+function FormComment({product = {} , onSubmit}) {
+    // const star = onSubmit.tbcRate;
+    // console.log('star', star);
+    const {id} = useSelector(state => state.user.current);
+    // const [comment, setComment] = useState();
+    const  handleSubmit = async (values) => {  
+        console.log({values});
+            try {
+                const result = await commentsApi.addComment(values)
+                console.log('res', result);
+                onSubmit(result);
+            } catch (error) {
+                console.error('Failed to fetch product', error);
+            }
+                        
+    }
+   
+   
     const classes = useStyles();
     return (
         <Box>
             <Container>
-                <Grid item>
+                <Grid item >
                     <Box className={classes.root}>
                         <Box className={classes.left}>
                             <Box className={classes.title}>
-                                <h4> Tổng số sao</h4>
+                                <h4>Trung bình cộng số sao</h4>
                             </Box>
                             <Box component="p" className={classes.rates}> 
-                                <span>1</span>
+                                {/* <span>{star}</span> */}
                                 <StarIcon className={classes.star}/>
                             </Box>
                         </Box>
                         <Box className={classes.right}>
-                            <FormRating />
+                            <FormRating  onSubmit={handleSubmit} product={product} />
                         </Box>
                     </Box>
                 </Grid>

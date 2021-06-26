@@ -1,42 +1,37 @@
-import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import { Box } from '@material-ui/core';
-import FormRating from './FormRating';
+import React, { useEffect, useState } from 'react';
 import Comment from './Comment';
 import FormComment from './FormComment';
-import commentsApi from '../../../../api/commentsApi';
+import PropTypes from 'prop-types';
 
 ProductReview.propTypes = {
-    
+    product: PropTypes.object,
+    onSubmit: PropTypes.func,
 };
-function ProductReview(props) {
+function ProductReview({product = {}, onSubmit}) {
+    const [comments, setComments] = useState([]);
+    
 
-    const handleSubmitReview = () => {
-
-    }
-    const [commentList, setCommentList] = useState([]);
     useEffect(() => {
-        (async () => {
-            try {
-                const list = await commentsApi.get();
-                setCommentList(list.map((x) => ({
-                    id: x.id,
-                    listCommentByProduct: x.listCommentByProduct,
-                }))
-                );
-            } catch (error) {
-              console.log(error);  
-            }
-        })();
-    },[]);
+        if(product.commentResponse)
+            setComments(product.commentResponse.listCommentByProduct)
+    }, [product])
+    
+    console.log('comments',comments);
+
+    const handleSubmitReview = (value) => {
+        
+        setComments(value.listCommentByProduct)
+    }
+    console.log('alo alo ', comments);
     return (
         <Box>
             <Box>
-                <FormComment />
+                <FormComment product={product} comments={comments} onSubmit={handleSubmitReview}/>
             </Box>
             
             <Box>
-                <Comment />
+                <Comment comments={comments} />
             </Box>
             
         </Box>

@@ -1,9 +1,10 @@
 import { Box, Container, Grid, makeStyles, Typography } from '@material-ui/core';
 import Rating from '@material-ui/lab/Rating';
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
 Comment.propTypes = {
-    
+    comments: PropTypes.array,
 };
 const useStyles = makeStyles(theme => ({
     root: {
@@ -40,26 +41,30 @@ const useStyles = makeStyles(theme => ({
 
     },
 }));
-function Comment(props) {
-    const [value, setValue] = useState(2);
-    
+function Comment({comments = []}) {
+ 
     const classes = useStyles();
-   
+//    console.log('aloalo',comments);
     return (
         <Box>
             <Container>
                 
-                <Grid item className={classes.root}>
-                    <Box className={classes.header}>
-                        <Typography className={classes.username}>
-                            Nguyễn văn a
-                        </Typography>
-                        || Ngày 31/2/2021
-                    </Box>
-                    <Box className={classes.footer}>
-                        <Rating name="read-only" value={value} readOnly mr={2} className={classes.rate}/>
-                        <Typography className={classes.content}>Sản phẩm chất lượng, giao hàng nhanh</Typography>
-                    </Box>
+                <Grid item >
+                    {comments && comments.map((listCommentByProducts) => (
+                        <Box key={listCommentByProducts.id} className={classes.root}>
+                            <Box className={classes.header}>
+                                <Typography className={classes.username}>
+                                    {listCommentByProducts.userID}
+                                </Typography>
+                                || {listCommentByProducts.createdDate}
+                            </Box>
+                            <Box className={classes.footer}>
+                                <Rating name="read-only" value={listCommentByProducts.rate} readOnly mr={2} className={classes.rate}/>
+                                <Typography className={classes.content}>{listCommentByProducts.content}</Typography>
+                            </Box>
+                        </Box>
+                    ))}
+                    
                 </Grid>
             </Container>
         </Box>

@@ -1,4 +1,4 @@
-import { Badge, Box, fade, Menu, MenuItem, withStyles } from '@material-ui/core';
+import { Badge, Box, fade, Menu, MenuItem } from '@material-ui/core';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -13,18 +13,22 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
+import cartApi from '../../api/cartApi';
 import ChangePassword from '../../features/Auth/components/changePassword';
 import ForgotPassword from '../../features/Auth/components/forgotpassword';
 import Login from '../../features/Auth/components/login';
 import Register from '../../features/Auth/components/Register';
 import { logout } from '../../features/Auth/userSlice';
+import { removeAll } from '../../features/ShoppingCart/cartSlice';
 import { cartItemsCountSelectors } from '../../features/ShoppingCart/selectors';
 import SearchForm from '../search';
 import Hang from './Hang';
 
+
 const useStyles = makeStyles((theme) => ({
   root: {
     // flexGrow: 1,
+
     maxWidth: 1232,
     margin: 'auto',
     height:116,
@@ -32,7 +36,12 @@ const useStyles = makeStyles((theme) => ({
   header: {
     background: '#cd1817',
     position:'fixed',
+    // maxWidth: '100%',
     maxWidth: 1232,
+  },
+  toolbar:{
+    maxWidth:1232,
+    // left:'3%',
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -92,16 +101,18 @@ const useStyles = makeStyles((theme) => ({
   },
   hang: {
     background: '#fff',
+    // left:'3%',
+    // maxWidth:1232,
   },
 }));
-const StyledBadge = withStyles((theme) => ({
-  badge: {
-    right: -3,
-    top: 13,
-    border: `2px solid ${theme.palette.background.paper}`,
-    padding: '0 4px',
-  },
-}))(Badge);
+// const StyledBadge = withStyles((theme) => ({
+//   badge: {
+//     right: -3,
+//     top: 13,
+//     border: `2px solid ${theme.palette.background.paper}`,
+//     padding: '0 4px',
+//   },
+// }))(Badge);
 
 const MODE = {
   LOGIN: 'login',
@@ -176,10 +187,24 @@ const handleCloseChangePass = () => {
     setAnchorEl(e.currentTarget);
   };
   //logOut
+  // const [cart, setCart] = useState({});
+  const data1 = JSON.parse(localStorage.getItem("cart"));
+ 
   const handleLogoutClick = () => {
-    const action = logout();
-    dispatch(action);
-    handleCloseMenuUser();
+    (async () =>{
+      try {      
+            const thien={"cartItems": data1};
+            const list = await cartApi.add(thien);
+            const action = logout();
+            const action1 = removeAll();
+            dispatch(action1);
+            dispatch(action);
+            handleCloseMenuUser();
+   
+      } catch (error) {
+          console.log(error);
+      }
+  })();
   };
 
   const classes = useStyles();
@@ -195,41 +220,42 @@ const handleCloseChangePass = () => {
   };
   const hang3 = {
     id: 3,
-    name: "iphone",
-    img: "https://images.fpt.shop/unsafe/fit-in/108x40/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2020/8/26/637340490193124614_iPhone-Apple@2x.jpg",
+    name: "huawei",
+    img: "https://images.fpt.shop/unsafe/fit-in/108x40/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2020/8/26/637340494667486283_Huawei@2x.jpg",
   };
   const hang4 = {
     id: 4,
-    name: "oppo",
-    img: "https://images.fpt.shop/unsafe/fit-in/108x40/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2020/8/26/637340491304997311_Oppo@2x.jpg",
+    name: "realme",
+    img: "https://images.fpt.shop/unsafe/fit-in/108x40/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2020/8/26/637340491898745716_Realme@2x.jpg",
   };
   const hang5 = {
     id: 5,
-    name: "realme",
-    img: "https://images.fpt.shop/unsafe/fit-in/108x40/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2020/8/26/637340491898745716_Realme@2x.jpg",
+    name: "oppo",
+    img: "https://images.fpt.shop/unsafe/fit-in/108x40/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2020/8/26/637340491304997311_Oppo@2x.jpg",
   };
   const hang6 = {
     id: 6,
     name: "vinsmart",
     img: "https://images.fpt.shop/unsafe/fit-in/108x40/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2020/8/26/637340491898901930_Vsmart@2x.jpg",
   };
-  const hang7 = {
-    id: 7,
+  const hang8 = {
+    id: 8,
+    name: "iphone",
+    img: "https://images.fpt.shop/unsafe/fit-in/108x40/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2020/8/26/637340490193124614_iPhone-Apple@2x.jpg",
+  };
+  const hang9 = {
+    id: 9,
     name: "nokia",
     img: "https://images.fpt.shop/unsafe/fit-in/108x40/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2020/8/26/637340493755614653_Nokia@2x.jpg",
   };
-  const hang8 = {
-    id: 8,
-    name: "huawei",
-    img: "https://images.fpt.shop/unsafe/fit-in/108x40/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2020/8/26/637340494667486283_Huawei@2x.jpg",
-  };
+  
 
-  const data = [hang, hang2, hang3, hang4, hang5, hang6, hang7, hang8];
+  const data = [hang, hang2, hang3, hang4, hang5, hang6, hang8,hang9];
 
   return (
     <div className={classes.root}>
       <AppBar position="static" className={classes.header}>
-        <Toolbar>
+        <Toolbar className={classes.toolbar}>
           <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
             <MenuIcon />
           </IconButton>
@@ -237,13 +263,26 @@ const handleCloseChangePass = () => {
             <Link className={classes.link} to="/"> Ecommerce-mobile</Link>
           </Typography>
           {/* search */}
+  
+            <SearchForm />
+
           
-          <SearchForm />
           <Box>
           <IconButton aria-label="cart">
-            <Badge badgeContent={cartItemsCount} color="secondary" onClick={handleClickCart}>
-              <ShoppingCartIcon className={classes.cartIcon} />
-            </Badge>
+            {!isLoggedIn && (
+              <>
+                <Badge badgeContent={cartItemsCount} color="secondary" onClick={handleClickOpenLogin}>
+                  <ShoppingCartIcon className={classes.cartIcon} />
+                </Badge>
+              </>
+            )}
+            {isLoggedIn && (
+              <>
+                <Badge badgeContent={cartItemsCount} color="secondary" onClick={handleClickCart}>
+                  <ShoppingCartIcon className={classes.cartIcon} />
+                </Badge>
+              </>
+            )} 
           </IconButton>
           {!isLoggedIn && (
             <>
@@ -263,8 +302,8 @@ const handleCloseChangePass = () => {
           </Box>
         </Toolbar>
         <div className={classes.hang} >
-          {data.map((hang) => (
-            <Hang hang={hang} />
+          {data.map((hang) => (       
+              <Hang hang={hang} />
           ))}
         </div>
       </AppBar>
@@ -284,8 +323,11 @@ const handleCloseChangePass = () => {
         getContentAnchorEl={null}
       >
         {/* <MenuItem onClick={handleCloseMenuUser}>Profile</MenuItem> */}
-        <a className={classes.link} href="/user-info" ><MenuItem onClick={handleCloseMenuUser}>My account</MenuItem></a>
+        <Link className={classes.link} to="/user-info" ><MenuItem onClick={handleCloseMenuUser}>My account</MenuItem></Link>
         <MenuItem onClick={handleLogoutClick}>Logout</MenuItem>
+        {isLoggedIn&&loggedInUser.userRoles[0].role.name=='ADMIN'&&(
+          <Link className={classes.link} to="/admin" ><MenuItem onClick={handleCloseMenuUser}>Admin Manager</MenuItem></Link>
+        )}
       </Menu>
       {/* form sign up */}
       <Dialog disableBackdropClick disableEscapeKeyDown open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
@@ -293,27 +335,18 @@ const handleCloseChangePass = () => {
           <Close />
         </IconButton>
         <DialogContent>
-          {mode == MODE.REGISTER && (
+          {mode === MODE.REGISTER && (
             <>
               <Register closeDialog={handleClose} />
-              {/* <Box textAlign="center">
-                <Button color="primary" onClick={() => setMode(MODE.LOGIN)}>
-                  Already have an account. Login here?
-              </Button>
-              </Box> */}
+              
             </>
           )}
-          {mode == MODE.LOGIN && (
+          {mode === MODE.LOGIN && (
             <>
               <Login closeDialog={handleClose} />
-              {/* <Box textAlign="center">
-                <Button color="primary" onClick={() => setMode(MODE.REGISTER)}>
-                  Don't have an account. Register here?
-              </Button>
-              </Box> */}
+             
             </>
           )}
-          {/* <Login closeDialog={handleClose}/> */}
         </DialogContent>
       </Dialog>
       {/* form login */}
