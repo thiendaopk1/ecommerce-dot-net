@@ -13,6 +13,7 @@ const useStyles = makeStyles((theme) => ({
         width: '11%',
         height: '8%',
     },
+   
 }));
 
 function Hang({ hang }) {
