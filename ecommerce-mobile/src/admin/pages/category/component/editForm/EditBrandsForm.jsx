@@ -9,32 +9,31 @@ import InputField from '../../../../../component/Form-control/InputField';
 EditBrandsForm.propTypes = {
     closeDialog: PropTypes.func,
     onsubmit: PropTypes.func,
+    brand: PropTypes.object, 
 };
 
 function EditBrandsForm(props) {
-
+    const brand = props.brand;
     const schema = yup.object().shape({
-        name: yup.string().required('please enter brand name').test('should has at least two words', 'please enter at least two words',(value) => {
-            return value.split(' ').length>=2;
-        }),
+        name: yup.string().required('please enter brand name'),
     });
 
     const form = useForm({
         defaultValues:{
-            name:'',  
+            name:brand.name,  
         },
         resolver: yupResolver(schema),
     });
-
+    form.setValue('name',brand.name);
     const handleSubmit = async (value) => {
         const onSubmit1 = props.onSubmit;
         await onSubmit1(value);
     }
     return (
-        <form onSubmit={form.handleSubmit(handleSubmit)}>
+        <form style={{maxWidth:'50%',margin:'auto'}} onSubmit={form.handleSubmit(handleSubmit)}>
+            <h1 style={{textAlign:'center',color:'red'}}>Edit brands</h1>
             <InputField name="name" label="Name" form={form} />
             <Button type="submit" variant="contained" color="primary" fullWidth>Edit</Button>
-
         </form>
     );
 }

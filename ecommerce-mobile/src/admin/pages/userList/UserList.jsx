@@ -31,8 +31,7 @@ function UserList() {
   };
   const handleBlock=async(id)=>{
           try {
-              const rp1 = await userApi.blockUser(id);
-                        const rp = await userApi.getAll();
+              const rp = await userApi.blockUser(id);
                         setData(rp.map((x) => ({
                             id: x.id,
                             username: x.fullname,
