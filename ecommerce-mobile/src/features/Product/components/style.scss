@@ -1,0 +1,16 @@
+.product-image {
+	transition: all 0.3s ease-out;
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+	height: 290px;
+    weight: 230px;
+    left: 0;
+    right: 0;
+	display: inline-block;
+}
+
+// #container img {width: 100%;height: 100%;}
+
+.product-image:hover img {transition: all 0.3s ease-out;}
+.product-image:hover img {transform: scale(1.2, 1.2);}

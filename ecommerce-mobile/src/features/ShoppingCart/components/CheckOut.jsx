@@ -179,6 +179,7 @@ function CheckOut(props) {
     const handleSubmit =async (value) =>{
             try {
                 if(ship === 'cod'){
+                    console.log('ship',ship);
                     const data = {
                         fullname:value.fullname,
                         phone:value.phone,
@@ -188,7 +189,7 @@ function CheckOut(props) {
                         cartItems: products ,
                         urlReturn: 'http://localhost:3000/payment-success' 
                     }
-                         const list = await ordersApi.add(data);
+                         const list = await ordersApi.addCod(data);
                          const action = removeAll();
                          dispatch(action);
                          histtory.push('/payment-success');

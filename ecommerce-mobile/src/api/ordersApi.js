@@ -10,6 +10,10 @@ const ordersApi = {
     add(data){
         const url = '/api/order';
         return axiosClient.post(url, data);
+    },
+    addCod(data){
+        const url = '/api/order/cod';
+        return axiosClient.post(url, data);
     }, 
     cancel(id){
         const url = `/users/orders-manage/deny/${id}`;
