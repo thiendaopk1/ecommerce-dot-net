@@ -9,7 +9,7 @@ import ProductList from './pages/productList/ProductList';
 import User from './pages/user/User';
 import UserList from './pages/userList/UserList';
 import Product from './pages/product/Product';
-import NewProduct from './pages/newProduct/NewProduct';
+import ProductNew from './pages/newProduct/ProductNew';
 import Categories from './pages/category/Categories';
 import EditBrands from './pages/category/component/editForm/EditBrands';
 import EditRams from './pages/category/component/editForm/EditRams';
@@ -18,6 +18,7 @@ import NewBrands from './pages/category/component/newCategories/NewBrands';
 import './Admin.css';
 import NewRams from './pages/category/component/newCategories/NewRams';
 import NewRoms from './pages/category/component/newCategories/NewRoms';
+// import NewProduct from './pages/product/components/NewProduct'
 
 Admin.propTypes = {
   
@@ -49,7 +50,7 @@ function Admin(props) {
             <Product />
           </Route>
           <Route path="/Admin/newproduct">
-            <NewProduct />
+            <ProductNew />
           </Route>
           <Route path="/Admin/categories" exact>
             <Categories />
@@ -72,6 +73,9 @@ function Admin(props) {
           <Route path="/Admin/categories/new-rom" exact>
             <NewRoms />
           </Route>
+          {/* <Route path="/Admin/categories/new-product" exact>
+            <NewProduct />
+          </Route> */}
         </Switch>
       </div>
     </div>

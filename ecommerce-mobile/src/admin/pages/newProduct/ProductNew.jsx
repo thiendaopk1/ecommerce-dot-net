@@ -1,30 +1,25 @@
 import { Link, useHistory, useLocation, useRouteMatch } from "react-router-dom";
-import "../../pages/product/product.css";
-import {productData} from "../../dummyData"
-import { Publish } from "@material-ui/icons";
-import Chart from "../../components/chart/Chart";
-import useProductDetail from '../../components/hook/useProductDetail'
+// import "../../pages/product/product.css";
+
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Box, Paper } from "@material-ui/core";
-import EditProduct from "./components/EditProduct";
+import NewProduct from "./NewProduct";
 import brandsApi from "../../../api/brandsApi";
 import romsApi from "../../../api/romsApi";
 import ramsApi from "../../../api/ramsApi";
-import productApi from "../../../api/productApi"; 
+import productApi from '../../../api/productApi';
+
 import { useSnackbar } from "notistack";
 
-Product.propTypes = {
+ProductNew.propTypes = {
     
 };
 
-function Product() {
+function ProductNew() {
     const { enqueueSnackbar } = useSnackbar();
-    const { params: {productId}, url } = useRouteMatch();
-    const {product} = useProductDetail(productId);
    
-    const [prdct, setPrdct] = useState(product)
-    console.log('prdct',prdct);
+    
     //categories
     
     const [brands, setBrands] = useState([])
@@ -41,7 +36,7 @@ function Product() {
                 console.log(error);
             }
         })();
-    },[product])
+    },[])
     useEffect(() => {
         (async () => {
             try {
@@ -51,7 +46,7 @@ function Product() {
                 console.log(error);
             }
         })();
-    },[product])
+    },[])
     useEffect(() => {
         (async () => {
             try {
@@ -61,7 +56,7 @@ function Product() {
                 console.log(error);
             }
         })();
-    },[product])
+    },[])
 
     const handleSubmitBrand = (value) => {
         brands.push(value);
@@ -79,10 +74,9 @@ function Product() {
         
     }
     
-    const handleSubmitEdit = async(value) => {
+    const handleSubmitNew = async(value) => {
         try {
-            value.id=productId;
-            const res = await productApi.edit(value);
+            const res = await productApi.add(value);
             console.log('edit res', res);
             enqueueSnackbar('Edit product thành công', {variant: 'success'});
         } catch (error) {
@@ -92,19 +86,17 @@ function Product() {
 
     return (
         <Box style={{ height: 1500, width: '100%',  }}>
-            <Paper elevation={0}>
-                {product.id &&                    
-                    <EditProduct product={product} brands={brands} roms={roms} rams={rams} 
+            <Paper elevation={0}>                 
+                    <NewProduct  brands={brands} roms={roms} rams={rams} 
                     onSubmit1={handleSubmitBrand}
                     onSubmit2={handleSubmitRom}
                     onSubmit3={handleSubmitRam}
-                    onSubmitEdit={handleSubmitEdit}
-                    />                    
-                }
+                    onSubmitNew={handleSubmitNew}
+                    />                     
                 
             </Paper>
         </Box>
     );
 }
 
-export default Product;
+export default ProductNew;

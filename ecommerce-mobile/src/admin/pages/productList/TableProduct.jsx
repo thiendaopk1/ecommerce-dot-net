@@ -3,7 +3,7 @@ import { DataGrid } from "@material-ui/data-grid";
 import PropTypes from 'prop-types';
 import { DeleteOutline } from "@material-ui/icons";
 import { productRows } from "../../dummyData";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useHistory, useLocation, useRouteMatch } from "react-router-dom";
 import { useEffect, useMemo, useState } from "react";
 import { Box, Button } from "@material-ui/core";
 
@@ -14,7 +14,13 @@ TableProduct.defaultProps = {
     data: [],
 }
 function TableProduct({data}) {
-    
+  const history = useHistory();
+  const location = useLocation();
+  const match = useRouteMatch();
+
+  const handleNewProduct = () => {
+      history.push('/Admin/newproduct');
+  };
     const columns = [
         { field: 'id', headerName: 'ID', width: 90},
         {
@@ -56,7 +62,7 @@ function TableProduct({data}) {
     return (
         <div style={{ height: 500, width: '100%',  }} >
             <Box style={{ height: 50, width: '100%',margin: '10px 10px'}}>
-                <Button>Them</Button>
+                <Button onClick={handleNewProduct}>Them</Button>
             </Box>
             <DataGrid rows={data} columns={columns} pageSize={7} checkboxSelection />
         </div>

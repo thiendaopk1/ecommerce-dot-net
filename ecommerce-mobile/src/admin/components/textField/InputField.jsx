@@ -14,7 +14,7 @@ InputField.propTypes = {
 const useStyles = makeStyles((theme) => ({
     root:{
         width: '280px',
-        
+        // height: '100px'
         
     }
 }))
@@ -30,11 +30,10 @@ function InputField(props) {
         as={TextField}
         className={classes.root}
         margin = "normal"
-        // variant="outlined"
+        variant="outlined"
         fullWidth
         label={label}
         disabled={disabled}
-        
         error={!!hasError}
         helperText={errors[name]?.message}
         />
