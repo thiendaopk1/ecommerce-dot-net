@@ -33,6 +33,10 @@ const productApi = {
         const url = '/product';
         return axiosClient.post(url, data);
     }, 
+    edit(data){
+        const url = `/product/${data.id}`;
+        return axiosClient.put(url, data);
+    },
     update(data){
         const url = `/product/${data.id}`;
         return axiosClient.patch(url, data);
