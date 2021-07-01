@@ -9,10 +9,16 @@ import ProductList from './pages/productList/ProductList';
 import User from './pages/user/User';
 import UserList from './pages/userList/UserList';
 import Product from './pages/product/Product';
-import NewProduct from './pages/newProduct/NewProduct';
-import Categories from './pages/category/Categories'
-import EditBrands from './pages/category/component/editForm/EditBrands'
+import ProductNew from './pages/newProduct/ProductNew';
+import Categories from './pages/category/Categories';
+import EditBrands from './pages/category/component/editForm/EditBrands';
+import EditRams from './pages/category/component/editForm/EditRams';
+import EditRoms from './pages/category/component/editForm/EditRoms';
+import NewBrands from './pages/category/component/newCategories/NewBrands';
 import './Admin.css';
+import NewRams from './pages/category/component/newCategories/NewRams';
+import NewRoms from './pages/category/component/newCategories/NewRoms';
+// import NewProduct from './pages/product/components/NewProduct'
 
 Admin.propTypes = {
   
@@ -44,14 +50,32 @@ function Admin(props) {
             <Product />
           </Route>
           <Route path="/Admin/newproduct">
-            <NewProduct />
+            <ProductNew />
           </Route>
-          <Route path="/Admin/categories">
+          <Route path="/Admin/categories" exact>
             <Categories />
           </Route>
-          <Route path="/Admin/categories/edit-brand">
+          <Route path="/Admin/categories/edit-brand/:brandId" exact>
             <EditBrands />
           </Route>
+          <Route path="/Admin/categories/new-brand" exact>
+            <NewBrands />
+          </Route>
+          <Route path="/Admin/categories/edit-ram/:ramId" exact>
+            <EditRams />
+          </Route>
+          <Route path="/Admin/categories/new-ram" exact>
+            <NewRams />
+          </Route>
+          <Route path="/Admin/categories/edit-rom/:romId" exact>
+            <EditRoms />
+          </Route>
+          <Route path="/Admin/categories/new-rom" exact>
+            <NewRoms />
+          </Route>
+          {/* <Route path="/Admin/categories/new-product" exact>
+            <NewProduct />
+          </Route> */}
         </Switch>
       </div>
     </div>

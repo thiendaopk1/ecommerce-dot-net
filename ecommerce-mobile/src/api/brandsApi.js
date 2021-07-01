@@ -7,16 +7,20 @@ const brandsApi = {
     }, 
  
     add(data){
-        const url = '/product/brand';
+        const url = '/api/brand';
         return axiosClient.post(url, data);
     }, 
     edit(data){
-        const url = `/product/brand/${data.id}`;
+        const url = `/api/brand/${data.id}`;
         return axiosClient.put(url, data);
     }, 
     remove(id){
-        const url = `/product/brand/${id}`;
+        const url = `/api/brand/${id}`;
         return axiosClient.delete(url);
+    },
+    get(id){
+        const url = `/api/brand/${id}`;
+        return axiosClient.get(url);
     },
 };
 

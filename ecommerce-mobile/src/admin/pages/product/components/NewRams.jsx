@@ -1,17 +1,16 @@
 import { Box, Button } from '@material-ui/core';
-import { useSnackbar } from 'notistack';
 import React from 'react';
-import ramsApi from '../../../../../api/ramsApi';
-import InputField from '../../../../../component/Form-control/InputField';
+import InputField from '../../../components/textField/InputField';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
+import PropTypes from 'prop-types';
 NewRams.propTypes = {
-    
+    onSubmit3: PropTypes.func,
 };
 
-function NewRams(props) {
-    const { enqueueSnackbar } = useSnackbar();
+function NewRams({onSubmit3}) {
+    
     const schema = yup.object().shape({
         ram: yup.string().required('please enter ram capacity'),
     });
@@ -23,12 +22,9 @@ function NewRams(props) {
         resolver: yupResolver(schema),
     });
     const handleSubmit = async (value) => {
-            try {
-                const res = await ramsApi.add(value);
-                enqueueSnackbar('add ram success!', {variant: 'success'});
-            } catch (error) {
-                enqueueSnackbar(error.message, {variant: 'error'});
-            }
+        if(onSubmit3){
+            await onSubmit3(value);
+        }
     };
     return (
         <Box style={{width:'100%'}}>

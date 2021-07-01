@@ -1,17 +1,16 @@
-import { yupResolver } from '@hookform/resolvers/yup';
 import { Box, Button } from '@material-ui/core';
-import { useSnackbar } from 'notistack';
 import React from 'react';
-import { useForm } from 'react-hook-form';
+import InputField from '../../../components/textField/InputField';
 import * as yup from 'yup';
-import romsApi from '../../../../../api/romsApi';
-import InputField from '../../../../../component/Form-control/InputField';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useForm } from 'react-hook-form';
+import PropTypes from 'prop-types';
 NewRoms.propTypes = {
-    
+    onSubmit2: PropTypes.func,
 };
 
-function NewRoms(props) {
-    const { enqueueSnackbar } = useSnackbar();
+function NewRoms({onSubmit2}) {
+    
     const schema = yup.object().shape({
         rom: yup.string().required('please enter rom capacity'),
     });
@@ -23,12 +22,9 @@ function NewRoms(props) {
         resolver: yupResolver(schema),
     });
     const handleSubmit = async (value) => {
-            try {
-                const res = await romsApi.add(value);
-                enqueueSnackbar('Blocked success!', {variant: 'success'});
-            } catch (error) {
-                enqueueSnackbar(error.message, {variant: 'error'});
-            }
+        if(onSubmit2){
+            await onSubmit2(value);
+        }
     };
     return (
         <Box style={{width:'100%'}}>

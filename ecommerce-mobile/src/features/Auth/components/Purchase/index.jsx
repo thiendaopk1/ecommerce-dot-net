@@ -23,7 +23,9 @@ function Purchase(props) {
                 const rp = await ordersApi.getAll();
                 setOrdersList(rp.map((x) => ({
                     id: x.id,
-                    status: x.status,
+                    status: 
+                        x.status.statusString
+                    ,
                     date: x.date,
                     paymentType: x.paymentType,
                     lastPrice: x.lastPrice,

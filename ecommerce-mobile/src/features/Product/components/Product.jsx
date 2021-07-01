@@ -1,9 +1,11 @@
 import { Box, Button, Typography } from '@material-ui/core';
 import Rating from '@material-ui/lab/Rating';
+import classNames from 'classnames';
 // import { STATIC_HOST, THUMBNAIL_PLACEHOLDER } from 'constants/index';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import ProductStyles from './ProductStyles';
+import './style.scss';
 // import { useHistory } from 'react-router';
 // import {}
 // import img from '../../../images/tagSale.png';
@@ -29,11 +31,13 @@ function Product({product}) {
     
     return (
         <Box padding={1} className={classes.root}>
-            <Box className={classes.image}>
+            <Box className={classes.image,classNames("product-image")}>
                 
                 <Typography component="span" className={classes.percent}>-{product.promotionPercents}%</Typography>
-                <img src={product.images[0]?.image} alt={product.name} width="100%" height="100%" />
-            </Box>
+                <Box >
+                    <img src={product.images[0]?.image} alt={product.name} width="100%" height="100%"  />
+                </Box>
+                </Box>
             <Box className={classes.name}>
                 <Typography component="span"  padding={1}>{product.name}</Typography>
             </Box>

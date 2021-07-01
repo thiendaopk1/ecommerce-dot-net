@@ -1,12 +1,8 @@
-import "../../pages/userList/userList.css";
 import { DataGrid } from "@material-ui/data-grid";
-import { DeleteOutline } from "@material-ui/icons";
-import { userRows } from "../../dummyData";
-import { Link } from "react-router-dom";
+import { useSnackbar } from "notistack";
 import { useEffect, useState } from "react";
 import userApi from "../../../api/userApi";
-import { green } from "@material-ui/core/colors";
-import { useSnackbar } from "notistack";
+import "../../pages/userList/userList.css";
 
 function UserList() {
   const { enqueueSnackbar } = useSnackbar();
@@ -21,8 +17,8 @@ function UserList() {
                 email: x.email,
                 address: x.address,
                 phone: x.phone,
-                status: x.blocked==0?'active':'block',
-                blocked:x.blocked,
+                status: x.active==1?'active':'block',
+                blocked:x.active,
 
             })));
         } catch (error) {
@@ -36,18 +32,18 @@ function UserList() {
   const handleBlock=async(id)=>{
           try {
               const rp = await userApi.blockUser(id);
-              setData(rp.map((x) => ({
-                  id: x.id,
-                  username: x.fullname,
-                  email: x.email,
-                  address: x.address,
-                  phone: x.phone,
-                  status: x.active==0?'active':'block',
-                  blocked:x.active,
-  
-              })));
+                        setData(rp.map((x) => ({
+                            id: x.id,
+                            username: x.fullname,
+                            email: x.email,
+                            address: x.address,
+                            phone: x.phone,
+                            status: x.active==1?'active':'block',
+                            blocked:x.active,
+                        })));
               enqueueSnackbar('Blocked success!', {variant: 'success'});
-              console.log(rp);
+              console.log(data);
+                 
           } catch (error) {
             enqueueSnackbar(error.message, {variant: 'error'});
           }
@@ -57,7 +53,7 @@ function UserList() {
     {
       field: "user",
       headerName: "User",
-      width: 150,
+      width: 140,
       renderCell: (params) => {
         return (
           <div className="userListUser">
@@ -86,10 +82,10 @@ function UserList() {
       renderCell: (params) => {
         return (
           <>
-          {params.row.blocked==0&&(
+          {params.row.blocked==1&&(
               <div style={{color:'green'}}>active</div>
             )}
-             {params.row.blocked==1&&(
+             {params.row.blocked==0&&(
               <div style={{color:'red'}}>lock</div>
             )}
           </>
@@ -99,14 +95,14 @@ function UserList() {
     {
       field: "action",
       headerName: "Action",
-      width: 160,
+      width: 120,
       renderCell: (params) => {
         return (
           <>
-          {params.row.blocked==0&&(
+          {params.row.blocked==1&&(
               <button className="userListEdit" onClick={()=>handleBlock(params.row.id)}>lock</button>
             )}
-             {params.row.blocked==1&&(
+             {params.row.blocked==0&&(
               <button className="userListBlock" onClick={()=>handleBlock(params.row.id)}>unlock</button>
             )}
             {/* <DeleteOutline

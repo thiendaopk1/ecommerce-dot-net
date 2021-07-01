@@ -1,18 +1,16 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import InputField from '../../../../../component/Form-control/InputField';
-import { Box, Button } from '@material-ui/core';
-import { useSnackbar } from 'notistack';
 import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
+import { Box, Button } from '@material-ui/core';
+import PropTypes from 'prop-types';
+import React from 'react';
 import { useForm } from 'react-hook-form';
-import brandsApi from '../../../../../api/brandsApi';
+import * as yup from 'yup';
+import InputField from '../../../components/textField/InputField';
 NewBrands.propTypes = {
-    
+    onSubmit1: PropTypes.func,
 };
 
-function NewBrands(props) {
-    const { enqueueSnackbar } = useSnackbar();
+function NewBrands({onSubmit1}) {
+    
     const schema = yup.object().shape({
         name: yup.string().required('please enter ram name'),
     });
@@ -24,12 +22,11 @@ function NewBrands(props) {
         resolver: yupResolver(schema),
     });
     const handleSubmit = async (value) => {
-            try {
-                const res = await brandsApi.add(value);
-                enqueueSnackbar('Blocked success!', {variant: 'success'});
-            } catch (error) {
-                enqueueSnackbar(error.message, {variant: 'error'});
-            }
+        
+        if(onSubmit1){
+            await onSubmit1(value);
+            console.log('123', value);
+        }
     };
     return (
         <Box style={{width:'100%'}}>

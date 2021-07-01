@@ -13,7 +13,8 @@ InputField.propTypes = {
 };
 const useStyles = makeStyles((theme) => ({
     root:{
-        width: '250px',
+        width: '280px',
+        // height: '100px'
         
     }
 }))
@@ -33,7 +34,6 @@ function InputField(props) {
         fullWidth
         label={label}
         disabled={disabled}
-
         error={!!hasError}
         helperText={errors[name]?.message}
         />

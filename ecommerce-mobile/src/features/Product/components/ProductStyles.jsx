@@ -4,11 +4,7 @@ import img from '../../../images/tagSale.png';
 const ProductStyles = makeStyles(() => ({
     root: {
 
-      '&:hover ':{
-          cursor: "pointer",
-          border: "1px solid  red",
-        
-      },
+      
     },
 
     button:{
@@ -45,7 +41,8 @@ const ProductStyles = makeStyles(() => ({
         height: "290px",
         left: "0",
         right: "0",
-        position: "relative",
+        // position: "relative",
+
     },
 
     percent: {
@@ -67,7 +64,12 @@ const ProductStyles = makeStyles(() => ({
 
         //tagSale
         backgroundImage: `url(${img})`,
-
+        // '&:hover>img':{
+        //     transition: 'all 0.3s ease-out'
+        // },
+        // '&:hover>img':{
+        //     transition: 'scale(1.2, 1.2)'
+        // },
 
     },
    
