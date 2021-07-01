@@ -120,7 +120,7 @@ function EditProduct({product = {},roms,rams,brands,onSubmit}) {
         try {
             const res = await brandsApi.add(value);
             console.log('edit res', res);
-            onSubmit(res)
+            onSubmit(res);
             enqueueSnackbar('Thêm brand thành công', {variant: 'success'});
         } catch (error) {
             enqueueSnackbar(error.message, {variant: 'error'});
