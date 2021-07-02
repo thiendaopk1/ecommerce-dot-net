@@ -109,7 +109,7 @@ function Orders({orders}) {
                             <Typography >Hình thức thanh toán: {paymentType}</Typography>
                         </Box>
                         <Box className={classes.status}>
-                            <Typography className={classes.statuss}>{status}</Typography>
+                            <Typography className={classes.statuss}>{status.statusString}</Typography>
                         </Box>                        
                     </Box>
                 </Grid>
@@ -126,7 +126,7 @@ function Orders({orders}) {
                             <Typography className={classes.totalPrice}>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(lastPrice)}</Typography>
                         </Box >
                         <Box className={classes.btn1}>
-                            {(status === "Đang tiếp nhận" && "Đang vận chuyển") && (
+                            {(status.statusString === "Đang tiếp nhận" && "Đang vận chuyển") && (
                                 <>
                                     <Button variant="contained" color="secondary" onClick={handleCancelOrder}>Hủy đơn hàng</Button>
                                 </>

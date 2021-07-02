@@ -51,8 +51,8 @@ function Purchase(props) {
                 const rp=await ordersApi.getAll(params2);
                 const {data, pagination} = rp;
                 console.log("data",data);
-                // console.log("pagi", pagination);
-                setOrdersList(data);
+                console.log("pagi", pagination);
+                setOrdersList(rp.data);
                 
                 setPagination(pagination);
             } catch (error) {
