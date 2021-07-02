@@ -5,7 +5,8 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useLocation} from 'react-router';
 import { useHistory } from 'react-router-dom';
 import productApi from '../../api/productApi';
-
+import FormSearch from './FormSearch';
+import ProductsSearch from './ProductsSearch';
 SearchForm.propTypes = {
     
 };
@@ -25,78 +26,58 @@ const useStyles = makeStyles((theme) => ({
 function SearchForm(props) {
     const classes = useStyles();
     const [products, setProducts] = useState([]);
+    const [pagination, setPagination] = useState({
+        limit: 12,
+        total: 10,
+        page: 1,
+    });
     const history = useHistory();
     console.log(products.id);
     const location = useLocation();
-    const queryParams = useMemo(() => {
-        const params = queryString.parse(location.search);
-
-        return {
-            ...params,
-            _limit: 253,
-           
-        };
-    }, [location.search]);
+    const [filters, setFilters] = useState({
+        _limit: 10,
+        _page: 1,
+    })
     
     useEffect(() => {
-       (async () => {
-        try {
-            const params2={...queryParams};
-            const rp=await productApi.getAll(params2);
-            const {data} = rp;
-            console.log("thien2",data);
-         
-            setProducts(data);
-          
-        } catch (error) {
-            console.log('failed');
-        }
-        
-       })();
-    },[])
-    // for(var i =0; i <= products.length; i++){
-    //     const image = products[i].images[0].image;
-    // }
-   
-    const handleOnChange = (event,value,reason) => {
-        // console.log('reason',reason);
-       
-        if(reason === 'clear'){
-            return;
+        (async () => {
+            try{
+                const paramsString=queryString.stringify(filters);
+                console.log("param",paramsString);
+                const rp=await productApi.getAll(paramsString);
+                const {data, pagination} = rp;
+                // console.log("data",data);
+                console.log("pagi", pagination);
+                
+                setProducts(data)
+                setPagination(pagination);
+            }
+            catch(error){
+                console.log('failed');
+            }
             
-        }else{
-            history.push(`/products/${value.id}`)
-        }
-        
-        
-    };
+        })();
+    }, [filters]);
+    
+
+    const handleFiltersChange = (newFilters) => {
+        console.log('New Filters:', newFilters);
+        setFilters(
+            {
+                ...filters,
+                _page: 1,
+                title_like: newFilters.searchTerm,
+            }
+        )
+
+    }
+
 // const match = useRouteMatch();
     return (
     
         <div className={classes.root}>
-          <Autocomplete
-              size='small'
-              id="free-solo-demo"
-              freeSolo
-              options={products.map((product) => (product))}
-              getOptionLabel={options => options.name}
-              onChange={handleOnChange}
-              renderInput={(params) => (
-                    
-                    <TextField
-                        className={classes.search}
-                        {...params}
-                        placeholder="Tìm kiếm"
-                        margin="normal"
-                        variant="outlined"   
-                    >
-                      
-                    </TextField>
-          
-              )}
-            
-          />
-        
+            <FormSearch onSubmit={handleFiltersChange}/>
+            <ProductsSearch data={products}/>
         </div>
         
     );

@@ -34,13 +34,15 @@ const useStyles = makeStyles((theme) => ({
     height:116,
   },
   header: {
-    background: '#cd1817',
+    background: '#ffff',
     position:'fixed',
     // maxWidth: '100%',
     maxWidth: 1232,
+    borderBottom: '3px solid #000'
   },
   toolbar:{
     maxWidth:1232,
+    borderBottom: '0.5px solid #6e6e6e'
     // left:'3%',
   },
   menuButton: {
@@ -48,6 +50,18 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     flexGrow: 2,
+    display: 'flex',
+    flexFlow: 'row nowrap'
+   
+  },
+  shop:{
+    margin: '10px',
+    padding: '10px'
+  },
+  home:{
+    margin: '10px',
+    padding: '10px'
+  
   },
   link: {
     color: '#545454',
@@ -60,7 +74,7 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.grey[500],
   },
   cartIcon: {
-    color: '#fff',
+    color: '#6e6e6e',
   },
   search: {
     position: 'relative',
@@ -256,15 +270,19 @@ const handleCloseChangePass = () => {
     <div className={classes.root}>
       <AppBar position="static" className={classes.header}>
         <Toolbar className={classes.toolbar}>
-          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" className={classes.title}>
-            <Link className={classes.link} to="/"> Ecommerce-mobile</Link>
-          </Typography>
+          
+          
           {/* search */}
-  
+          <Box className={classes.title}>
+            <Typography variant="h6" className={classes.home}>
+              <Link className={classes.link} to="/">HOME</Link>
+            </Typography>
+            <Typography variant="h6" className={classes.shop}>
+              <Link className={classes.link} to="/products">SHOP</Link>
+            </Typography>
             <SearchForm />
+          </Box>
+          
 
           
           <Box>
@@ -287,12 +305,12 @@ const handleCloseChangePass = () => {
           {!isLoggedIn && (
             <>
 
-              <Button color="inherit" onClick={handleClickOpenLogin}>Login</Button>
-              <Button color="inherit" onClick={handleClickOpen}>Register</Button>
+              <Button color="#6e6e6e" onClick={handleClickOpenLogin}>Login</Button>
+              <Button color="#6e6e6e" onClick={handleClickOpen}>Register</Button>
             </>
           )}
           {isLoggedIn && (
-            <IconButton color="inherit" onClick={handleUserClick}>
+            <IconButton color="#6e6e6e" onClick={handleUserClick}>
               <AccountCircle />
               <div>
                 {loggedInUser.fullName}
