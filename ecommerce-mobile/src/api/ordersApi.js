@@ -4,7 +4,7 @@ import axiosClient from './axiosClient';
 const ordersApi = {
     
     getAll(params){
-        const url ='/users/orders-manage';
+        const url ='/users/orders';
         return axiosClient.get(url, {params: params});
     }, 
     add(data){
@@ -23,5 +23,10 @@ const ordersApi = {
         const url = `/api/order${id}`;
         return axiosClient.delete(url);
     },
+    get(id){
+        const url = `/users/orders-manage/status/${id}`;
+        return axiosClient.get(url);
+    }
+
 };
 export default ordersApi;

@@ -7,7 +7,7 @@ import ordersApi from '../../../../../api/ordersApi';
 import { Close } from '@material-ui/icons';
 import DialogContent from '@material-ui/core/DialogContent';
 import IconButton from '@material-ui/core/IconButton';
-import FormComment from '../components/CommentForm/FormComment'
+
 Orders.propTypes = {
     Orders: PropTypes.object,
 };

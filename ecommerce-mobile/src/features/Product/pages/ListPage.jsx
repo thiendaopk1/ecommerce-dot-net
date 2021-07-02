@@ -66,7 +66,7 @@ function ListPage(props) {
                 console.log("param",params2);
                 const rp=await productApi.getAll(params2);
                 const {data, pagination} = rp;
-                // console.log("data",data);
+                console.log("data product",data);
                 // console.log("pagi", pagination);
                 setProductList(data);
                 

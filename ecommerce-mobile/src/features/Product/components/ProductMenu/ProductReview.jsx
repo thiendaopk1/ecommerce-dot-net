@@ -29,7 +29,6 @@ function ProductReview({product = {}, onSubmit}) {
             <Box>
                 <FormComment product={product} comments={comments} onSubmit={handleSubmitReview}/>
             </Box>
-            
             <Box>
                 <Comment comments={comments} />
             </Box>
