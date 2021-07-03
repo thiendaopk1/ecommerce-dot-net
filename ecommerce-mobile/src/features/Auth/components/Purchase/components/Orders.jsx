@@ -80,7 +80,7 @@ const useStyles = makeStyles(theme => ({
 }))
 function Orders({orders}) {
     const classes = useStyles();
-    const {status, date, lastPrice, paymentType, listItems,id } = orders;
+    const {status, date, lastPrice, paymentType, cartItems,id } = orders;
    
     
     const [openComment, setOpenComment] = useState(false);
@@ -98,7 +98,9 @@ function Orders({orders}) {
             }
         })();
     }
+    const handleBuyAgaint = () => {
 
+    }
     return (
         <Box>
             <Container>
@@ -114,7 +116,7 @@ function Orders({orders}) {
                     </Box>
                 </Grid>
                 <Grid item className={classes.center}>
-                    <ListItems listItems={listItems}/>
+                    <ListItems listItems={cartItems}/>
                 </Grid>
                 <Grid item className={classes.footer}>
                     <Box className={classes.date}>
@@ -130,7 +132,12 @@ function Orders({orders}) {
                                 <>
                                     <Button variant="contained" color="secondary" onClick={handleCancelOrder}>Hủy đơn hàng</Button>
                                 </>
-                            )}   
+                            )}
+                            {(status.statusString === "Hủy đơn hàng") && (
+                                <>
+                                    <Button variant="contained" color="secondary" onClick={handleBuyAgaint}>Mua lại</Button>
+                                </>
+                            )} 
                         </Box>
                     </Box>
                 </Grid>

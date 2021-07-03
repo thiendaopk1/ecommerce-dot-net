@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Box, Link, makeStyles } from '@material-ui/core';
 import { NavLink, useRouteMatch } from 'react-router-dom';
 import StatusFilter from './StatusFilter';
+import { Paper } from '@material-ui/core';
 PurchaseMenu.propTypes = {
     filters: PropTypes.object.isRequired,
     onChange: PropTypes.func,
@@ -32,7 +33,7 @@ function PurchaseMenu({ filters, onChange }) {
     };
     return (
         <Box className={classes.root}>
-            <StatusFilter onChange={handleStatusChange}/>
+                <StatusFilter onChange={handleStatusChange}/>
         </Box>
     );
 }

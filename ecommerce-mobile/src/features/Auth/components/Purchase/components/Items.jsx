@@ -32,20 +32,21 @@ const useStyles = makeStyles(theme => ({
     }
 }))
 function Items({items}) {
+    console.log('items', items);
     const classes = useStyles();
-    const {priceAll, pricePerOne, productImg, productName, quatity} = items;
+    const {idp, product, quantity} = items;
     console.log('items', items);
     return (
         <Box className={classes.root}>
             <Box className={classes.product}>
-                <img src={productImg} className={classes.img}/>
+                <img src={product.images[0].image} className={classes.img}/>
                 <Box>
-                    <Typography>{productName}</Typography>
-                    <Typography>x{quatity}</Typography>
+                    <Typography>{product.name}</Typography>
+                    <Typography>x{quantity}</Typography>
                 </Box>
             </Box>
             <Box className={classes.price}>
-                <Typography className={classes.prices}>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(priceAll)}</Typography>
+                <Typography className={classes.prices}>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product.salePrice*quantity)}</Typography>
             </Box>
         </Box>
     );

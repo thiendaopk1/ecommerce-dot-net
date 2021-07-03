@@ -17,6 +17,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 function OrdersList({data}) {
+    console.log('dataOrders', data);
    const classes = useStyles();
     return (
         <Box>

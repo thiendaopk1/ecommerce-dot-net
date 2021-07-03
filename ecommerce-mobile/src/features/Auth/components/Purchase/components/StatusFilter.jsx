@@ -7,7 +7,36 @@ StatusFilter.propTypes = {
     onChange: PropTypes.func,
 };
 const useStyles = makeStyles((theme) => ({
+    root:{
+        padding: '15px 15px',
+        borderBottom: '4px solid #f8f9fa'
+    },
+    menu:{
+        fontSize: '20px',
+        display: 'flex',
+        flexFlow: 'row nowrap',
+        padding:1,
+        margin: "1px 8px",
+        listStyleType: "none",
 
+        '& > li': {
+            marginTop: "8px",
+            transform: 'all .25s',
+
+            '&:hover': {
+                color: "#fa7272",
+                cursor: "pointer",
+            },
+        },
+    },
+    li1: {
+        textAlign: 'center',
+        width: '20%'
+    },
+    li: {
+        textAlign: 'center',
+        width: '20%'
+    },
 }))
 function StatusFilter({onChange}) {
     const classes = useStyles();
@@ -42,13 +71,13 @@ function StatusFilter({onChange}) {
     return (
        
             <Box className={classes.root}>
-                <Typography className={classes.title} variant="subtitle2">DANH MỤC SẢN PHẨM</Typography>
                 <ul className={classes.menu}>
-                    <li onClick={handleClickAll}>Tất cả</li>
+                    <li onClick={handleClickAll} className={classes.li1}>Tất cả</li>
                     {statusList.map(status => (
                     <li 
                     key={status.id}
                     onClick={() => handleSatusClick(status)}
+                    className={classes.li}
                     >
                         {status.statusString}
                     </li>

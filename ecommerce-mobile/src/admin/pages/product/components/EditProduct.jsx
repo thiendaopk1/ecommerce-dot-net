@@ -19,7 +19,7 @@ import InputField from '../../../components/textField/InputField';
 import NewBrands from '../components/NewBrands';
 import NewRams from './NewRams';
 import NewRoms from './NewRoms';
-
+import UploadFile from './UploadFile';
 EditProduct.propTypes = {
    product: PropTypes.object,
    roms: PropTypes.array,
@@ -113,6 +113,9 @@ const useStyles = makeStyles((theme) => ({
     btn2: {
         marginLeft: '10px'
     },
+    input: {
+        // display: 'none',
+      },
       
 }))
 
@@ -161,7 +164,7 @@ function EditProduct({product = {},roms,rams,brands,onSubmit1,onSubmit2,onSubmit
             name: product.name,
             originalPrice: product.originalPrice,
             promotionPercents: product.promotionPercents,
-            description: product.description
+            description: product.description,
         }
     });
 
@@ -275,6 +278,7 @@ function EditProduct({product = {},roms,rams,brands,onSubmit1,onSubmit2,onSubmit
             
         }
     }
+    
 
    
     return (
@@ -416,6 +420,12 @@ function EditProduct({product = {},roms,rams,brands,onSubmit1,onSubmit2,onSubmit
                         
                     />
                 </Box> 
+                <UploadFile />
+                {/* <label htmlFor="contained-button-file">
+                    <Button variant="contained" color="primary" component="span">
+                    Upload
+                    </Button>
+                </label> */}
                 <Box className={classes.btn}>
                     <Button type="submit" variant="contained" color="primary" size="large" className={classes.btn1}>SAVE</Button>
                     <Button onClick={handleCancel} variant="contained" color="primary" size="large" className={classes.btn2}>CANCEL</Button>

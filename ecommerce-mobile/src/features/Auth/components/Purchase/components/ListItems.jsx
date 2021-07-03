@@ -23,7 +23,7 @@ function ListItems({listItems}) {
         <Box>
             <Grid container>
                 {listItems.map((items) => (
-                    <Grid item key={items.productID} xs={12} className={classes.root}>
+                    <Grid item key={items.idp} xs={12} className={classes.root}>
                         <Items items={items}/>
                     </Grid>
                 ))}

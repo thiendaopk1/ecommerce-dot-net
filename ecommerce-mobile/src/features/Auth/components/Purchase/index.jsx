@@ -85,12 +85,12 @@ function Purchase(props) {
         
     };
 
-    const setNewFilter = (newFilters) => {
-        history.push({
-            pathName: history.location.pathName,
-            search: queryString.stringify(newFilters),
-        });
-    }
+    // const setNewFilter = (newFilters) => {
+    //     history.push({
+    //         pathName: history.location.pathName,
+    //         search: queryString.stringify(newFilters),
+    //     });
+    // }
     return (
         <Box >
             <Container >

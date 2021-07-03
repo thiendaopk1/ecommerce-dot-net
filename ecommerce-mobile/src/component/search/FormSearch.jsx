@@ -6,8 +6,11 @@ import { useState } from 'react';
 FormSearch.propTypes = {
     onSubmit: PropTypes.func,
 };
-
-function FormSearch({onSubmit}) {
+FormSearch.defautProps = {
+    onSubmit: null,
+};
+function FormSearch(props) {
+    const {onSubmit} = props
     const [searchTerm, setSearchTerm] = useState('');
     const typingTimeoutRef = useRef(null);
 
@@ -36,6 +39,7 @@ function FormSearch({onSubmit}) {
                     <input type="text" 
                     placeholder="Search . . ."
                     onChange={handleSearchTermChange}
+                    value={searchTerm}
                     />
                 </div>
             </div>
