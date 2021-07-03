@@ -95,7 +95,7 @@ function SearchForm(props) {
     return (
     
         <div className={classes.root}>
-            <FormSearch onSubmit={handleFiltersChange}/>
+            <FormSearch onSubmit={handleFiltersChange} viewProducts={viewProducts}/>
             <Box className={classes.product}>
                 <ProductsSearch data={products} />
             </Box>

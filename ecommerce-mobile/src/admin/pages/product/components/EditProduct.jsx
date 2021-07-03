@@ -20,6 +20,7 @@ import NewBrands from '../components/NewBrands';
 import NewRams from './NewRams';
 import NewRoms from './NewRoms';
 import UploadFile from './UploadFile';
+import productApi from '../../../../api/productApi';
 EditProduct.propTypes = {
    product: PropTypes.object,
    roms: PropTypes.array,
@@ -279,7 +280,16 @@ function EditProduct({product = {},roms,rams,brands,onSubmit1,onSubmit2,onSubmit
         }
     }
     
-    
+    const handleUpload = async(selectedFiles) => {
+        try {
+            const res = await productApi.uploadImg(selectedFiles);
+            console.log('handleUpload', res);
+            onSubmit3(res)
+            enqueueSnackbar('Thêm image thành công', {variant: 'success'});
+        } catch (error) {
+            enqueueSnackbar(error.message, {variant: 'error'});
+        }
+    }
    
     return (
         <Box>
@@ -420,18 +430,17 @@ function EditProduct({product = {},roms,rams,brands,onSubmit1,onSubmit2,onSubmit
                         
                     />
                 </Box> 
-                <UploadFile />
-                {/* <label htmlFor="contained-button-file">
-                    <Button variant="contained" color="primary" component="span">
-                    Upload
-                    </Button>
-                </label> */}
+                <Box>
+                    <UploadFile onSubmitUpload={handleUpload}/>
+                </Box>
+                
                 <Box className={classes.btn}>
                     <Button type="submit" variant="contained" color="primary" size="large" className={classes.btn1}>SAVE</Button>
                     <Button onClick={handleCancel} variant="contained" color="primary" size="large" className={classes.btn2}>CANCEL</Button>
                 </Box>   
                 
         </form>
+        
         {/* form brand */}
         <Dialog disableBackdropClick disableEscapeKeyDown open={openBrand} onClose={handleCloseBrand} aria-labelledby="form-dialog-title">
             <IconButton onClick={handleCloseBrand} className={classes.closeButton}>

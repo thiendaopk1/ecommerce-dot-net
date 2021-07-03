@@ -3,11 +3,12 @@ import PropTypes from 'prop-types';
 import { useState } from 'react';
 import PhotoCamera from '@material-ui/icons/PhotoCamera';
 import './UploadFile.scss';
+import { Button } from '@material-ui/core';
 UploadFile.propTypes = {
-    
+  onSubmitUpload: PropTypes.func,
 };
 
-function UploadFile(props) {
+function UploadFile({onSubmitUpload}) {
     const [selectedFiles, setSelectedFiles] = useState([]);
     const handleImageChange = (e) => {
         // console.log(e.target.files[])
@@ -25,7 +26,10 @@ function UploadFile(props) {
         }
       };
       const handleUload = async(selectedFiles) => {
-        console.log('selectedFiles',selectedFiles);
+        if(onSubmitUpload){
+          await onSubmitUpload(selectedFiles);
+          console.log('selectedFiles',selectedFiles);
+        }
     }
       const renderPhotos = (source) => {
         console.log("source: ", source);
@@ -44,6 +48,9 @@ function UploadFile(props) {
                         </label>
                     </div>
                 <div className="result">{renderPhotos(selectedFiles)}</div>
+                <div>
+                  <Button onClick={handleUload} type="submit">Submit</Button>
+                </div>
             </div>
             
         </div>

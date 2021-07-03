@@ -5,12 +5,11 @@ import './style.scss';
 import { useState } from 'react';
 FormSearch.propTypes = {
     onSubmit: PropTypes.func,
+    viewProducts: PropTypes.string,
 };
-FormSearch.defautProps = {
-    onSubmit: null,
-};
-function FormSearch(props) {
-    const {onSubmit} = props
+
+function FormSearch({onSubmit=null,viewProducts}) {
+  
     const [searchTerm, setSearchTerm] = useState('');
     const typingTimeoutRef = useRef(null);
 
