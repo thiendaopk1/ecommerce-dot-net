@@ -13,7 +13,7 @@ function UploadFile(props) {
         // console.log(e.target.files[])
         if (e.target.files) {
           const filesArray = Array.from(e.target.files).map((file) =>
-            URL.createObjectURL(file)
+          file
           );
     
           // console.log("filesArray: ", filesArray);
@@ -30,6 +30,7 @@ function UploadFile(props) {
       const renderPhotos = (source) => {
         console.log("source: ", source);
         return source.map((photo) => {
+          photo=URL.createObjectURL(photo);
           return <img src={photo} alt="" key={photo} className="imgUpload"/>;
         });
       };
