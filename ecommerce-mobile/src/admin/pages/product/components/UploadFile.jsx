@@ -13,7 +13,7 @@ function UploadFile(props) {
         // console.log(e.target.files[])
         if (e.target.files) {
           const filesArray = Array.from(e.target.files).map((file) =>
-            file
+            URL.createObjectURL(file)
           );
     
           // console.log("filesArray: ", filesArray);
@@ -24,7 +24,9 @@ function UploadFile(props) {
           );
         }
       };
-    
+      const handleUload = async(selectedFiles) => {
+        console.log('selectedFiles',selectedFiles);
+    }
       const renderPhotos = (source) => {
         console.log("source: ", source);
         return source.map((photo) => {
@@ -42,6 +44,7 @@ function UploadFile(props) {
                     </div>
                 <div className="result">{renderPhotos(selectedFiles)}</div>
             </div>
+            
         </div>
     );
 }

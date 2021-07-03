@@ -279,7 +279,7 @@ function EditProduct({product = {},roms,rams,brands,onSubmit1,onSubmit2,onSubmit
         }
     }
     
-
+    
    
     return (
         <Box>
