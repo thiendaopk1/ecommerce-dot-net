@@ -282,7 +282,7 @@ function EditProduct({product = {},roms,rams,brands,onSubmit1,onSubmit2,onSubmit
     
     const handleUpload = async(selectedFiles) => {
         try {
-            const res = await productApi.uploadImg(selectedFiles);
+            const res = await productApi.uploadImg(selectedFiles,product.id);
             console.log('handleUpload', res);
             onSubmit3(res)
             enqueueSnackbar('Thêm image thành công', {variant: 'success'});
@@ -431,7 +431,7 @@ function EditProduct({product = {},roms,rams,brands,onSubmit1,onSubmit2,onSubmit
                     />
                 </Box> 
                 <Box>
-                    <UploadFile onSubmitUpload={handleUpload}/>
+                    <UploadFile onSubmitUpload={handleUpload} idProduct={product.id}/>
                 </Box>
                 
                 <Box className={classes.btn}>
