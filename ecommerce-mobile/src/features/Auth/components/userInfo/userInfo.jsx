@@ -47,7 +47,7 @@ function UserInfomation(props) {
     const handleSubmit = async (values) => {
         try {
             values.id = loggedInUser.id;
-            values.avatar=selectedFiles;
+            // values.avatar=selectedFiles;
             const action = updateUser(values);
             const resultAction = await dispath(action)
             const user = unwrapResult(resultAction)
@@ -75,7 +75,7 @@ function UserInfomation(props) {
                         <Avatar alt="Remy Sharp" src={img ? selectedFiles[0] : loggedInUser.avatar} className={classes.large} />
                         <input style={{ display: 'none' }} type="file" id="file" onChange={handleImageChange} />
                         <div style={{marginTop:'6%'}} className="label-holder">
-                            <label  htmlFor="file" className="label">
+                            <label  htmlFor="file">
                                 <i className={classes.materialIcons}>edit Image</i>
                             </label>
                         </div>
