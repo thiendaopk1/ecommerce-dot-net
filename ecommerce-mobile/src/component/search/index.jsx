@@ -32,14 +32,14 @@ const useStyles = makeStyles((theme) => ({
         border: '1px solid black',
         left: '100px',
         top: '60px',
-        display: 'none'
+        // display: 'none'
     }
   
   }));
 function SearchForm(props) {
     const classes = useStyles();
     const [products, setProducts] = useState([]);
-    const [viewProducts, setViewProduct] = useState();
+    const [viewProducts, setViewProduct] = useState(false);
     const [pagination, setPagination] = useState({
         limit: 3,
         total: 3,
@@ -92,13 +92,19 @@ function SearchForm(props) {
     }
 
 // const match = useRouteMatch();
+const handleChangeVPOpen =() =>{
+    setViewProduct(true);
+}
+const handleChangeVPClose =() =>{
+    setViewProduct(false);
+}
     return (
     
         <div className={classes.root}>
-            <FormSearch onSubmit={handleFiltersChange} viewProducts={viewProducts}/>
-            <Box className={classes.product}>
+            <FormSearch onSubmit={handleFiltersChange} changeVPO={handleChangeVPOpen} changeVPC={handleChangeVPClose}/>
+           {viewProducts&& <Box className={classes.product}>
                 <ProductsSearch data={products} />
-            </Box>
+            </Box>}
             </div>
         
     );

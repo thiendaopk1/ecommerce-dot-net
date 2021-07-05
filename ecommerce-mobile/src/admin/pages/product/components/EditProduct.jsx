@@ -21,6 +21,7 @@ import NewRams from './NewRams';
 import NewRoms from './NewRoms';
 import UploadFile from './UploadFile';
 import productApi from '../../../../api/productApi';
+import Infomation from './Infomation';
 EditProduct.propTypes = {
    product: PropTypes.object,
    roms: PropTypes.array,
@@ -282,7 +283,7 @@ function EditProduct({product = {},roms,rams,brands,onSubmit1,onSubmit2,onSubmit
     
     const handleUpload = async(selectedFiles) => {
         try {
-            const res = await productApi.uploadImg(selectedFiles,product.id);
+            const res = await productApi.uploadImgs(selectedFiles,product.id);
             console.log('handleUpload', res);
             onSubmit3(res)
             enqueueSnackbar('Thêm image thành công', {variant: 'success'});
@@ -440,7 +441,9 @@ function EditProduct({product = {},roms,rams,brands,onSubmit1,onSubmit2,onSubmit
                 </Box>   
                 
         </form>
-        
+        <Box>
+            <Infomation />
+        </Box>
         {/* form brand */}
         <Dialog disableBackdropClick disableEscapeKeyDown open={openBrand} onClose={handleCloseBrand} aria-labelledby="form-dialog-title">
             <IconButton onClick={handleCloseBrand} className={classes.closeButton}>

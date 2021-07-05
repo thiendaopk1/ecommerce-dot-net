@@ -58,7 +58,7 @@ function UploadFile({onSubmitUpload}) {
   return (
     <div className="app">
       <div>
-        <input type="file" id="file" encType="multipart/form-data" onChange={handleImageChange} />
+        <input type="file" id="file" multiple encType="multipart/form-data" onChange={handleImageChange} />
         <div className="label-holder">
           <label htmlFor="file" className="label">
             <PhotoCamera />
