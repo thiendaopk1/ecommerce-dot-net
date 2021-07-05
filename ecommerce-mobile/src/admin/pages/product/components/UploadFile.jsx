@@ -2,7 +2,6 @@ import { Button } from '@material-ui/core';
 import PhotoCamera from '@material-ui/icons/PhotoCamera';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
-import productApi from '../../../../api/productApi';
 import './UploadFile.scss';
 UploadFile.propTypes = {
   onSubmitUpload: PropTypes.func,
@@ -11,14 +10,10 @@ UploadFile.propTypes = {
 function UploadFile({onSubmitUpload}) {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const handleImageChange = (e) => {
-    // console.log(e.target.files[])
     if (e.target.files) {
       const filesArray = Array.from(e.target.files).map((file) =>
         file
       );
-
-      // console.log("filesArray: ", filesArray);
-
       setSelectedFiles((prevImages) => prevImages.concat(filesArray));
       Array.from(e.target.files).map(
         (file) => URL.createObjectURL(file) // avoid memory leak
@@ -27,26 +22,12 @@ function UploadFile({onSubmitUpload}) {
   };
   const handleUload = async () => {
     if(onSubmitUpload){
-      const formData = new FormData(); 
-     
-      // Update the formData object 
-      formData.append( 
-        "file", 
-        selectedFiles[0], 
-        selectedFiles[0].name 
-      ); 
+      const formData = new FormData();
+      selectedFiles.forEach(file => {
+        formData.append('files', file);
+    });
       await onSubmitUpload(formData);
     }
-    // try {
-    //   console.log(selectedFiles);
-    //   // Create an object of formData 
-     
-    //   const res = await productApi.uploadImg(formData, idProduct);
-    //   console.log('handleUpload', res);
-    //   // enqueueSnackbar('Thêm image thành công', {variant: 'success'});
-    // } catch (error) {
-    //   // enqueueSnackbar(error.message, {variant: 'error'});
-    // }
   }
   const renderPhotos = (source) => {
     console.log("source: ", source);
@@ -58,7 +39,7 @@ function UploadFile({onSubmitUpload}) {
   return (
     <div className="app">
       <div>
-        <input type="file" id="file" multiple encType="multipart/form-data" onChange={handleImageChange} />
+        <input type="file" id="file" encType="multipart/form-data" multiple onChange={handleImageChange} />
         <div className="label-holder">
           <label htmlFor="file" className="label">
             <PhotoCamera />
