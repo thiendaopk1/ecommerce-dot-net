@@ -11,7 +11,7 @@ import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { useForm } from 'react-hook-form';
 import { useHistory, useLocation, useRouteMatch } from 'react-router-dom';
-
+import UploadFile from '../product/components/UploadFile';
 import brandsApi from '../../../api/brandsApi';
 import ramsApi from '../../../api/ramsApi';
 import romsApi from '../../../api/romsApi';
@@ -256,22 +256,22 @@ function NewProduct({roms,rams,brands,onSubmit1,onSubmit2,onSubmit3,onSubmitNew}
     //end select
 
     const handleSubmit = async(value) => {
-        const data = {
-            promotionPercents: value.promotionPercents,
-            name: value.name,
-            originalPrice: value.originalPrice,
-            description: value.description,
-            amoutSold: 0,
-            isHot,
-            isSale,
-            brandId: brandsList,
-            ramId: ramList,
-            romId: romList,
-            longDescription: draftToHtml(convertToRaw(editorState.getCurrentContent()))
-        }
-        console.log('data', data);
+       
         if(onSubmitNew){
-            await onSubmitNew(data)
+            const formData = new FormData();
+            formData.append('promotionPercents',value.promotionPercents);
+            formData.append('name',value.name);
+            formData.append('originalPrice',value.originalPrice);
+            formData.append('description',value.description);
+            formData.append('amoutSold',0);
+            formData.append('isHot',isHot);
+            formData.append('isSale',isSale);
+            formData.append('brandId',brandsList);
+            formData.append('ramId',ramList);
+            formData.append('romId',romList);
+            formData.append('longDescription',draftToHtml(convertToRaw(editorState.getCurrentContent())));
+            await onSubmitNew(formData)
+            console.log('formData', formData);
         }
         // const rp = await productApi.add(data);
     }
@@ -416,6 +416,9 @@ function NewProduct({roms,rams,brands,onSubmit1,onSubmit2,onSubmit3,onSubmitNew}
                         
                     />
                 </Box> 
+                <Box>
+                    <UploadFile />
+                </Box>
                 <Box className={classes.btn}>
                     <Button type="submit" variant="contained" color="primary" size="large" className={classes.btn1}>SAVE</Button>
                     <Button onClick={handleCancel} variant="contained" color="primary" size="large" className={classes.btn2}>CANCEL</Button>

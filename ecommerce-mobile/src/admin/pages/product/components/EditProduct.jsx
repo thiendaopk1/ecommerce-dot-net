@@ -128,7 +128,7 @@ function EditProduct({ product = {}, roms, rams, brands, onSubmit1, onSubmit2, o
     const history = useHistory();
     const location = useLocation();
     const match = useRouteMatch();
-
+    const {informations} = product;
     const handleCancel = () => {
         history.push('/Admin/products');
     };
@@ -301,17 +301,17 @@ function EditProduct({ product = {}, roms, rams, brands, onSubmit1, onSubmit2, o
                 <Box className={classes.root} xs={12}>
                     <Box className={classes.box}>
                         <InputLabel className={classes.label}>Name:</InputLabel >
-                        <InputField name="name" form={form} />
+                        <InputField name="name" form={form} label="Name"/>
                     </Box>
                     <Box className={classes.box}>
                         <InputLabel className={classes.label}>Original Price:</InputLabel >
-                        <InputField name="originalPrice" form={form} />
+                        <InputField name="originalPrice" form={form} label="originalPrice"/>
                     </Box>
                 </Box>
                 <Box className={classes.root} xs={12}>
                     <Box className={classes.box}>
                         <InputLabel className={classes.label}>Promotion Percents:</InputLabel >
-                        <InputField name="promotionPercents" form={form} />
+                        <InputField name="promotionPercents" form={form} label="promotionPercents"/>
                     </Box>
                     {/* check box */}
                     <Box className={classes.checkbox}>
@@ -441,6 +441,9 @@ function EditProduct({ product = {}, roms, rams, brands, onSubmit1, onSubmit2, o
             </form>
             <Box>
                 <UploadFile onSubmitUpload={handleUpload} idProduct={product.id} />
+            </Box>
+            <Box>
+                <Infomation informations={informations}/>
             </Box>
             {/* form brand */}
             <Dialog disableBackdropClick disableEscapeKeyDown open={openBrand} onClose={handleCloseBrand} aria-labelledby="form-dialog-title">
