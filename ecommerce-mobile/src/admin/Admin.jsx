@@ -19,6 +19,7 @@ import './Admin.css';
 import NewRams from './pages/category/component/newCategories/NewRams';
 import NewRoms from './pages/category/component/newCategories/NewRoms';
 import Purchase from './pages/ordersManager';
+import CommentList from './pages/commentList/CommentList';
 // import NewProduct from './pages/product/components/NewProduct'
 
 Admin.propTypes = {
@@ -58,6 +59,9 @@ function Admin(props) {
           </Route>
           <Route path="/Admin/orders-manager">
             <Purchase />
+          </Route>
+          <Route path="/Admin/comments">
+            <CommentList />
           </Route>
           <Route path="/Admin/categories/edit-brand/:brandId" exact>
             <EditBrands />

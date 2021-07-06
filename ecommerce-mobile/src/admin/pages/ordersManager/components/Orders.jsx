@@ -80,24 +80,24 @@ function Orders({orders}) {
     const {status, date, lastPrice,name, paymentType, cartItems,id } = orders;
    
     
-    const [openComment, setOpenComment] = useState(false);
+    // const [openComment, setOpenComment] = useState(false);
 
 
-    const [cancel, setCancel] = useState();
-    console.log('cancel', cancel);
-    const handleCancelOrder = (e) => {
-        (async () =>{
-            try {      
-                const animation = await ordersApi.cancel(id);
-                setCancel(animation);
-            } catch (error) {
-                console.log(error);
-            }
-        })();
-    }
-    const handleBuyAgaint = () => {
+    // const [cancel, setCancel] = useState();
+    // console.log('cancel', cancel);
+    // const handleCancelOrder = (e) => {
+    //     (async () =>{
+    //         try {      
+    //             const animation = await ordersApi.cancel(id);
+    //             setCancel(animation);
+    //         } catch (error) {
+    //             console.log(error);
+    //         }
+    //     })();
+    // }
+    // const handleBuyAgaint = () => {
 
-    }
+    // }
     return (
         <Box>
             <Container>

@@ -52,10 +52,12 @@ function Sidebar() {
               Orders
             </li>
             </Link>
+            <Link to="/Admin/comments" className="link">
             <li className="sidebarListItem">
               <FeedbackIcon className="sidebarIcon" />
               Comments
             </li>
+            </Link>
             <Link to="/Admin/categories" className="link">
               <li className="sidebarListItem">
                 <CategoryIcon className="sidebarIcon" />

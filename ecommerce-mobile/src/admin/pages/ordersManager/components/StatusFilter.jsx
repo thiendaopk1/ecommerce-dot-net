@@ -57,7 +57,7 @@ function StatusFilter({onChange}) {
     }, []);
 
     const handleSatusClick = (status) => {
-        console.log('status', status.id);
+        // console.log('status', status.id);
         if(onChange){
             onChange(status.id)
         }
