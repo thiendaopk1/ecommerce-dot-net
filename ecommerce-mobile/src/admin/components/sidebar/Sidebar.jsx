@@ -46,10 +46,12 @@ function Sidebar() {
                 Products
               </li>
             </Link>
+            <Link to="/Admin/orders-manager" className="link">
             <li className="sidebarListItem">
               <ShoppingBasketIcon className="sidebarIcon" />
               Orders
             </li>
+            </Link>
             <li className="sidebarListItem">
               <FeedbackIcon className="sidebarIcon" />
               Comments

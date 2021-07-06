@@ -6,7 +6,11 @@ const ordersApi = {
     getAll(params){
         const url ='/users/orders';
         return axiosClient.get(url, {params: params});
-    }, 
+    },
+    getAllAdmin(params) {
+        const url ='api/admin/orders-version2';
+        return axiosClient.get(url, {params: params});
+    },
     add(data){
         const url = '/api/order';
         return axiosClient.post(url, data);
