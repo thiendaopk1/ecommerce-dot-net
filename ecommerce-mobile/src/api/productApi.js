@@ -1,36 +1,23 @@
 import axiosClient from "./axiosClient";
 
 const productApi = {
-//    async getAll(params){
-//         // Transform _page to _start
-//     const newParams = { ...params };
-//     newParams._start = !params._page || params._page <= 1 ? 0 : (params._page - 1) * (params._limit || 50);
-//     // Remove un-needed key
-//     delete newParams._page;
-//     // Fetch product list + count
-//     const productList = await axiosClient.get('/products', { params: newParams });
-//     const count = await axiosClient.get('/products/count', { params: newParams });
-//     // Build response and return
-//     return {
-//     data: productList,
-//     pagination: {
-//     page: params._page,
-//     limit: params._limit,
-//     total: count
-//     },
-//     };
-//         }, 
+
     getAll(params){
         const url = `/products`;
         console.log("thien", params);
         return axiosClient.get(url, {params});
+    },
+    getAll2(params){
+        const url = `/products?${params}`;
+        console.log("thien", params);
+        return axiosClient.get(url);
     },
     get(id){
         const url = `/product/${id}`;
         return axiosClient.get(url);
     },
     add(data){
-        const url = '/product';
+        const url = '/product/v3';
         return axiosClient.post(url, data);
     }, 
     edit(data){
@@ -45,6 +32,34 @@ const productApi = {
         const url = `/product/${id}`;
         return axiosClient.delete(url);
     },
+
+    getInfo(productId, infomationId){
+        const url = `/api/information/${productId}/${infomationId}`;
+        return axiosClient.get(url);
+    },
+
+    editInfo(data){
+        const url = `/api/information/${data.productId}/${data.infomationId}`;
+        return axiosClient.put(url, data);
+    },
+
+    removeInfo(productId, infomationId){
+        const url = `/api/information/${productId}/${infomationId}`;
+        return axiosClient.delete(url);
+    },
+    
+    uploadImgs(data,id){
+        const url = `/api/upload/many/${id}`;
+        return axiosClient.post(url, data, {
+            headers: {
+                "content-type": "multipart/form-data"
+            }
+        });
+    },
+    addInfo(data,id){
+        const url = `/api/information/${id}`;
+        return axiosClient.post(url, data);
+    }
 };
 
 export default productApi;

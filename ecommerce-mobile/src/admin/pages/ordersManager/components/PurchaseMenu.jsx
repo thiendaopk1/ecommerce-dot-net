@@ -1,9 +1,7 @@
-import React from 'react';
+import { Box, makeStyles } from '@material-ui/core';
 import PropTypes from 'prop-types';
-import { Box, Link, makeStyles } from '@material-ui/core';
-import { NavLink, useRouteMatch } from 'react-router-dom';
+import React from 'react';
 import StatusFilter from './StatusFilter';
-import { Paper } from '@material-ui/core';
 PurchaseMenu.propTypes = {
     filters: PropTypes.object.isRequired,
     onChange: PropTypes.func,

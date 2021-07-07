@@ -63,7 +63,7 @@ function UserInfo() {
                             <ListSubheader component="div" id="nested-list-subheader">
                                 <div>
                                     <Avatar style={{ float: 'left', margin: '5% 3% 0 2%' }} alt="Remy Sharp" src="/static/images/avatar/1.jpg" className={classes.small} />
-                                    {loggedInUser.fullName}
+                                   {/* <span>{loggedInUser.fullname}</span> */}
                                 </div>
                             </ListSubheader>
                         }

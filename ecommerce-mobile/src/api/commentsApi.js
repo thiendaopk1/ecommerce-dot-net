@@ -13,6 +13,13 @@ const commentsApi = {
     //     const url = `/api/comment/all?productID=${id}`;
     //     return axiosClient.delete(url);
     // },
-
+    getAll(param){
+        const url = '/api/admin/comments';
+        return axiosClient.get(url);
+    },
+    update(id){
+    const url = '/api/admin/comments/'+id;
+    return axiosClient.put(url)
+    },
 };
 export default commentsApi;

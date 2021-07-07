@@ -17,8 +17,8 @@ const useStyles = makeStyles(theme => ({
     },
 
     img: {
-        height: '80px',
-        width: '80px',
+        height: '60px',
+        width: '60px',
 
     },
 
@@ -42,7 +42,7 @@ function Items({items}) {
                 <img src={product.images[0].image} className={classes.img}/>
                 <Box>
                     <Typography>{product.name}</Typography>
-                    <Typography>x{quantity}</Typography>
+                    <Typography>số lượng: {quantity}</Typography>
                 </Box>
             </Box>
             <Box className={classes.price}>

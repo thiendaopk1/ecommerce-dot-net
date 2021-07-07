@@ -13,18 +13,9 @@ ProductContentCenter.propTypes = {
 
 function ProductContentCenter({product = {}}) {
  
-    const [selected, setSelected] = useState({});
     const dispatch = useDispatch();
     const comments = product.commentResponse; 
-    useEffect(() => {
-        if( product.specifics){
-            setSelected(product.specifics[0]);
-        }
-        
-    },[product]);
 
-    
-    
     const handleAddToCartSubmit = ({quantity }) => {
        
         const action = addToCart({

@@ -1,12 +1,8 @@
-import React, { useState } from 'react';
+import { Box, Button, Container, Grid, makeStyles, Typography } from '@material-ui/core';
 import PropTypes from 'prop-types';
-import { Box, Button, Container, makeStyles, Typography,Paper, Dialog } from '@material-ui/core';
-import { Grid } from '@material-ui/core';
+import React, { useState } from 'react';
+import ordersApi from '../../../../api/ordersApi';
 import ListItems from './ListItems';
-import ordersApi from '../../../../../api/ordersApi';
-import { Close } from '@material-ui/icons';
-import DialogContent from '@material-ui/core/DialogContent';
-import IconButton from '@material-ui/core/IconButton';
 
 Orders.propTypes = {
     Orders: PropTypes.object,
@@ -19,13 +15,14 @@ const useStyles = makeStyles(theme => ({
     },
 
     paymentType:{
-        display:'flex',
-        float:'left',
-        color: '#26aa99'
+        // display:'flex',
+        // float:'left',
+        color: '#26aa99',
+        marginRight:15,
     },
 
     status:{
-        display:'flex',
+        // display:'flex',
         float:'right',
         color: '#ee4d2d',
     },
@@ -80,39 +77,42 @@ const useStyles = makeStyles(theme => ({
 }))
 function Orders({orders}) {
     const classes = useStyles();
-    const {status, date, lastPrice, paymentType, cartItems,id } = orders;
+    const {status, date, lastPrice,name, paymentType, cartItems,id } = orders;
    
     
-    const [openComment, setOpenComment] = useState(false);
+    // const [openComment, setOpenComment] = useState(false);
 
 
-    const [cancel, setCancel] = useState();
-    console.log('cancel', cancel);
-    const handleCancelOrder = (e) => {
-        (async () =>{
-            try {      
-                const animation = await ordersApi.cancel(id);
-                setCancel(animation);
-            } catch (error) {
-                console.log(error);
-            }
-        })();
-    }
-    const handleBuyAgaint = () => {
+    // const [cancel, setCancel] = useState();
+    // console.log('cancel', cancel);
+    // const handleCancelOrder = (e) => {
+    //     (async () =>{
+    //         try {      
+    //             const animation = await ordersApi.cancel(id);
+    //             setCancel(animation);
+    //         } catch (error) {
+    //             console.log(error);
+    //         }
+    //     })();
+    // }
+    // const handleBuyAgaint = () => {
 
-    }
+    // }
     return (
         <Box>
             <Container>
                 
                 <Grid item >
                     <Box className={classes.header}> 
-                        <Box className={classes.paymentType}>
-                            <Typography >Hình thức thanh toán: {paymentType}</Typography>
-                        </Box>
-                        <Box className={classes.status}>
-                            <Typography className={classes.statuss}>{status.statusString}</Typography>
-                        </Box>                        
+                        <span className={classes.paymentType}>
+                           Hình thức thanh toán: {paymentType}
+                        </span>
+                        <span className={classes.paymentType}>
+                            người mua: {name}
+                        </span>
+                        <span className={classes.status}>
+                           {status.statusString}
+                        </span>                        
                     </Box>
                 </Grid>
                 <Grid item className={classes.center}>
@@ -127,7 +127,7 @@ function Orders({orders}) {
                             <Typography className={classes.tongtien}>Tổng số tiền: </Typography>
                             <Typography className={classes.totalPrice}>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(lastPrice)}</Typography>
                         </Box >
-                        <Box className={classes.btn1}>
+                        {/* <Box className={classes.btn1}>
                             {(status.statusString === "Đang tiếp nhận" && "Đang vận chuyển") && (
                                 <>
                                     <Button variant="contained" color="secondary" onClick={handleCancelOrder}>Hủy đơn hàng</Button>
@@ -138,7 +138,7 @@ function Orders({orders}) {
                                     <Button variant="contained" color="secondary" onClick={handleBuyAgaint}>Mua lại</Button>
                                 </>
                             )} 
-                        </Box>
+                        </Box> */}
                     </Box>
                 </Grid>
                 

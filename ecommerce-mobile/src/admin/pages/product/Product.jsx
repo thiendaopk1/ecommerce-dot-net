@@ -91,7 +91,7 @@ function Product() {
     }
 
     return (
-        <Box style={{ height: 1500, width: '100%',  }}>
+        <Box style={{ height: 2800, width: '100%',  }}>
             <Paper elevation={0}>
                 {product.id &&                    
                     <EditProduct product={product} brands={brands} roms={roms} rams={rams} 

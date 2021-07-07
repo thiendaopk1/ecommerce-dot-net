@@ -18,6 +18,9 @@ import NewBrands from './pages/category/component/newCategories/NewBrands';
 import './Admin.css';
 import NewRams from './pages/category/component/newCategories/NewRams';
 import NewRoms from './pages/category/component/newCategories/NewRoms';
+import Purchase from './pages/ordersManager';
+import CommentList from './pages/commentList/CommentList';
+import EditInfo from './pages/product/components/EditInfo'
 // import NewProduct from './pages/product/components/NewProduct'
 
 Admin.propTypes = {
@@ -46,7 +49,7 @@ function Admin(props) {
           <Route path="/Admin/products">
             <ProductList />
           </Route>
-          <Route path="/Admin/product/:productId">
+          <Route path="/Admin/product/:productId" exact>
             <Product />
           </Route>
           <Route path="/Admin/newproduct">
@@ -54,6 +57,12 @@ function Admin(props) {
           </Route>
           <Route path="/Admin/categories" exact>
             <Categories />
+          </Route>
+          <Route path="/Admin/orders-manager">
+            <Purchase />
+          </Route>
+          <Route path="/Admin/comments">
+            <CommentList />
           </Route>
           <Route path="/Admin/categories/edit-brand/:brandId" exact>
             <EditBrands />
@@ -73,9 +82,9 @@ function Admin(props) {
           <Route path="/Admin/categories/new-rom" exact>
             <NewRoms />
           </Route>
-          {/* <Route path="/Admin/categories/new-product" exact>
-            <NewProduct />
-          </Route> */}
+          <Route path="/Admin/product/:productId/:infomationId" exact>
+            <EditInfo />
+          </Route>
         </Switch>
       </div>
     </div>

@@ -59,6 +59,7 @@ const ProductStyles = makeStyles(() => ({
         overflow: "hidden",
         color: "#fff",
         fontWeight: "700",
+        zIndex: '2',
         // top: "-25px",
         
 

@@ -79,6 +79,7 @@ function ProductNew() {
             const res = await productApi.add(value);
             console.log('edit res', res);
             enqueueSnackbar('Edit product thành công', {variant: 'success'});
+            // console.log('value', value);
         } catch (error) {
             enqueueSnackbar(error.message, {variant: 'error'});
         }

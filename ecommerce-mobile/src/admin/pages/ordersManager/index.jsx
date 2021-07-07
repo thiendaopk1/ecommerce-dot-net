@@ -1,11 +1,11 @@
 import { Box, Container, Grid, makeStyles, Paper } from '@material-ui/core';
+import { Pagination } from '@material-ui/lab';
+import queryString from 'query-string';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-import ordersApi from '../../../../api/ordersApi';
+import ordersApi from '../../../api/ordersApi';
 import OrdersList from './components/OrdersList';
 import PurchaseMenu from './components/PurchaseMenu';
-import queryString from 'query-string';
-import { Pagination } from '@material-ui/lab';
 Purchase.propTypes = {
     
 };
@@ -25,7 +25,6 @@ const useStyles = makeStyles((theme) => ({
 function Purchase(props) {
     const classes = useStyles();
     const [ordersList, setOrdersList] = useState([]);
-    console.log('ordersList',ordersList);
     const history = useHistory();
     const location = useLocation();
     const queryParams = useMemo(() => {
@@ -47,13 +46,10 @@ function Purchase(props) {
         (async () => {
             try {
                 const params2={...queryParams};
-                console.log("param",params2);
-                const rp=await ordersApi.getAll(params2);
+                const rp=await ordersApi.getAllAdmin(params2);
                 const {data, pagination} = rp;
-                console.log("data",data);
-                console.log("pagi", pagination);
                 setOrdersList(rp.data);
-                
+                console.log(rp)
                 setPagination(pagination);
             } catch (error) {
                 console.log(error)
@@ -92,7 +88,7 @@ function Purchase(props) {
     //     });
     // }
     return (
-        <Box >
+        <Box style={{width:'100%',display:'flex'}} >
             <Container >
                 <Grid item>
                     <Paper elevation={0}>
