@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import { Box, makeStyles } from '@material-ui/core';
 import PropTypes from 'prop-types';
-import  statusOrdersApi from '../../../../../api/statusOrdersApi';
-import { Box, Typography } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core';
+import React, { useEffect, useState } from 'react';
+import statusOrdersApi from '../../../../../api/statusOrdersApi';
 StatusFilter.propTypes = {
     onChange: PropTypes.func,
 };
@@ -41,7 +40,6 @@ const useStyles = makeStyles((theme) => ({
 function StatusFilter({onChange}) {
     const classes = useStyles();
     const [statusList, setStatusList] = useState([]);
-    console.log('statusList',statusList);
     useEffect(() =>{
         (async () =>{
             try {
@@ -58,7 +56,6 @@ function StatusFilter({onChange}) {
     }, []);
 
     const handleSatusClick = (status) => {
-        console.log('status', status.id);
         if(onChange){
             onChange(status.id)
         }

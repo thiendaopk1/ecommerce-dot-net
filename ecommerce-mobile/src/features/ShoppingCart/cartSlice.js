@@ -40,6 +40,12 @@ const cartSlice = createSlice({
             }
             localStorage.setItem("cart", JSON.stringify(state.cartItems))
         },
+        
+        // addToCartAgaint (state, action){
+        //     const items = action.payload;
+           
+
+        // },
 
         setQuantity(state, action){
             const { idp,quantity } = action.payload;

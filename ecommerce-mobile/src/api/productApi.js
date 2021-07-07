@@ -32,6 +32,10 @@ const productApi = {
         const url = `/product/${id}`;
         return axiosClient.delete(url);
     },
+    getAllInfo(productId){
+        const url = `/api/information/${productId}`;
+        return axiosClient.get(url);
+    },
 
     getInfo(productId, infomationId){
         const url = `/api/information/${productId}/${infomationId}`;

@@ -6,7 +6,7 @@ import { ContentState, convertFromHTML, convertToRaw, EditorState } from "draft-
 import draftToHtml from "draftjs-to-html";
 import { useSnackbar } from 'notistack';
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { useForm } from 'react-hook-form';
@@ -20,6 +20,7 @@ import NewBrands from '../components/NewBrands';
 import Infomation from './Infomation';
 import NewRams from './NewRams';
 import NewRoms from './NewRoms';
+import productApi from '../../../../api/productApi'
 EditProduct.propTypes = {
     product: PropTypes.object,
     roms: PropTypes.array,
@@ -258,11 +259,35 @@ function EditProduct({ product = {}, roms, rams, brands, onSubmit1, onSubmit2, o
     };
     // end ram
     //end select
-    const {informations} = product;
-    const [arrInfo, setArrInfo] = useState(informations);
+    const {id} = product;
+    
+    const [arrInfo, setArrInfo] = useState([]);
+    
+    useEffect(() => {
+        (async () => {
+          try {
+            const list = await productApi.getAllInfo(id);
+            setArrInfo(list)
+          } catch (error) {
+            console.log(error);
+          }
+        })();
+    },[product])
+   
+    const handleDeleteInfo = async(listInfo) => {
+        // console.log('id product', id);
+        // console.log('id infomation', infomationId);
+        
+        // const list = await productApi.getAllInfo(id);
+        setArrInfo(listInfo)
+        // setArrInfo([...arrInfo])
+    }
+    // const handleDelete =(data) => {
+ 
+    //     setArrInfo(data);
+    // }
     const handleSubmitInfo =(data) => {
-        console.log('data editproduct', data);
-        // arrInfo.push(data);
+ 
         setArrInfo([...arrInfo,data])
     }
 
@@ -435,7 +460,7 @@ function EditProduct({ product = {}, roms, rams, brands, onSubmit1, onSubmit2, o
                 </Box>
             </form>
             <Box>
-                <Infomation informations={arrInfo} onSubmitInfo={handleSubmitInfo} product={product}/>
+                <Infomation informations={arrInfo} onSubmitInfo={handleSubmitInfo} onSubmitDelete={handleDeleteInfo} product={product}/>
             </Box>
             {/* form brand */}
             <Dialog disableBackdropClick disableEscapeKeyDown open={openBrand} onClose={handleCloseBrand} aria-labelledby="form-dialog-title">
