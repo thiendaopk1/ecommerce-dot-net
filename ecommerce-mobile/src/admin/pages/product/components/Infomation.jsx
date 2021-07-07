@@ -5,13 +5,18 @@ import { useForm } from 'react-hook-form';
 import EditInfomation from './EditInfomation';
 import NewInfomation from './NewInfomation';
 import { makeStyles } from '@material-ui/core';
+import productApi from '../../../../api/productApi'
+import { useSnackbar } from "notistack";
 Infomation.propTypes = {
     informations: PropTypes.array,
+    product: PropTypes.object,
+    onSubmitInfo: PropTypes.func,
 };
 const useStyles = makeStyles((theme) => ({
   root:{
     display: 'flex',
-    flexFlow:'column'
+    flexFlow:'column',
+    width: '100%'
   },
   newInfo: {
 
@@ -28,22 +33,34 @@ const useStyles = makeStyles((theme) => ({
     height: '550px'
   },
 }))
-function Infomation({informations}) {
+function Infomation({informations, product={},onSubmitInfo}) {
+  const { enqueueSnackbar } = useSnackbar();
   const classes = useStyles();
-    console.log('informations', informations);
-  const [arrInfo, setArrInfo] = useState(informations);
-  console.log('arrInfo', arrInfo);
-  const handleAddInfo = (data) => {
-    setArrInfo([...arrInfo, data]);
+  const [infomationList, setInfomationList] = useState(informations);
+  
+  const handleDeleteInfo = async() => {
+   
+  }
+
+  const handleAddInfo = async(data) => {
+    try {
+      const res = await productApi.addInfo(data,product.id);
+      console.log('edit res', res);
+      onSubmitInfo(res);
+      enqueueSnackbar('Thêm infomation thành công', { variant: 'success' });
+    } catch (error) {
+      console.log('error', error);
+        enqueueSnackbar(error.message, { variant: 'error' });
+    }
   }
     return (
         <div className={classes.root}>
-          <h2>Infomation</h2>
+          <h2 style={{textAlign:'center'}}>Infomation</h2>
            <div className={classes.newInfo}>
             <NewInfomation onSubmit={handleAddInfo}/>
           </div>
           <div className={classes.editInfo}>
-            <EditInfomation arrInfos={arrInfo}/>
+            <EditInfomation arrInfos={informations} product={product} onDelete={handleDeleteInfo}/>
           </div> 
         </div>
         

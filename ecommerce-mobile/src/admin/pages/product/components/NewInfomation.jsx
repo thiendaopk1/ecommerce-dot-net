@@ -27,14 +27,17 @@ function NewInfomation({onSubmit = null}) {
           content: '',
       }
   })
-  const handleSubmit = (value) => {
-      console.log('value', value);
+  const handleSubmit = async(value) => {
+
       const data = {
           content: value.content,
           name: name
       }
-      console.log(data);
-      onSubmit(data);
+        console.log(data);
+        if(onSubmit){
+            await onSubmit(data);
+            console.log('123', value);
+        }
   }
   console.log('form', form);
     return (

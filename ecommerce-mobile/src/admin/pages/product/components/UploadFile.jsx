@@ -46,9 +46,7 @@ function UploadFile({onSubmitUpload}) {
           </label>
         </div>
         <div className="result">{renderPhotos(selectedFiles)}</div>
-        <div>
-          <Button onClick={handleUload}>Submit</Button>
-        </div>
+
       </div>
 
     </div>
