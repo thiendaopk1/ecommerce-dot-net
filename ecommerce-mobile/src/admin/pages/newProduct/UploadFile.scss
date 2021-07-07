@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Alice&display=swap');
+
+*{
+  margin:0;
+  padding: 0;
+  
+}
+
+.app{
+    margin: 15px 15px;
+    padding: 15px 15px;
+}
+.app .upload {
+    margin-left: 30px;
+    display: flex;
+    flex-flow: row nowrap;
+}
+#file[type="file"] {
+	display: none;
+}
+
+.label{
+    margin-top: 27px;
+  height: 50px;
+  width: 50px;
+  background-color:#2a3eb1;
+  color: white;
+  display: grid;
+  place-items: center;
+  font-size: 2.5rem ;
+  cursor: pointer;
+  
+}
+
+.result{
+  min-height: 100%;
+  max-height: auto;
+  margin-top:1rem ;
+   display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: left; 
+  width: 500px;
+  
+}
+
+.imgUpload{
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  padding: 0.75rem;
+  
+}

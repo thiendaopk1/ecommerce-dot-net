@@ -17,7 +17,7 @@ const productApi = {
         return axiosClient.get(url);
     },
     add(data){
-        const url = '/product';
+        const url = '/product/v3';
         return axiosClient.post(url, data);
     }, 
     edit(data){
@@ -33,6 +33,21 @@ const productApi = {
         return axiosClient.delete(url);
     },
 
+    getInfo(productId, infomationId){
+        const url = `/api/information/${productId}/${infomationId}`;
+        return axiosClient.get(url);
+    },
+
+    editInfo(data){
+        const url = `/api/information/${data.productId}/${data.infomationId}`;
+        return axiosClient.put(url, data);
+    },
+
+    removeInfo(productId, infomationId){
+        const url = `/api/information/${productId}/${infomationId}`;
+        return axiosClient.delete(url);
+    },
+    
     uploadImgs(data,id){
         const url = `/api/upload/many/${id}`;
         return axiosClient.post(url, data, {
@@ -41,13 +56,9 @@ const productApi = {
             }
         });
     },
-    uploadImg(data,id){
-        const url = `/api/upload/one/${id}`;
-        return axiosClient.post(url, data, {
-            headers: {
-                "content-type": "multipart/form-data"
-            }
-        });
+    addInfo(data,id){
+        const url = `/api/information/${id}`;
+        return axiosClient.post(url, data);
     }
 };
 

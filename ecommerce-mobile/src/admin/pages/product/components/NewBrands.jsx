@@ -25,7 +25,6 @@ function NewBrands({onSubmit1}) {
         
         if(onSubmit1){
             await onSubmit1(value);
-            console.log('123', value);
         }
     };
     return (

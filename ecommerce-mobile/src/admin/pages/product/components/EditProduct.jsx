@@ -17,10 +17,9 @@ import romsApi from '../../../../api/romsApi';
 import AreaField from '../../../components/textField/AreaField';
 import InputField from '../../../components/textField/InputField';
 import NewBrands from '../components/NewBrands';
+import Infomation from './Infomation';
 import NewRams from './NewRams';
 import NewRoms from './NewRoms';
-import UploadFile from './UploadFile';
-import productApi from '../../../../api/productApi';
 EditProduct.propTypes = {
     product: PropTypes.object,
     roms: PropTypes.array,
@@ -34,12 +33,14 @@ EditProduct.propTypes = {
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
-        flexFlow: 'row nowrap'
+        flexFlow: 'row nowrap',
+        marginLeft: '60px'
     },
 
     options: {
         display: 'flex',
-        flexFlow: 'row nowrap'
+        flexFlow: 'row nowrap',
+        marginLeft: '70px'
     },
 
     select: {
@@ -48,9 +49,7 @@ const useStyles = makeStyles((theme) => ({
     },
 
     formControl: {
-        marginRight: '10px',
-        marginLeft: '10px',
-        padding: '10px 10px'
+        margin: theme.spacing(1),
     },
 
     checkbox: {
@@ -127,7 +126,7 @@ function EditProduct({ product = {}, roms, rams, brands, onSubmit1, onSubmit2, o
     const history = useHistory();
     const location = useLocation();
     const match = useRouteMatch();
-
+    
     const handleCancel = () => {
         history.push('/Admin/products');
     };
@@ -166,6 +165,7 @@ function EditProduct({ product = {}, roms, rams, brands, onSubmit1, onSubmit2, o
             originalPrice: product.originalPrice,
             promotionPercents: product.promotionPercents,
             description: product.description,
+            amount: product.amount
         }
     });
 
@@ -244,7 +244,7 @@ function EditProduct({ product = {}, roms, rams, brands, onSubmit1, onSubmit2, o
     const handleChangeSelectRam = (event) => {
         setRamList(event.target.value);
     };
-
+    
     const handleSubmitRam = async (value) => {
 
         try {
@@ -258,6 +258,13 @@ function EditProduct({ product = {}, roms, rams, brands, onSubmit1, onSubmit2, o
     };
     // end ram
     //end select
+    const {informations} = product;
+    const [arrInfo, setArrInfo] = useState(informations);
+    const handleSubmitInfo =(data) => {
+        console.log('data editproduct', data);
+        // arrInfo.push(data);
+        setArrInfo([...arrInfo,data])
+    }
 
     const handleSubmit = async (value) => {
         const data = {
@@ -266,6 +273,7 @@ function EditProduct({ product = {}, roms, rams, brands, onSubmit1, onSubmit2, o
             originalPrice: value.originalPrice,
             description: value.description,
             amoutSold: product.amoutSold,
+            amount: value.amount,
             isHot,
             isSale,
             brandId: brandsList,
@@ -280,67 +288,56 @@ function EditProduct({ product = {}, roms, rams, brands, onSubmit1, onSubmit2, o
         }
     }
 
-    const handleUpload = async (selectedFiles) => {
-        try {
-            const res = await productApi.uploadImgs(selectedFiles, product.id);
-            console.log('handleUpload', res);
-            onSubmit3(res)
-            enqueueSnackbar('Thêm image thành công', { variant: 'success' });
-        } catch (error) {
-            enqueueSnackbar(error.message, { variant: 'error' });
-        }
-    }
-
     return (
         <Box>
             <form onSubmit={form.handleSubmit(handleSubmit)}>
-                <h3 style={{ textAlign: 'center', color: 'red', fontSize: '30px' }}>Edit Product</h3>
-                {/* Start InputField */}
+                <h3 style={{ textAlign: 'center', color: 'red', fontSize: '30px', padding: '25px 25px' }}>Edit Product</h3>
+                 {/* Start InputField */}
 
-                <Box className={classes.root} xs={12}>
+                 <Box className={classes.root} xs={12}>
                     <Box className={classes.box}>
-                        <InputLabel className={classes.label}>Name:</InputLabel >
-                        <InputField name="name" form={form} />
+                        <InputField name="name" form={form} label="name"/>
                     </Box>
                     <Box className={classes.box}>
-                        <InputLabel className={classes.label}>Original Price:</InputLabel >
-                        <InputField name="originalPrice" form={form} />
+                        <InputField name="originalPrice" form={form} label="Original Price"/>
+                    </Box>
+                    <Box className={classes.box}>
+                        <InputField name="promotionPercents" form={form} label="Promotion Percents"/>
                     </Box>
                 </Box>
                 <Box className={classes.root} xs={12}>
                     <Box className={classes.box}>
-                        <InputLabel className={classes.label}>Promotion Percents:</InputLabel >
-                        <InputField name="promotionPercents" form={form} />
+                        <InputField name="amount" form={form} label="Amount"/>
                     </Box>
                     {/* check box */}
-                    <Box className={classes.checkbox}>
-                        <FormControlLabel
-                            control={
-                                <Checkbox
-                                    checked={isHot.true}
-                                    onChange={handleChange}
-                                    name="isHot"
-                                    color="primary"
-
+                        <Box className={classes.checkbox}>
+                                <FormControlLabel
+                                    control={
+                                        <Checkbox
+                                            checked={isHot.true}
+                                            onChange={handleChange}
+                                            name="isHot"
+                                            color="primary"
+                                            
+                                        />
+                                    }
+                                    label="isHot"
+                                    style={{marginRight: '100px'}}
                                 />
-                            }
-                            label="isHot"
-                            style={{ marginRight: '100px' }}
-                        />
 
-                        <FormControlLabel
-                            control={
-                                <Checkbox
-                                    checked={isSale.true}
-                                    onChange={handleChange1}
-                                    name="isSale"
-                                    color="primary"
-
+                                <FormControlLabel
+                                    control={
+                                        <Checkbox
+                                            checked={isSale.true}
+                                            onChange={handleChange1}
+                                            name="isSale"
+                                            color="primary"
+                                            
+                                        />
+                                    }
+                                    label="isSale"
                                 />
-                            }
-                            label="isSale"
-                        />
-                    </Box>
+                        </Box>
                     {/* end check box */}
                 </Box>
 
@@ -350,14 +347,15 @@ function EditProduct({ product = {}, roms, rams, brands, onSubmit1, onSubmit2, o
                     {/* Start Select */}
                     <Box className={classes.options}>
                         <Box className={classes.select}>
-                            <FormControl className={classes.formControl} >
-                                <InputLabel id="demo-simple-select-label">Brands</InputLabel>
+                            <FormControl variant="outlined" className={classes.formControl} >
+                                <InputLabel id="demo-simple-select-outlined-label">Brands</InputLabel>
                                 <Select
-                                    labelId="demo-simple-select-label"
-                                    id="demo-simple-select"
+                                    labelId="demo-simple-select-outlined-label"
+                                    id="demo-simple-select-outlined"
                                     value={brandsList}
                                     onChange={handleChangeSelectBrand}
                                     style={{ width: '130px' }}
+                                    label="Brand"
                                 >
                                     {brands.map(brand => (
                                         <MenuItem key={brand.id} value={brand.id}>{brand.name}</MenuItem>
@@ -373,14 +371,15 @@ function EditProduct({ product = {}, roms, rams, brands, onSubmit1, onSubmit2, o
                         </Box>
 
                         <Box className={classes.select}>
-                            <FormControl className={classes.formControl} >
-                                <InputLabel id="demo-simple-select-label">Rom</InputLabel>
+                            <FormControl variant="outlined" className={classes.formControl} >
+                                <InputLabel id="demo-simple-select-outlined-label">Rom</InputLabel>
                                 <Select
-                                    labelId="demo-simple-select-label"
-                                    id="demo-simple-select"
+                                    labelId="demo-simple-select-outlined-label"
+                                    id="demo-simple-select-outlined"
                                     value={romList}
                                     onChange={handleChangeSelectRom}
                                     style={{ width: '130px' }}
+                                    label="Rom"
                                 >
                                     {roms.map(rom => (
                                         <MenuItem key={rom.id} value={rom.id}>{rom.rom}</MenuItem>
@@ -394,14 +393,15 @@ function EditProduct({ product = {}, roms, rams, brands, onSubmit1, onSubmit2, o
                         </Box>
 
                         <Box className={classes.select}>
-                            <FormControl className={classes.formControl} >
-                                <InputLabel id="demo-simple-select-label">Ram</InputLabel>
+                            <FormControl variant="outlined" className={classes.formControl} >
+                                <InputLabel id="demo-simple-select-outlined-label">Ram</InputLabel>
                                 <Select
-                                    labelId="demo-simple-select-label"
-                                    id="demo-simple-select"
+                                    labelId="demo-simple-select-outlined-label"
+                                    id="demo-simple-select-outlined"
                                     value={ramList}
                                     onChange={handleChangeSelectRam}
                                     style={{ width: '130px' }}
+                                    label="Ram"
                                 >
                                     {rams.map(ram => (
                                         <MenuItem key={ram.id} value={ram.id}>{ram.ram}</MenuItem>
@@ -416,9 +416,8 @@ function EditProduct({ product = {}, roms, rams, brands, onSubmit1, onSubmit2, o
                     </Box>
                     {/* End Select */}
                 </Box>
-                <Box >
-                    <InputLabel className={classes.label}>Description:</InputLabel >
-                    <AreaField name="description" form={form} className={classes.textarea} />
+                <Box style={{marginLeft: '25px'}}>
+                    <AreaField name="description" form={form} className={classes.textarea} label="Description"/>
                 </Box>
                 <Box className={classes.editor}>
                     <InputLabel className={classes.label}>Long Description:</InputLabel >
@@ -430,16 +429,13 @@ function EditProduct({ product = {}, roms, rams, brands, onSubmit1, onSubmit2, o
 
                     />
                 </Box>
-
-
                 <Box className={classes.btn}>
                     <Button type="submit" variant="contained" color="primary" size="large" className={classes.btn1}>SAVE</Button>
                     <Button onClick={handleCancel} variant="contained" color="primary" size="large" className={classes.btn2}>CANCEL</Button>
                 </Box>
-
             </form>
             <Box>
-                <UploadFile onSubmitUpload={handleUpload} idProduct={product.id} />
+                <Infomation informations={arrInfo} onSubmitInfo={handleSubmitInfo} product={product}/>
             </Box>
             {/* form brand */}
             <Dialog disableBackdropClick disableEscapeKeyDown open={openBrand} onClose={handleCloseBrand} aria-labelledby="form-dialog-title">

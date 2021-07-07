@@ -1,5 +1,5 @@
 import { Box, Container, Grid, makeStyles, Paper } from '@material-ui/core';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
 import ProductInfo from '../components/ProductInfo';
 import ProductThumbnail from '../components/ProductThumbnail';
@@ -44,8 +44,7 @@ const useStyles = makeStyles(theme => ({
 function DetailPage() {
     const classes = useStyles();
     const { params: { productId }, url } = useRouteMatch();
-
-    const { product, loading} = useProductDetail(productId);
+const { product, loading} = useProductDetail(productId);
     const [comment, setComment] = useState();
    
    //

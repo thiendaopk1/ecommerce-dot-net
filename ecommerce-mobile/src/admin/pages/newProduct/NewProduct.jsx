@@ -11,7 +11,6 @@ import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { useForm } from 'react-hook-form';
 import { useHistory, useLocation, useRouteMatch } from 'react-router-dom';
-
 import brandsApi from '../../../api/brandsApi';
 import ramsApi from '../../../api/ramsApi';
 import romsApi from '../../../api/romsApi';
@@ -21,6 +20,8 @@ import InputField from '../../components/textField/InputField';
 import NewBrands from '../product/components/NewBrands'
 import NewRams from '../product/components/NewRams';
 import NewRoms from '../product/components/NewRoms';
+import './UploadFile.scss';
+import PhotoCamera from '@material-ui/icons/PhotoCamera';
 // import AreaField from '../../components/textField/AreaField';
 // import InputField from '../../components/textField/InputField';
 // import NewBrands from '../components/NewBrands';
@@ -40,12 +41,14 @@ NewProduct.propTypes = {
 const useStyles = makeStyles((theme) => ({
     root:{
         display: 'flex',
-        flexFlow: 'row nowrap'
+        flexFlow: 'row nowrap',
+        marginLeft: '60px'
     },
 
     options:{
         display: 'flex',
-        flexFlow: 'row nowrap'
+        flexFlow: 'row nowrap',
+        marginLeft: '70px'
     },
 
     select:{
@@ -54,9 +57,10 @@ const useStyles = makeStyles((theme) => ({
     },
 
     formControl: {
-        marginRight: '10px',
-        marginLeft: '10px',
-        padding: '10px 10px'
+        margin: theme.spacing(1),
+        // marginRight: '10px',
+        // marginLeft: '10px',
+        // padding: '10px 10px'
     },
 
     checkbox:{
@@ -130,14 +134,33 @@ function NewProduct({roms,rams,brands,onSubmit1,onSubmit2,onSubmit3,onSubmitNew}
     const location = useLocation();
     const match = useRouteMatch();
 
+    //upload file
+    const [selectedFiles, setSelectedFiles] = useState([]);
+    const handleImageChange = (e) => {
+        if (e.target.files) {
+        const filesArray = Array.from(e.target.files).map((file) =>
+            file
+        );
+        setSelectedFiles((prevImages) => prevImages.concat(filesArray));
+        Array.from(e.target.files).map(
+            (file) => URL.createObjectURL(file) // avoid memory leak
+        );
+        }
+    };
+    const renderPhotos = (source) => {
+        console.log("source: ", source);
+        return source.map((photo) => {
+          photo = URL.createObjectURL(photo);
+          return <img src={photo} alt="" key={photo} className="imgUpload" />;
+        });
+      };
+    //end upload file
+
     const handleCancel = () => {
         history.push('/Admin/products');
     };
     //editor
-    
-    
-    
-    
+
     const [editorState, setEditorState] = useState(() =>
     EditorState.createEmpty()
     );
@@ -161,6 +184,7 @@ function NewProduct({roms,rams,brands,onSubmit1,onSubmit2,onSubmit3,onSubmitNew}
             name: '',
             originalPrice: '',
             promotionPercents: '',
+            amount: '',
             description: ''
         }
     });
@@ -256,22 +280,26 @@ function NewProduct({roms,rams,brands,onSubmit1,onSubmit2,onSubmit3,onSubmitNew}
     //end select
 
     const handleSubmit = async(value) => {
-        const data = {
-            promotionPercents: value.promotionPercents,
-            name: value.name,
-            originalPrice: value.originalPrice,
-            description: value.description,
-            amoutSold: 0,
-            isHot,
-            isSale,
-            brandId: brandsList,
-            ramId: ramList,
-            romId: romList,
-            longDescription: draftToHtml(convertToRaw(editorState.getCurrentContent()))
-        }
-        console.log('data', data);
+       
         if(onSubmitNew){
-            await onSubmitNew(data)
+            const formData = new FormData();
+            formData.append('promotionPercents',value.promotionPercents);
+            formData.append('name',value.name);
+            formData.append('originalPrice',value.originalPrice);
+            formData.append('description',value.description);
+            formData.append('amoutSold',0);
+            formData.append('amount',value.amount);
+            formData.append('isHot',isHot);
+            formData.append('isSale',isSale);
+            formData.append('brandId',brandsList);
+            formData.append('ramId',ramList);
+            formData.append('romId',romList);
+            formData.append('longDescription',draftToHtml(convertToRaw(editorState.getCurrentContent())));
+            selectedFiles.forEach(file => {
+                formData.append('files', file);
+            });
+            await onSubmitNew(formData)
+            console.log('formData', formData);
         }
         // const rp = await productApi.add(data);
     }
@@ -280,23 +308,23 @@ function NewProduct({roms,rams,brands,onSubmit1,onSubmit2,onSubmit3,onSubmitNew}
     return (
         <Box>
             <form onSubmit={form.handleSubmit(handleSubmit)}>
-            <h3 style={{textAlign: 'center', color: 'red', fontSize: '30px'}}>Edit Product</h3>
+            <h3 style={{textAlign: 'center', color: 'red', fontSize: '30px', padding: '25px 25px'}}>New Product</h3>
                 {/* Start InputField */}
 
                 <Box className={classes.root} xs={12}>
                     <Box className={classes.box}>
-                        <InputLabel className={classes.label}>Name:</InputLabel >
-                        <InputField name="name" form={form}/>
+                        <InputField name="name" form={form} label="name"/>
                     </Box>
                     <Box className={classes.box}>
-                        <InputLabel className={classes.label}>Original Price:</InputLabel >
-                        <InputField name="originalPrice" form={form}/>
+                        <InputField name="originalPrice" form={form} label="Original Price"/>
+                    </Box>
+                    <Box className={classes.box}>
+                        <InputField name="promotionPercents" form={form} label="Promotion Percents"/>
                     </Box>
                 </Box>
                 <Box className={classes.root} xs={12}>
                     <Box className={classes.box}>
-                        <InputLabel className={classes.label}>Promotion Percents:</InputLabel >
-                        <InputField name="promotionPercents" form={form}/>
+                        <InputField name="amount" form={form} label="Amount"/>
                     </Box>
                     {/* check box */}
                         <Box className={classes.checkbox}>
@@ -336,14 +364,15 @@ function NewProduct({roms,rams,brands,onSubmit1,onSubmit2,onSubmit3,onSubmitNew}
                     {/* Start Select */}
                         <Box className={classes.options}>
                             <Box className={classes.select}>
-                                <FormControl className={classes.formControl} >
-                                    <InputLabel id="demo-simple-select-label">Brands</InputLabel>
+                                <FormControl variant="outlined" className={classes.formControl} >
+                                    <InputLabel id="demo-simple-select-outlined-label">Brands</InputLabel>
                                     <Select
-                                        labelId="demo-simple-select-label"
-                                        id="demo-simple-select"
+                                        labelId="demo-simple-select-outlined-label"
+                                        id="demo-simple-select-outlined"
                                         value={brandsList}
                                         onChange={handleChangeSelectBrand}
                                         style={{width:'130px'}}
+                                        label="Brands"
                                     >
                                     {brands.map(brand => (
                                         <MenuItem key={brand.id} value={brand.id}>{brand.name}</MenuItem>
@@ -359,14 +388,15 @@ function NewProduct({roms,rams,brands,onSubmit1,onSubmit2,onSubmit3,onSubmitNew}
                             </Box>
 
                             <Box className={classes.select}>
-                                <FormControl className={classes.formControl} >
-                                    <InputLabel id="demo-simple-select-label">Rom</InputLabel>
+                                <FormControl variant="outlined" className={classes.formControl} >
+                                    <InputLabel id="demo-simple-select-outlined-label">Rom</InputLabel>
                                     <Select
-                                        labelId="demo-simple-select-label"
-                                        id="demo-simple-select"
+                                        labelId="demo-simple-select-outlined-label"
+                                        id="demo-simple-select-outlined"
                                         value={romList}
                                         onChange={handleChangeSelectRom}
                                         style={{width:'130px'}}
+                                        label="Rom"
                                     >
                                     {roms.map(rom => (
                                         <MenuItem key={rom.id} value={rom.id}>{rom.rom}</MenuItem>
@@ -380,14 +410,15 @@ function NewProduct({roms,rams,brands,onSubmit1,onSubmit2,onSubmit3,onSubmitNew}
                             </Box>
 
                             <Box className={classes.select}>
-                            <FormControl className={classes.formControl} >
-                                <InputLabel id="demo-simple-select-label">Ram</InputLabel>
+                            <FormControl variant="outlined" className={classes.formControl} >
+                                <InputLabel id="demo-simple-select-outlined-label">Ram</InputLabel>
                                 <Select
-                                    labelId="demo-simple-select-label"
-                                    id="demo-simple-select"
+                                   labelId="demo-simple-select-outlined-label"
+                                   id="demo-simple-select-outlined"
                                     value={ramList}
                                     onChange={handleChangeSelectRam}
                                     style={{width:'130px'}}
+                                    label="Ram"
                                 >
                                 {rams.map(ram => (
                                     <MenuItem key={ram.id} value={ram.id}>{ram.ram}</MenuItem>
@@ -402,9 +433,8 @@ function NewProduct({roms,rams,brands,onSubmit1,onSubmit2,onSubmit3,onSubmitNew}
                         </Box>
                     {/* End Select */}
                 </Box>
-                <Box >
-                    <InputLabel className={classes.label}>Description:</InputLabel >
-                    <AreaField name="description" form={form} className={classes.textarea}/>
+                <Box style={{marginLeft: '25px'}}>
+                    <AreaField name="description" form={form} className={classes.textarea} label="Description"/>
                 </Box>
                 <Box className={classes.editor}>
                 <InputLabel className={classes.label}>Long Description:</InputLabel >
@@ -416,6 +446,19 @@ function NewProduct({roms,rams,brands,onSubmit1,onSubmit2,onSubmit3,onSubmitNew}
                         
                     />
                 </Box> 
+                <div className="app">
+                    <div className="upload">
+                        <input type="file" id="file" encType="multipart/form-data" multiple onChange={handleImageChange} />
+                        <div className="label-holder" style={{width: '50px'}}>
+                            <label htmlFor="file" className="label">
+                                <PhotoCamera />
+                            </label>
+                        </div>
+                        <div className="result">{renderPhotos(selectedFiles)}</div>
+
+                    </div>
+
+                </div>
                 <Box className={classes.btn}>
                     <Button type="submit" variant="contained" color="primary" size="large" className={classes.btn1}>SAVE</Button>
                     <Button onClick={handleCancel} variant="contained" color="primary" size="large" className={classes.btn2}>CANCEL</Button>

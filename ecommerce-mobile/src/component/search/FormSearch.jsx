@@ -5,10 +5,11 @@ import './style.scss';
 import { useState } from 'react';
 FormSearch.propTypes = {
     onSubmit: PropTypes.func,
-    viewProducts: PropTypes.string,
+    changeVPO: PropTypes.func,
+    changeVPC: PropTypes.func,
 };
 
-function FormSearch({onSubmit=null,viewProducts}) {
+function FormSearch({onSubmit=null,changeVPO=null,changeVPC=null}) {
   
     const [searchTerm, setSearchTerm] = useState('');
     const typingTimeoutRef = useRef(null);
@@ -39,6 +40,12 @@ function FormSearch({onSubmit=null,viewProducts}) {
                     placeholder="Search . . ."
                     onChange={handleSearchTermChange}
                     value={searchTerm}
+                    onFocus={()=>{
+                        if(changeVPO) changeVPO();
+                    }}
+                    onBlur={()=>{
+                        if(changeVPC) changeVPC();
+                    }}
                     />
                 </div>
             </div>
