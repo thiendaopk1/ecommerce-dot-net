@@ -1,6 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import { Box, Grid, makeStyles } from '@material-ui/core';
+import PropTypes from 'prop-types';
+import React from 'react';
 import Items from './Items';
 
 ListItems.propTypes = {
@@ -17,8 +17,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 function ListItems({listItems}) {
     const classes = useStyles();
-    // const {priceAll, pricePerOne, productImg, productName, quantity } = orders;
-    // console.log('listItems', listItems);
+
     return (
         <Box>
             <Grid container>

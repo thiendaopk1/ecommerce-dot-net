@@ -1,10 +1,10 @@
 import { unwrapResult } from '@reduxjs/toolkit';
 import { useSnackbar } from 'notistack';
+import PropTypes from 'prop-types';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { register } from '../../userSlice';
 import RegisterForm from '../registerForm';
-import PropTypes from 'prop-types';
 Register.propTypes = {
     closeDialog: PropTypes.func,
 };

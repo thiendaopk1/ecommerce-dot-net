@@ -1,11 +1,11 @@
 import { Box, Container, Grid, makeStyles, Paper } from '@material-ui/core';
+import { Pagination } from '@material-ui/lab';
+import queryString from 'query-string';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import ordersApi from '../../../../api/ordersApi';
 import OrdersList from './components/OrdersList';
 import PurchaseMenu from './components/PurchaseMenu';
-import queryString from 'query-string';
-import { Pagination } from '@material-ui/lab';
 Purchase.propTypes = {
     
 };
@@ -18,14 +18,11 @@ const useStyles = makeStyles((theme) => ({
         marginTop: '20px',
         paddingBottom: '20px',
     }
-    // orders: {
-    //  background: '#f8f9fa'
-    // }
+
 }))
 function Purchase(props) {
     const classes = useStyles();
     const [ordersList, setOrdersList] = useState([]);
-    console.log('ordersList',ordersList);
     const history = useHistory();
     const location = useLocation();
     const queryParams = useMemo(() => {
@@ -47,13 +44,9 @@ function Purchase(props) {
         (async () => {
             try {
                 const params2={...queryParams};
-                console.log("param",params2);
                 const rp=await ordersApi.getAll(params2);
                 const {data, pagination} = rp;
-                console.log("data",data);
-                console.log("pagi", pagination);
                 setOrdersList(rp.data);
-                
                 setPagination(pagination);
             } catch (error) {
                 console.log(error)
@@ -84,24 +77,22 @@ function Purchase(props) {
         });
         
     };
-
-    // const setNewFilter = (newFilters) => {
-    //     history.push({
-    //         pathName: history.location.pathName,
-    //         search: queryString.stringify(newFilters),
-    //     });
-    // }
+    const handleCancel = (value) => {
+        console.log('index:' , value);
+        setOrdersList(value)
+    }
+    
     return (
         <Box >
             <Container >
                 <Grid item>
                     <Paper elevation={0}>
-                        <PurchaseMenu filters={queryParams} onChange={handelFiltersChange}/>
+                        <PurchaseMenu filters={queryParams} onChange={handelFiltersChange} />
                     </Paper>
                 </Grid>
                 <Grid item >
                     <Paper elevation={0} mt={2}>
-                        <OrdersList data={ordersList}/>
+                        <OrdersList data={ordersList} onSubmitCancel={handleCancel}/>
                         <Box className={classes.pagination}>
                                 <Pagination 
                                 color="secondary" 

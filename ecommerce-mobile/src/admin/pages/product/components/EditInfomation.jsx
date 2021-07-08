@@ -13,24 +13,18 @@ import { useSnackbar } from 'notistack';
 EditInfomation.propTypes = {
     arrInfos: PropTypes.array,
     product: PropTypes.object,
-    onDelete: PropTypes.func,
+    onSubmitDelete: PropTypes.func,
 };
 
-function EditInfomation({arrInfos,product={},onDelete=null}) {
+function EditInfomation({arrInfos,product={},onSubmitDelete=null}) {
     const {id} = product;
     const match = useRouteMatch();
     const location = useLocation();
-    const { enqueueSnackbar } = useSnackbar();
-    const [data, setData] = useState(arrInfos);
-    const handleDelete = async (id,infomationId) => {
-    
-      try{
-      await productApi.removeInfo(id,infomationId);
-      setData(data.filter((item) => item.infomationId !== infomationId));
-      enqueueSnackbar('delete infomation success!', {variant: 'success'});
-    }catch(error){
-      enqueueSnackbar(error.message, {variant: 'error'});
-    }
+
+    const handleDelete = async (infomationId) => {
+      if(onSubmitDelete){
+        await onSubmitDelete(id,infomationId)
+      }
   }
     const columns = [
         { field: 'id', headerName: 'ID', width: 90},
@@ -48,7 +42,7 @@ function EditInfomation({arrInfos,product={},onDelete=null}) {
                   </Link>
                   <DeleteOutline
                     className="productListDelete"
-                    onClick={() => handleDelete(id,params.row.id)}
+                    onClick={() => handleDelete(params.row.id)}
                   />
                 </>
               );

@@ -1,15 +1,12 @@
-import React, { useState } from 'react';
+import { Box, Button, Container, Grid, makeStyles, Typography } from '@material-ui/core';
 import PropTypes from 'prop-types';
-import { Box, Button, Container, makeStyles, Typography,Paper, Dialog } from '@material-ui/core';
-import { Grid } from '@material-ui/core';
+import React from 'react';
 import ListItems from './ListItems';
-import ordersApi from '../../../../../api/ordersApi';
-import { Close } from '@material-ui/icons';
-import DialogContent from '@material-ui/core/DialogContent';
-import IconButton from '@material-ui/core/IconButton';
+
 
 Orders.propTypes = {
     Orders: PropTypes.object,
+    onCancel: PropTypes.func,
 };
 const useStyles = makeStyles(theme => ({
     header: {
@@ -78,25 +75,14 @@ const useStyles = makeStyles(theme => ({
         color: theme.palette.grey[500],
       },
 }))
-function Orders({orders}) {
+function Orders({orders,onCancel}) {
     const classes = useStyles();
     const {status, date, lastPrice, paymentType, cartItems,id } = orders;
-   
-    
-    const [openComment, setOpenComment] = useState(false);
 
-
-    const [cancel, setCancel] = useState();
-    console.log('cancel', cancel);
-    const handleCancelOrder = (e) => {
-        (async () =>{
-            try {      
-                const animation = await ordersApi.cancel(id);
-                setCancel(animation);
-            } catch (error) {
-                console.log(error);
-            }
-        })();
+    const handleCancelOrder = async() => {
+        if(onCancel){
+            await onCancel(id);
+        }
     }
     const handleBuyAgaint = () => {
 

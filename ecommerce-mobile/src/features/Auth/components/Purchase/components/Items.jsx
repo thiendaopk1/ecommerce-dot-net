@@ -1,6 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import { Box, makeStyles, Typography } from '@material-ui/core';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 Items.propTypes = {
     items: PropTypes.object,
@@ -32,10 +32,10 @@ const useStyles = makeStyles(theme => ({
     }
 }))
 function Items({items}) {
-    console.log('items', items);
+ 
     const classes = useStyles();
     const {idp, product, quantity} = items;
-    console.log('items', items);
+  
     return (
         <Box className={classes.root}>
             <Box className={classes.product}>

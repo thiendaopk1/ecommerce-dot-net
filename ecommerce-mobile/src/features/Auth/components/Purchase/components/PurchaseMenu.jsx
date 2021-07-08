@@ -1,9 +1,7 @@
-import React from 'react';
+import { Box, makeStyles } from '@material-ui/core';
 import PropTypes from 'prop-types';
-import { Box, Link, makeStyles } from '@material-ui/core';
-import { NavLink, useRouteMatch } from 'react-router-dom';
+import React from 'react';
 import StatusFilter from './StatusFilter';
-import { Paper } from '@material-ui/core';
 PurchaseMenu.propTypes = {
     filters: PropTypes.object.isRequired,
     onChange: PropTypes.func,
@@ -14,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
 function PurchaseMenu({ filters, onChange }) {
     const classes = useStyles();
     const handleStatusChange = (newStatusID) => {
-        console.log('newStatusID',newStatusID);
+
         if(!onChange) return;
 
         if(!newStatusID) return onChange({
