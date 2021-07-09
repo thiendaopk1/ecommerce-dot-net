@@ -46,22 +46,21 @@ function SearchForm(props) {
         page: 1,
     });
     const history = useHistory();
-    console.log(products.id);
+
     const location = useLocation();
     const [filters, setFilters] = useState({
         _limit: 3,
         _page: 1,
     })
-    console.log('filters',filters);
+   
     useEffect(() => {
         (async () => {
             try{
                 const paramsString=queryString.stringify(filters);
-                console.log("param",paramsString);
+               
                 const rp=await productApi.getAll2(paramsString);
                 const {data, pagination} = rp;
-                // console.log("data",data);
-                console.log("pagi", pagination);
+               
                 
                 setProducts(data)
                 setPagination(pagination);

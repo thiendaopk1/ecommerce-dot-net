@@ -7,8 +7,6 @@ let cartItemsStore = []
 if(localStorage.getItem("cart"))
     cartItemsStore = JSON.parse(localStorage.getItem("cart"))
 
-    console.log(cartItemsStore);
-
 const cartSlice = createSlice({
     name: 'cart',
     initialState: {

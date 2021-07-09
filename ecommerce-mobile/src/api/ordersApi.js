@@ -10,6 +10,7 @@ const ordersApi = {
     getAllAdmin(params) {
         const url ='api/admin/orders-version2';
         return axiosClient.get(url, {params: params});
+       
     },
     add(data){
         const url = '/api/order';

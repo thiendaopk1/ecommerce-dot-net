@@ -50,7 +50,7 @@ function HomeProductList(props) {
                 const {data, pagination} = await productApi.getAll(filters);
                 
                 setProductList(data);
-                console.log(data, pagination);
+             
             }
             catch(error){
                 console.log('failed');

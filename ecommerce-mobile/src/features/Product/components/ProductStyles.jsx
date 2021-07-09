@@ -14,14 +14,16 @@ const ProductStyles = makeStyles(() => ({
     name: {
         height: "45px",
     },
-
+   
     rate: {
         fontSize: "1rem",
+        top: '3px'
         
     },
 
     comment: {
         fontSize: "0.75rem",
+        
     },
 
     originalPrice: {

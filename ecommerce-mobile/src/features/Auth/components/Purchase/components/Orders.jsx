@@ -1,8 +1,9 @@
 import { Box, Button, Container, Grid, makeStyles, Typography } from '@material-ui/core';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useState } from 'react';
 import ListItems from './ListItems';
-
+import { addToCart } from '../../../../ShoppingCart/cartSlice';
+import { useDispatch } from 'react-redux';
 
 Orders.propTypes = {
     Orders: PropTypes.object,
@@ -78,15 +79,27 @@ const useStyles = makeStyles(theme => ({
 function Orders({orders,onCancel}) {
     const classes = useStyles();
     const {status, date, lastPrice, paymentType, cartItems,id } = orders;
-
+    
     const handleCancelOrder = async() => {
         if(onCancel){
             await onCancel(id);
         }
     }
+    const dispatch = useDispatch();
+  
+    
     const handleBuyAgaint = () => {
-
+        cartItems.forEach(item => {
+            const action = addToCart({
+                idp: item.idp,
+                product: item.product,
+                quantity: item.quantity
+            })
+            dispatch(action);
+        })
+ 
     }
+   
     return (
         <Box>
             <Container>
@@ -102,7 +115,7 @@ function Orders({orders,onCancel}) {
                     </Box>
                 </Grid>
                 <Grid item className={classes.center}>
-                    <ListItems listItems={cartItems}/>
+                    <ListItems listItems={cartItems} />
                 </Grid>
                 <Grid item className={classes.footer}>
                     <Box className={classes.date}>

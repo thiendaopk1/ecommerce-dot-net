@@ -1,9 +1,10 @@
-import { Box, makeStyles, Typography } from '@material-ui/core';
+import { Box, Button, makeStyles, Typography } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import React from 'react';
 
 Items.propTypes = {
     items: PropTypes.object,
+   
 };
 const useStyles = makeStyles(theme => ({
     root:{
@@ -35,7 +36,7 @@ function Items({items}) {
  
     const classes = useStyles();
     const {idp, product, quantity} = items;
-  
+   
     return (
         <Box className={classes.root}>
             <Box className={classes.product}>
@@ -48,6 +49,7 @@ function Items({items}) {
             <Box className={classes.price}>
                 <Typography className={classes.prices}>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product.salePrice*quantity)}</Typography>
             </Box>
+            
         </Box>
     );
 }

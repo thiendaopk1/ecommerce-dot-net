@@ -5,6 +5,7 @@ import React from 'react';
 import Orders from './Orders';
 import ordersApi from '../../../../../api/ordersApi';
 
+
 OrdersList.propTypes = {
     data: PropTypes.array,
     onSubmitCancel: PropTypes.func,
@@ -24,8 +25,8 @@ function OrdersList({data, onSubmitCancel=null}) {
         (async () =>{
             try {      
                 const animation = await ordersApi.cancel(orderId);
-                console.log('order:', animation);
-                onSubmitCancel(animation);
+                console.log('order:', animation.data);
+                onSubmitCancel(animation.data);
                
             } catch (error) {
                 console.log(error);
@@ -37,12 +38,9 @@ function OrdersList({data, onSubmitCancel=null}) {
         <Box>
             <Grid container>
                 {data.map((order) => (
-                    
                         <Grid item key={order.id} xs={12} className={classes.paper}>
                             <Orders orders={order} onCancel={handleCancel}/>   
                         </Grid>
-                    
-                    
                 ))}
             </Grid>
         </Box>

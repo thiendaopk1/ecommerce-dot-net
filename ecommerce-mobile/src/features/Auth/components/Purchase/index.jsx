@@ -45,7 +45,9 @@ function Purchase(props) {
             try {
                 const params2={...queryParams};
                 const rp=await ordersApi.getAll(params2);
+
                 const {data, pagination} = rp;
+                console.log('data', data);
                 setOrdersList(rp.data);
                 setPagination(pagination);
             } catch (error) {
@@ -78,7 +80,6 @@ function Purchase(props) {
         
     };
     const handleCancel = (value) => {
-        console.log('index:' , value);
         setOrdersList(value)
     }
     
