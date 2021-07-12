@@ -2,10 +2,12 @@ import { Box, Container, Grid, makeStyles, Paper } from '@material-ui/core';
 import { Pagination } from '@material-ui/lab';
 import queryString from 'query-string';
 import React, { useEffect, useMemo, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 import ordersApi from '../../../../api/ordersApi';
 import OrdersList from './components/OrdersList';
 import PurchaseMenu from './components/PurchaseMenu';
+import {Redirect} from 'react-router-dom';
 Purchase.propTypes = {
     
 };
@@ -82,7 +84,11 @@ function Purchase(props) {
     const handleCancel = (value) => {
         setOrdersList(value)
     }
-    
+    const loggedInUser = useSelector(state => state.user.current);
+    const isLoggedIn = !!loggedInUser.id;
+    if(!isLoggedIn){
+        return <Redirect to="/"/>
+    }
     return (
         <Box >
             <Container >

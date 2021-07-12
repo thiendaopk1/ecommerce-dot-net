@@ -1,0 +1,46 @@
+.item::before {  
+    transform: scaleX(0);
+    transform-origin: bottom right;
+  }
+  
+  .item:hover::before {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+  }
+  
+  .item::before {
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 0; right: 0; bottom: 0; left: 0;
+    inset: 0 0 0 0;
+    background: #99DDFF;
+    z-index: -1;
+    transition: transform .3s ease;
+  }
+  
+  .item {
+    position: relative;
+    
+  }
+  
+  
+  .list {
+    min-block-size: 100%;
+    min-inline-size: 100%;
+    margin: 0;
+    box-sizing: border-box;
+    display: flex;
+    flex-flow: column;
+    place-content: center;
+    font-family: system-ui, sans-serif;
+    list-style-type: none;
+    cursor: pointer;
+  }
+  
+  @media (orientation: landscape) {
+    .list {
+      grid-auto-flow: column;
+    }
+  }
+  

@@ -21,13 +21,19 @@ import NewRoms from './pages/category/component/newCategories/NewRoms';
 import Purchase from './pages/ordersManager';
 import CommentList from './pages/commentList/CommentList';
 import EditInfo from './pages/product/components/EditInfo'
+import { useSelector } from 'react-redux';
 // import NewProduct from './pages/product/components/NewProduct'
-
+import {Redirect} from 'react-router-dom';
 Admin.propTypes = {
   
 };
 
 function Admin(props) {
+  const loggedInUser = useSelector(state => state.user.current);
+    const isLoggedIn = !!loggedInUser.id;
+    if(!isLoggedIn){
+        return <Redirect to="/"/>
+    }
   return (
     <div>
       {/* <Topbar /> */}

@@ -17,6 +17,7 @@ import { removeAll } from '../cartSlice';
 import { cartItemsCountSelectors, cartTotalCountSelectors } from '../selectors';
 import CartItems from './CheckOut/CartItems';
 import queryString from 'query-string';
+import {Redirect} from 'react-router-dom';
 CheckOut.propTypes = {
     
 };
@@ -230,7 +231,11 @@ function CheckOut(props) {
 
     const cartItemsCount = useSelector(cartItemsCountSelectors);
     const cartTotal = useSelector(cartTotalCountSelectors);
-
+    const loggedInUser = useSelector(state => state.user.current);
+    const isLoggedIn = !!loggedInUser.id;
+    if(!isLoggedIn){
+        return <Redirect to="/"/>
+    }
     return (
         <form onSubmit={form.handleSubmit(handleSubmit)}>
             <Box>
