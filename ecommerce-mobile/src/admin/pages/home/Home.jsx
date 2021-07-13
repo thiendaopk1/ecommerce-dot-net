@@ -11,11 +11,17 @@ import { useEffect } from "react";
 import { useState } from "react";
 function Home() {
   const [data, setData] = useState();
+  const [doanhThuNam, setDoanhThuNam]=useState();
+  const [doanhThuThang, setDoanhThuThang]=useState();
   console.log('data', data);
   useEffect(() => {
     (async () => {
       const res = await thongKeApi.getAll();
       setData(res);
+      const rp = await thongKeApi.getDoanhThuNam();
+      setDoanhThuNam(rp);
+      const rs = await thongKeApi.getDoanhThuThang();
+      setDoanhThuThang(rs);
     })();
   },[])
   // const listDTTheoThang = data.listDTTheoThang;
@@ -23,7 +29,7 @@ function Home() {
   
   return (
     <div className="home">
-      <FeaturedInfo />
+     {doanhThuNam && doanhThuThang &&(<FeaturedInfo doanhThuNam={doanhThuNam} doanhThuThang={doanhThuThang}/>)}
       { data && <BieuDo data={data}/> }
       <div className="homeWidgets">
         <WidgetSm/>

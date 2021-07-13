@@ -43,15 +43,13 @@ function UserList() {
         role: x.userRoles[0].role.id,
       })));
       enqueueSnackbar('Blocked success!', { variant: 'success' });
-      console.log(data);
-
     } catch (error) {
       enqueueSnackbar(error.message, { variant: 'error' });
     }
   }
   const handleChangeRole = async (id) => {
     try {
-      const value = { id: id, role: document.getElementById("role").value==1?2:1 }
+      const value = { id: id, role: document.getElementById("role").value }
       const rp = await userApi.changeRole(value);
       setData(rp.map((x) => ({
         id: x.id,
@@ -63,7 +61,7 @@ function UserList() {
         blocked: x.active,
         role: x.userRoles[0].role.id,
       })));
-      enqueueSnackbar('Blocked success!', { variant: 'success' });
+      enqueueSnackbar('change success!', { variant: 'success' });
       console.log(data);
 
     } catch (error) {

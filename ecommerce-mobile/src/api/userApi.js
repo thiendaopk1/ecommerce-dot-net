@@ -46,7 +46,7 @@ const userApi={
         return axiosClient.post(url,data);
     },
     changeRole(value){
-        const url = 'api/admin/users/role/'+value.id;
+        const url = 'api/admin/users/role/'+value.id+'/'+value.role;
         return axiosClient.put(url,{role:value.role});
     },
 };

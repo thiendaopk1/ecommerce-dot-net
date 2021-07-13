@@ -1,6 +1,7 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Avatar, Button, LinearProgress, makeStyles, Select, Typography } from "@material-ui/core";
 import { LockOutlined } from "@material-ui/icons";
+import { useSnackbar } from "notistack";
 import { useForm } from "react-hook-form";
 import * as yup from 'yup';
 import userApi from "../../../api/userApi";
@@ -66,10 +67,15 @@ function NewUser(props) {
     },
     resolver: yupResolver(schema),
   });
-
+  const { enqueueSnackbar } = useSnackbar();
   const handleSubmit = async (values) => {
+    try{
     values.role=document.getElementById('role').value;
     const user =await userApi.newUser(values);
+    enqueueSnackbar('add user success!', { variant: 'success' });
+  } catch (error) {
+    enqueueSnackbar(error.message, { variant: 'error' });
+  }
   };
   const { isSubmitting } = form.formState;
   return (
