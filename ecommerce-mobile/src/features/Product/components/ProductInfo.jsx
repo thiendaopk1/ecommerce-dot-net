@@ -18,17 +18,12 @@ ProductInfo.propTypes = {
 
 
 function ProductInfo({product = {},comments = {} }) {
-
+  
     const classes = ProductDetailStyles();
     const { name,ram,rom } = product;
    
     const [value, setValue] = useState();
-  
     
-    console.log('value1', value);
-    useEffect(() => {
-        setValue(comments.tbcRate)
-    }, [comments])
         
     return (
         <Box>
@@ -36,8 +31,8 @@ function ProductInfo({product = {},comments = {} }) {
                 <Typography variant="h4" className={classes.title}>
                     {name}
                 </Typography>
-                <Box component="span" >
-                    <Rating name="half-rating-read" value={value} precision={0.1} readOnly className={classes.rate}/>
+                <Box >
+                    <Rating name="half-rating-read" value={comments.tbcRate} precision={0.1} readOnly className={classes.rate}/>
                     <Typography variant="p" className={classes.comment}>{comments.tongCmt} đánh giá</Typography>
                 </Box>
             </Box>
@@ -48,10 +43,15 @@ function ProductInfo({product = {},comments = {} }) {
             </Box>
             
              <Box mt={2} >
-                <Typography className={classes.titleColor}>Ram:</Typography>
-                <Typography  className={classes.colors}>{ram?.ram}</Typography>
-                <Typography className={classes.titleColor}>Rom:</Typography>
-                <Typography  className={classes.colors}>{rom?.ram}</Typography>
+                <span className={classes.romRam}>
+                    <Typography className={classes.titleColor}>Ram:</Typography>
+                    <Typography  className={classes.colors}>{ram?.ram}</Typography>
+                </span>
+                <span className={classes.romRam}>
+                    <Typography className={classes.titleColor}>Rom:</Typography>
+                    <Typography  className={classes.colors}>{rom?.ram}</Typography>
+                </span>
+                
             </Box>
             <Box className={classes.promotionWapper}>
                 <Box component="b" className={classes.promotionHeader}>

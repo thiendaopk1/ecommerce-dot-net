@@ -5,7 +5,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { doiMatKhau } from '../../userSlice';
 import DoiMatKhauForm from './form';
-
+import {Redirect} from 'react-router-dom';
 DoiMatKhau.propTypes = {
     
 };
@@ -25,6 +25,10 @@ function DoiMatKhau(props) {
             enqueueSnackbar(error.message, { variant: 'error' });
         }
     };
+    const isLoggedIn = !!loggedInUser.id;
+    if(!isLoggedIn){
+        return <Redirect to="/"/>
+    }
     return (
         <div style={{ width: '50%', margin: 'auto' }}>
             <Paper elevation={0}>

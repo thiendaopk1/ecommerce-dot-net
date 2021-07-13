@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import { Box,Typography,Button, makeStyles } from '@material-ui/core';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import { useHistory } from 'react-router-dom';
-
+import { useSelector } from 'react-redux';
+import {Redirect} from 'react-router-dom';
 PaymentSuccess.propTypes = {
     
 };
@@ -48,6 +49,11 @@ function PaymentSuccess(props) {
 
     const handleClick = () => {
         history.push('/');
+    }
+    const loggedInUser = useSelector(state => state.user.current);
+    const isLoggedIn = !!loggedInUser.id;
+    if(!isLoggedIn){
+        return <Redirect to="/"/>
     }
     return (
         <Box>

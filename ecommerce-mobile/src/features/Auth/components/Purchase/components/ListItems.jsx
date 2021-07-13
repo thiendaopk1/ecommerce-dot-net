@@ -5,6 +5,7 @@ import Items from './Items';
 
 ListItems.propTypes = {
     listItems: PropTypes.array,
+    
 };
 ListItems.defaultProps = {
     listItems: [],
@@ -17,13 +18,13 @@ const useStyles = makeStyles((theme) => ({
 }))
 function ListItems({listItems}) {
     const classes = useStyles();
-
+    
     return (
         <Box>
             <Grid container>
                 {listItems.map((items) => (
                     <Grid item key={items.idp} xs={12} className={classes.root}>
-                        <Items items={items}/>
+                        <Items items={items} />
                     </Grid>
                 ))}
             </Grid>

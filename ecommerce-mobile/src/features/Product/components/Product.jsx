@@ -3,7 +3,7 @@ import Rating from '@material-ui/lab/Rating';
 import classNames from 'classnames';
 // import { STATIC_HOST, THUMBNAIL_PLACEHOLDER } from 'constants/index';
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ProductStyles from './ProductStyles';
 import './style.scss';
 // import { useHistory } from 'react-router';
@@ -17,17 +17,11 @@ Product.propTypes = {
 };
 
 function Product({product}) {
-    // console.log('commentalo', {comments});
-    const comments = product.commentResponse;
-    
-    console.log('tongCmt',comments);
-    // console.log('commentalo', {product});
-    const [value, setValue] = useState(2);
-    const classes = ProductStyles();
-    // useEffect(() => {
-    //     setValue(comments.tbcRate)
+   
+    const {rating,sumRating} = product;
 
-    // },[comments])
+    const classes = ProductStyles();
+    
     
     return (
         <Box padding={1} className={classes.root}>
@@ -52,9 +46,9 @@ function Product({product}) {
 
             </Box>
             <Box component="span" ml={0}>
-                <Rating name="half-rating-read" value={value} precision={0.1} readOnly className={classes.rate} mr={2}/>
+                <Rating name="half-rating-read" value={sumRating/rating} precision={0.1} readOnly className={classes.rate} mr={2}/>
                 {/* <Rating name="read-only" value={value} readOnly className={classes.rate}  /> */}
-                <Typography variant="p" className={classes.comment} >{comments?.tongCmt} đánh giá</Typography>
+                <Typography variant="p" className={classes.comment} >{rating} đánh giá</Typography>
             </Box>
             <Box className={classes.button}>
                 <Button variant="outlined" color="secondary" size="small">Mua ngay</Button>

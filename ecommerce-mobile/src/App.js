@@ -6,7 +6,6 @@ import Footer from './component/footer';
 import Header from './component/Header';
 import SlideShow from './component/Slider';
 import ProductFeature from './features';
-import Login from './features/Auth/components/login';
 import UserInfo from './features/Auth/components/userInfo';
 import ProductHome from './features/HomePageProduct/components';
 import ShoppingCartFeature from './features/ShoppingCart';

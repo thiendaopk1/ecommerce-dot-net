@@ -54,7 +54,6 @@ function ProductInfomation({product = {}}) {
     const classes = useStyle();
     const {informations} = product;
    
-    console.log('aaa',informations);
     return (
         <Box className={classes.root}>
            

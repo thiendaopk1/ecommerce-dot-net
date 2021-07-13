@@ -6,7 +6,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateUser } from '../../userSlice';
 import UpdateForm from './form';
-
+import {Redirect} from 'react-router-dom';
 UserInfomation.propTypes = {
 
 };
@@ -40,6 +40,7 @@ const useStyles = makeStyles((theme) => ({
 function UserInfomation(props) {
     const classes = useStyles();
     const loggedInUser = useSelector(state => state.user.current);
+    
     const dispath = useDispatch();
     const { enqueueSnackbar } = useSnackbar();
     const [selectedFiles, setSelectedFiles] = useState([]);
@@ -65,7 +66,10 @@ function UserInfomation(props) {
             setImg(true);
         }
     };
-
+    const isLoggedIn = !!loggedInUser.id;
+    if(!isLoggedIn){
+        return <Redirect to="/"/>
+    }
     return (
         <div>
             <Paper elevation={0}>

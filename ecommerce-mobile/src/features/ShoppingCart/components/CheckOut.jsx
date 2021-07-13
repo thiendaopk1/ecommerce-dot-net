@@ -16,7 +16,8 @@ import vnpay from '../../../images/iconVNPay.png';
 import { removeAll } from '../cartSlice';
 import { cartItemsCountSelectors, cartTotalCountSelectors } from '../selectors';
 import CartItems from './CheckOut/CartItems';
-
+import queryString from 'query-string';
+import {Redirect} from 'react-router-dom';
 CheckOut.propTypes = {
     
 };
@@ -179,7 +180,7 @@ function CheckOut(props) {
     const handleSubmit =async (value) =>{
             try {
                 if(ship === 'cod'){
-                    console.log('ship',ship);
+                    
                     const data = {
                         fullname:value.fullname,
                         phone:value.phone,
@@ -194,7 +195,7 @@ function CheckOut(props) {
                          dispatch(action);
                          histtory.push('/payment-success');
                          enqueueSnackbar('Thanh toán thành công', {variant: 'success'});
-                         console.log('du lieu day len sever',list);
+                       
         
                 }else{
                     const data = {
@@ -207,17 +208,17 @@ function CheckOut(props) {
                         urlReturn: 'http://localhost:3000/payment-success' 
                     }
                     const list = await ordersApi.add(data); 
+                   
                     if(!list.status){
                         window.location = list.payment.urlPay;
                         const action = removeAll();
-                        enqueueSnackbar('Thanh toán thành công', {variant: 'success'});
-                        dispatch(action);  
+                        // enqueueSnackbar('Thanh toán thành công', {variant: 'success'});
+                        dispatch(action); 
                     }else{
                         histtory.push('/');
                         enqueueSnackbar('Thanh toán thất bại', {variant: 'error'});
                     }
-                    
-                    console.log('du lieu day len sever',list);
+                  
                     
                 }
                 
@@ -230,7 +231,11 @@ function CheckOut(props) {
 
     const cartItemsCount = useSelector(cartItemsCountSelectors);
     const cartTotal = useSelector(cartTotalCountSelectors);
-
+    const loggedInUser = useSelector(state => state.user.current);
+    const isLoggedIn = !!loggedInUser.id;
+    if(!isLoggedIn){
+        return <Redirect to="/"/>
+    }
     return (
         <form onSubmit={form.handleSubmit(handleSubmit)}>
             <Box>

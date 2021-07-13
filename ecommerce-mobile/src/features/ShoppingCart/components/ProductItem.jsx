@@ -11,7 +11,7 @@ productItem.defaultProps = {
 };
 
 function productItem({spi}) {
-    console.log('spi', spi);
+    
     return (
         <Box>
             <Grid container>

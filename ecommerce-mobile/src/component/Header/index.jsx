@@ -23,7 +23,7 @@ import { removeAll } from '../../features/ShoppingCart/cartSlice';
 import { cartItemsCountSelectors } from '../../features/ShoppingCart/selectors';
 import SearchForm from '../search';
 import Hang from './Hang';
-
+import logo from '../../images/phonehaylogo.png';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -275,7 +275,9 @@ const handleCloseChangePass = () => {
           {/* search */}
           <Box className={classes.title}>
             <Typography variant="h6" className={classes.home}>
-              <Link className={classes.link} to="/">HOME</Link>
+              <Link className={classes.link} to="/">
+              <img src={logo} style={{height: '30px', width: '55px'}}/>
+              </Link>
             </Typography>
             <Typography variant="h6" className={classes.shop}>
               <Link className={classes.link} to="/products">SHOP</Link>

@@ -14,11 +14,15 @@ const ProductDetailStyles = makeStyles(() => ({
         // fontSize: "25px",
         // lineHeight: '1.5',
     },
-    
+
+    romRam: {
+        display: 'flex',
+        flexFlow: 'row nowrap'
+    },
 
     rate: {
         marginLeft: '15px',
-        top: '10px',
+        top: '5px',
         fontSize: '20px'
     },
 
@@ -26,6 +30,7 @@ const ProductDetailStyles = makeStyles(() => ({
         marginLeft: '15px',
         fontSize: '10px',
         top: '10px',
+        
     },
 //Price
     price: {
@@ -78,6 +83,7 @@ const ProductDetailStyles = makeStyles(() => ({
         paddingLeft: '0px',
         display: 'flex',
         flexFlow: 'row nowrap',
+        marginLeft: '15px',
         '&>.selected':{
                 border: '1px solid #e11b1e', 
             },

@@ -11,7 +11,7 @@ import { useHistory } from 'react-router';
 import { cartItemsCountSelectors } from './selectors';
 import { removeAll } from './cartSlice';
 import  img  from '../../images/cartEmpty.png';
-
+import {Redirect} from 'react-router-dom';
 ShoppingCartFeature.propTypes = {
     
 };
@@ -153,9 +153,9 @@ const useStyles = makeStyles((theme) => ({
 //
 // const cartEmpty1 = localStorage.getItem("cart");
 // console.log('alo',cartEmpty1);
-function ShoppingCartFeature(props) {
+function ShoppingCartFeature({authorized}) {
     //check isLogin
- 
+    
   const history = useHistory();
   const dispatch = useDispatch();
   
@@ -180,6 +180,11 @@ function ShoppingCartFeature(props) {
     const cartTotal = useSelector(cartTotalCountSelectors);
     const classes = useStyles();
     // console.log(cartEmpty1);
+    const loggedInUser = useSelector(state => state.user.current);
+    const isLoggedIn = !!loggedInUser.id;
+    if(!isLoggedIn){
+        return <Redirect to="/"/>
+    }
     return (
         <Box>
             <Container>
