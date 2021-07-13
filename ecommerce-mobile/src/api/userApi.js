@@ -41,6 +41,14 @@ const userApi={
         const url = 'api/admin/users/blocked/'+id;
         return axiosClient.put(url,{userID:id});
     },
+    newUser(data){
+        const url = 'api/admin/users/new';
+        return axiosClient.post(url,data);
+    },
+    changeRole(value){
+        const url = 'api/admin/users/role/'+value.id;
+        return axiosClient.put(url,{role:value.role});
+    },
 };
 
 export default userApi;

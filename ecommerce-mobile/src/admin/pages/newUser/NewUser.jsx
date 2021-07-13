@@ -1,55 +1,107 @@
-import "../../pages/newUser/newUser.css";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { Avatar, Button, LinearProgress, makeStyles, Select, Typography } from "@material-ui/core";
+import { LockOutlined } from "@material-ui/icons";
+import { useForm } from "react-hook-form";
+import * as yup from 'yup';
+import userApi from "../../../api/userApi";
+import InputField from "../../../component/Form-control/InputField";
+import PasswordField from "../../../component/Form-control/passwordField";
 
-function NewUser() {
+const useStyles = makeStyles((theme) => ({
+  root: {
+    padding: theme.spacing(1, 0, 1, 0),
+    width: '100%',
+  },
+  avatar: {
+    margin: '0 auto',
+    backgroundColor: theme.palette.secondary.main,
+  },
+  title: {
+
+    textAlign: 'center',
+  },
+  submit: {
+    // margin: theme.spacing(2, 0,1, 0)
+  },
+  select1: {
+    color: '#95727f',
+    paddingTop: 16,
+    paddingBottom: 8,
+    border: '1px solid #bfbfc0',
+    borderRadius: 3,
+    marginTop: 16,
+    marginBottom: 8,
+  },
+  lable: {
+    fontSize: 18,
+    marginRight: 10,
+    marginLeft: 13,
+  }
+}));
+
+
+function NewUser(props) {
+  const classes = useStyles();
+  const schema = yup.object().shape({
+    fullName: yup.string().required('please enter your full name')
+      .test('should has at least two words', 'please enter at least two words', (value) => {
+        return value.split(' ').length >= 2;
+      }),
+    email: yup.string().required('please enter your email').email('please enter a valid email address'),
+    password: yup.string().required('please enter your password')
+      .matches("(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}", 'Password must contain at least 8 characters, including upper case letters, lower case letters, numbers and a special character'),
+    //  repassword: yup.string().required('please retype your password').oneOf([yup.ref('password')],'passord does not match'),
+    phone: yup.string().required('please enter your phone number').length(10, 'please enter a valid phone number').matches("((09|03|07|08|05)+([0-9]{8}))", "please enter a valid phone number"),
+    address: yup.string().required('please enter your address'),
+  });
+  const form = useForm({
+    defaultValues: {
+      fullName: '',
+      email: '',
+      password: '',
+      // repassword:'',
+      phone: '',
+      address: '',
+      role:'',
+    },
+    resolver: yupResolver(schema),
+  });
+
+  const handleSubmit = async (values) => {
+    values.role=document.getElementById('role').value;
+    const user =await userApi.newUser(values);
+  };
+  const { isSubmitting } = form.formState;
   return (
-    <div className="newUser">
-      <h1 className="newUserTitle">New User</h1>
-      <form className="newUserForm">
-        <div className="newUserItem">
-          <label>Username</label>
-          <input type="text" placeholder="john" />
-        </div>
-        <div className="newUserItem">
-          <label>Full Name</label>
-          <input type="text" placeholder="John Smith" />
-        </div>
-        <div className="newUserItem">
-          <label>Email</label>
-          <input type="email" placeholder="john@gmail.com" />
-        </div>
-        <div className="newUserItem">
-          <label>Password</label>
-          <input type="password" placeholder="password" />
-        </div>
-        <div className="newUserItem">
-          <label>Phone</label>
-          <input type="text" placeholder="+1 123 456 78" />
-        </div>
-        <div className="newUserItem">
-          <label>Address</label>
-          <input type="text" placeholder="New York | USA" />
-        </div>
-        <div className="newUserItem">
-          <label>Gender</label>
-          <div className="newUserGender">
-            <input type="radio" name="gender" id="male" value="male" />
-            <label for="male">Male</label>
-            <input type="radio" name="gender" id="female" value="female" />
-            <label for="female">Female</label>
-            <input type="radio" name="gender" id="other" value="other" />
-            <label for="other">Other</label>
-          </div>
-        </div>
-        <div className="newUserItem">
-          <label>Active</label>
-          <select className="newUserSelect" name="active" id="active">
-            <option value="yes">Yes</option>
-            <option value="no">No</option>
+    <div className={classes.root}>
+      {isSubmitting && <LinearProgress />}
+
+      <Avatar className={classes.avatar}>
+        <LockOutlined></LockOutlined>
+      </Avatar>
+      <Typography className={classes.title} component='h3' variant='h5'>
+        Sign Up
+          </Typography>
+      <form style={{ width: '60%', margin: 'auto' }} onSubmit={form.handleSubmit(handleSubmit)}>
+        <InputField name="fullName" label="Full Name" form={form} />
+        <InputField name="email" label="Email" form={form} />
+        <PasswordField name="password" label="Password" form={form} />
+        <PasswordField name="repassword" label="Retype Password" form={form} />
+        <InputField name="phone" label="Phone Number" form={form} />
+        <InputField name="address" label="Address" form={form} />
+        <div className={classes.select1}>
+          <label className={classes.lable}>role</label>
+          <select style={{ fontSize: 18, color: '#727273' }} name="role" id="role" form={form.setValue('role',this)}>
+            <option value="1">user</option>
+            <option value="2">admin</option>
           </select>
         </div>
-        <button className="newUserButton">Create</button>
+        <Button disabled={isSubmitting} type="submit" className={classes.submit} variant="contained" color="primary" fullWidth>
+          create an Account
+      </Button>
       </form>
     </div>
   );
 }
+
 export default NewUser;
