@@ -27,7 +27,7 @@ function App() {
         <Route path="/checkout" component={CheckOut}/>
         <Route path="/payment-success" component={PaymentSuccess}/>
         <Route path="/Admin" component={Admin}/>
-        <Route path="/auth/login" component={ProductHome}/>
+        <Route path="/auth/login" component={ProductHome} exact/>
       </Switch>
       <Footer />
     </div>

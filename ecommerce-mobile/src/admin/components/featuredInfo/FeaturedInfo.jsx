@@ -1,38 +1,42 @@
-import "../../components/featuredInfo/featuredInfo.css";
 import { ArrowDownward, ArrowUpward } from "@material-ui/icons";
+import "../../components/featuredInfo/featuredInfo.css";
 
-export default function FeaturedInfo() {
+export default function FeaturedInfo({doanhThuNam,doanhThuThang}) {
   return (
     <div className="featured">
       <div className="featuredItem">
-        <span className="featuredTitle">Revanue</span>
+        <span className="featuredTitle">Doanh thu</span>
         <div className="featuredMoneyContainer">
-          <span className="featuredMoney">$2,415</span>
+          <span className="featuredMoney">{doanhThuNam.sumMoneyOfYear}</span>
           <span className="featuredMoneyRate">
-            -11.4 <ArrowDownward  className="featuredIcon negative"/>
+            11.4 %<ArrowUpward  className="featuredIcon"/>
           </span>
         </div>
-        <span className="featuredSub">Compared to last month</span>
+        <span className="featuredSub">So với năm trước</span>
       </div>
       <div className="featuredItem">
-        <span className="featuredTitle">Sales</span>
+        <span className="featuredTitle">Doanh thu tháng</span>
         <div className="featuredMoneyContainer">
-          <span className="featuredMoney">$4,415</span>
+          <span className="featuredMoney">{doanhThuThang.now.money}</span>
           <span className="featuredMoneyRate">
-            -1.4 <ArrowDownward className="featuredIcon negative"/>
+            {doanhThuThang.risingMoney} %
+            {doanhThuThang.risingMoney>=0&&(<ArrowUpward className="featuredIcon"/>)}
+            {doanhThuThang.risingMoney<0&&(<ArrowDownward className="featuredIcon negative"/>)}
           </span>
         </div>
-        <span className="featuredSub">Compared to last month</span>
+        <span className="featuredSub">So với tháng trước</span>
       </div>
       <div className="featuredItem">
-        <span className="featuredTitle">Cost</span>
+        <span className="featuredTitle">Số lượng đã bán trong tháng</span>
         <div className="featuredMoneyContainer">
-          <span className="featuredMoney">$2,225</span>
+          <span className="featuredMoney">{doanhThuThang.now.quantity} sp</span>
           <span className="featuredMoneyRate">
-            +2.4 <ArrowUpward className="featuredIcon"/>
+            {doanhThuThang.risingQuantity} %
+            {doanhThuThang.risingQuantity>=0&&(<ArrowUpward className="featuredIcon"/>)}
+            {doanhThuThang.risingQuantity<0&&(<ArrowDownward className="featuredIcon negative"/>)}
           </span>
         </div>
-        <span className="featuredSub">Compared to last month</span>
+        <span className="featuredSub">So với tháng trước</span>
       </div>
     </div>
   );

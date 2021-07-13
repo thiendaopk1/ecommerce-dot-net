@@ -1,6 +1,8 @@
+import { Button } from "@material-ui/core";
 import { DataGrid } from "@material-ui/data-grid";
 import { useSnackbar } from "notistack";
 import { useEffect, useState } from "react";
+import { NavLink } from "react-router-dom";
 import userApi from "../../../api/userApi";
 import "../../pages/userList/userList.css";
 
@@ -9,44 +11,62 @@ function UserList() {
   const [data, setData] = useState([]);
   useEffect(() => {
     (async () => {
-        try {
-            const rp = await userApi.getAll();
-            setData(rp.map((x) => ({
-                id: x.id,
-                username: x.fullname,
-                email: x.email,
-                address: x.address,
-                phone: x.phone,
-                status: x.active==1?'active':'block',
-                blocked:x.active,
+      try {
+        const rp = await userApi.getAll();
+        setData(rp.map((x) => ({
+          id: x.id,
+          username: x.fullname,
+          email: x.email,
+          address: x.address,
+          phone: x.phone,
+          status: x.active == 1 ? 'active' : 'block',
+          blocked: x.active,
+          role: x.userRoles[0].role.id,
 
-            })));
-        } catch (error) {
-            console.log(error)
-        }
+        })));
+      } catch (error) {
+        console.log(error)
+      }
     })();
-},[]);
-  const handleDelete = (id) => {
-    setData(data.filter((item) => item.id !== id));
-  };
-  const handleBlock=async(id)=>{
-          try {
-              const rp = await userApi.blockUser(id);
-                        setData(rp.map((x) => ({
-                            id: x.id,
-                            username: x.fullname,
-                            email: x.email,
-                            address: x.address,
-                            phone: x.phone,
-                            status: x.active==1?'active':'block',
-                            blocked:x.active,
-                        })));
-              enqueueSnackbar('Blocked success!', {variant: 'success'});
-              console.log(data);
-                 
-          } catch (error) {
-            enqueueSnackbar(error.message, {variant: 'error'});
-          }
+  }, []);
+  const handleBlock = async (id) => {
+    try {
+      const rp = await userApi.blockUser(id);
+      setData(rp.map((x) => ({
+        id: x.id,
+        username: x.fullname,
+        email: x.email,
+        address: x.address,
+        phone: x.phone,
+        status: x.active == 1 ? 'active' : 'block',
+        blocked: x.active,
+        role: x.userRoles[0].role.id,
+      })));
+      enqueueSnackbar('Blocked success!', { variant: 'success' });
+    } catch (error) {
+      enqueueSnackbar(error.message, { variant: 'error' });
+    }
+  }
+  const handleChangeRole = async (id) => {
+    try {
+      const value = { id: id, role: document.getElementById("role").value }
+      const rp = await userApi.changeRole(value);
+      setData(rp.map((x) => ({
+        id: x.id,
+        username: x.fullname,
+        email: x.email,
+        address: x.address,
+        phone: x.phone,
+        status: x.active == 1 ? 'active' : 'block',
+        blocked: x.active,
+        role: x.userRoles[0].role.id,
+      })));
+      enqueueSnackbar('change success!', { variant: 'success' });
+      console.log(data);
+
+    } catch (error) {
+      enqueueSnackbar(error.message, { variant: 'error' });
+    }
   }
   const columns = [
     { field: "id", headerName: "ID", width: 90 },
@@ -64,29 +84,29 @@ function UserList() {
       },
     },
     { field: "email", headerName: "Email", width: 160 },
-   
+
     {
       field: "address",
       headerName: "Address",
-      width: 160,
+      width: 150,
     },
     {
       field: "phone",
-      headerName: "Phone number",
-      width: 150,
+      headerName: "Phone",
+      width: 140,
     },
     {
       field: "status",
       headerName: "Status",
-      width: 120,
+      width: 110,
       renderCell: (params) => {
         return (
           <>
-          {params.row.blocked==1&&(
-              <div style={{color:'green'}}>active</div>
+            {params.row.blocked == 1 && (
+              <div style={{ color: 'green' }}>active</div>
             )}
-             {params.row.blocked==0&&(
-              <div style={{color:'red'}}>lock</div>
+            {params.row.blocked == 0 && (
+              <div style={{ color: 'red' }}>lock</div>
             )}
           </>
         );
@@ -95,20 +115,28 @@ function UserList() {
     {
       field: "action",
       headerName: "Action",
-      width: 120,
+      width: 150,
       renderCell: (params) => {
         return (
           <>
-          {params.row.blocked==1&&(
-              <button className="userListEdit" onClick={()=>handleBlock(params.row.id)}>lock</button>
+            {params.row.blocked == 1 && (
+              <button className="userListEdit" onClick={() => handleBlock(params.row.id)}>lock</button>
             )}
-             {params.row.blocked==0&&(
-              <button className="userListBlock" onClick={()=>handleBlock(params.row.id)}>unlock</button>
+            {params.row.blocked == 0 && (
+              <button className="userListBlock" onClick={() => handleBlock(params.row.id)}>unlock</button>
             )}
-            {/* <DeleteOutline
-              className="userListDelete"
-              onClick={() => handleDelete(params.row.id)}
-            /> */}
+            {params.row.role == 1 && (
+              <select onChange={()=>handleChangeRole(params.row.id)} name="role" id="role">
+                <option value="1">user</option>
+                <option value="2">admin</option>
+              </select>
+            )}
+            {params.row.role == 2 && (
+              <select onChange={()=>handleChangeRole(params.row.id)} name="role" id="role">
+                <option value="2">admin</option>
+                <option value="1">user</option>
+              </select>
+            )}
           </>
         );
       },
@@ -116,7 +144,10 @@ function UserList() {
   ];
 
   return (
-    <div className="userList">
+    <div className="userList" style={{width:'100%'}}>
+      <NavLink style={{ textDecoration: 'none' }} to={"/Admin/newUser"} >
+        <Button style={{ margin: '10px 10px', color: '#fff', background: 'red' }}>Thêm mới</Button>
+      </NavLink>
       <DataGrid
         rows={data}
         disableSelectionOnClick
