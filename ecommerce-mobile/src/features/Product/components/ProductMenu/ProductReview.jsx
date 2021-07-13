@@ -17,13 +17,13 @@ function ProductReview({product = {}, onSubmit}) {
             setComments(product.commentResponse.listCommentByProduct)
     }, [product])
     
-    console.log('comments',comments);
+  
 
     const handleSubmitReview = (value) => {
         
         setComments(value.listCommentByProduct)
     }
-    console.log('alo alo ', comments);
+  
     return (
         <Box>
             <Box>

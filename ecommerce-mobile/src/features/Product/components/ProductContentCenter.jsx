@@ -15,7 +15,7 @@ function ProductContentCenter({product = {}}) {
  
     const dispatch = useDispatch();
     const comments = product.commentResponse; 
-
+ 
     const handleAddToCartSubmit = ({quantity }) => {
        
         const action = addToCart({
@@ -26,7 +26,7 @@ function ProductContentCenter({product = {}}) {
 
 
         dispatch(action);
-        console.log('action', action);
+        
         
            
     };
@@ -34,8 +34,11 @@ function ProductContentCenter({product = {}}) {
 
     return (
         <Box>
-        <ProductInfo comments={comments} product={product} />
-        <AddToCartForm onSubmit={handleAddToCartSubmit}/>
+            
+            <ProductInfo comments={comments} product={product} />
+           
+        
+            <AddToCartForm onSubmit={handleAddToCartSubmit}/>
         </Box>
         
     );

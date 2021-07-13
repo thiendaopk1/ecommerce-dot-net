@@ -19,7 +19,7 @@ function ProductList() {
 
     return {
         ...params,
-        _limit: 253,
+        _limit:Number.parseInt(params._limit) || 263,
        
     };
 }, [location.search]);
@@ -34,7 +34,7 @@ function ProductList() {
         console.log('failed');
       }
     })();
-  },[])
+  },[queryParams])
   
   
 

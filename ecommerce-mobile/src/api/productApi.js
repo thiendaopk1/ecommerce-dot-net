@@ -4,12 +4,10 @@ const productApi = {
 
     getAll(params){
         const url = `/products`;
-        console.log("thien", params);
         return axiosClient.get(url, {params});
     },
     getAll2(params){
         const url = `/products?${params}`;
-        console.log("thien", params);
         return axiosClient.get(url);
     },
     get(id){

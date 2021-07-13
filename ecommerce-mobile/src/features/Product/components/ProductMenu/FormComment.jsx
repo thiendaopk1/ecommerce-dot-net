@@ -41,7 +41,7 @@ const useStyles = makeStyles(theme => ({
         justifyContent: 'center',
         fontSize: '40px',
         color: '#fd9727',
-        marginTop: '2px'
+        marginTop: '30px'
         
     },
     star:{
@@ -62,15 +62,16 @@ const useStyles = makeStyles(theme => ({
 }))
 
 function FormComment({product = {} , onSubmit}) {
-    // const star = onSubmit.tbcRate;
-    // console.log('star', star);
+    
+    const star = product.commentResponse.tbcRate;
+  
     const {id} = useSelector(state => state.user.current);
-    // const [comment, setComment] = useState();
+    
     const  handleSubmit = async (values) => {  
         console.log({values});
             try {
                 const result = await commentsApi.addComment(values)
-                console.log('res', result);
+                
                 onSubmit(result);
             } catch (error) {
                 console.error('Failed to fetch product', error);
@@ -90,7 +91,7 @@ function FormComment({product = {} , onSubmit}) {
                                 <h4>Trung bình cộng số sao</h4>
                             </Box>
                             <Box component="p" className={classes.rates}> 
-                                {/* <span>{star}</span> */}
+                                <span>{star}</span>
                                 <StarIcon className={classes.star}/>
                             </Box>
                         </Box>

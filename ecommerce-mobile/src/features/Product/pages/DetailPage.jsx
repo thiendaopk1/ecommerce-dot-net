@@ -1,17 +1,15 @@
 import { Box, Container, Grid, makeStyles, Paper } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
+import "react-responsive-carousel/lib/styles/carousel.css";
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
-import ProductInfo from '../components/ProductInfo';
-import ProductThumbnail from '../components/ProductThumbnail';
 import useProductDetail from '../../hooks/useProductDetail';
-import AddToCartForm from '../components/AddToCartForm';
-import RightContentDetail from '../components/RightContentDetail';
+import ProductContentCenter from '../components/ProductContentCenter';
 import ProductMenu from '../components/ProductMenu';
 import ProductDescription from '../components/ProductMenu/ProductDescription';
 import ProductInfomation from '../components/ProductMenu/ProductInfomation';
 import ProductReview from '../components/ProductMenu/ProductReview';
-import ProductContentCenter from '../components/ProductContentCenter';
-import "react-responsive-carousel/lib/styles/carousel.css";
+import ProductThumbnail from '../components/ProductThumbnail';
+import RightContentDetail from '../components/RightContentDetail';
 
 DetailPage.propTypes = {
     
@@ -44,7 +42,15 @@ const useStyles = makeStyles(theme => ({
 function DetailPage() {
     const classes = useStyles();
     const { params: { productId }, url } = useRouteMatch();
-const { product, loading} = useProductDetail(productId);
+    const { product, loading} = useProductDetail(productId);
+  
+
+    const [value, setValue] = useState();
+  
+    useEffect(() => {
+        setValue(product)
+    }, [product])
+
     const [comment, setComment] = useState();
    
    //
@@ -59,7 +65,9 @@ const { product, loading} = useProductDetail(productId);
                             <ProductThumbnail product={product}/>
                         </Grid>
                         <Grid item className={classes.center}>
+                        {product.id &&  
                            <ProductContentCenter product={product}/>
+                        }
                         </Grid>
                         <Grid item className={classes.right}>
                             <RightContentDetail product={product}/>
@@ -83,7 +91,9 @@ const { product, loading} = useProductDetail(productId);
                         
                         <Grid item>
                             <Route exact path={`${url}/review`}>
+                            {product.id &&  
                                 <ProductReview product={product}  commented={comment}/>
+                            }
                             </Route>
                         </Grid>
                     </Paper>

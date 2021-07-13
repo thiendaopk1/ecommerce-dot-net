@@ -54,7 +54,7 @@ function Comment({comments = []}) {
                         <Box key={listCommentByProducts.id} className={classes.root}>
                             <Box className={classes.header}>
                                 <Typography className={classes.username}>
-                                    {listCommentByProducts.userID}
+                                    {listCommentByProducts.fullName}
                                 </Typography>
                                 || {listCommentByProducts.createdDate}
                             </Box>
