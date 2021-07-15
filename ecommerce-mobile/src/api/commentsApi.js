@@ -5,6 +5,10 @@ const commentsApi = {
         const url = '/api/comment/new';
         return axiosClient.post(url, data);
     }, 
+    get(id){
+        const url = '/api/comment/all?productID='+id;
+        return axiosClient.get(url);
+    },
     // update(data){
     //     const url = `/api/comment/all?productID=${data.id}`;
     //     return axiosClient.patch(url, data);
