@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import romsApi from '../../../../api/romsApi';
 import FilterStyles from './FilterStyles';
-
+import classNames from 'classnames';
+import './styleHover.scss';
 FilterByRom.propTypes = {
     onChange: PropTypes.func,
 
@@ -43,12 +44,13 @@ function FilterByRom({onChange}) {
     return (
         <Box className={classes.root}>
             <Typography className={classes.title} variant="subtitle2">DANH MỤC SẢN PHẨM</Typography>
-            <ul className={classes.menu}>
-                <li onClick={handleClickAll}>Tất cả</li>
+            <ul className={classNames("list")}>
+                <li onClick={handleClickAll} className={classNames("item")}>Tất cả</li>
                 {romList.map(rom => (
                 <li 
                 key={rom.id}
                 onClick={() => handleCategoryClick(rom)}
+                className={classNames("item")}
                 >
                     {rom.rom}
                 </li>
