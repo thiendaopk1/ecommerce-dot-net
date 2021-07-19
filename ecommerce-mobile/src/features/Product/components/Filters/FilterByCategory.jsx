@@ -45,7 +45,7 @@ function FilterByCategory({onChange}) {
             <Typography className={classes.title} variant="subtitle2">DANH MỤC SẢN PHẨM</Typography>
             <div>
             <ul className={classNames("list")}>
-                <li onClick={handleClickAll} >Tất cả</li>
+                <li onClick={handleClickAll} className={classNames("item")}>Tất cả</li>
                 {brandList.map(brand => (
                 <li 
                 key={brand.id}

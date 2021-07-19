@@ -130,9 +130,7 @@ const setNewFilter = (newFilters) => {
                 <Grid container spacing={1}>
                     <Grid item className={classes.left}>
                         {loading ? <FilterSkeletonList length={1}/> : <ProductFilters filters={queryParams} onChange={handelFiltersChange}/>}
-                        
-                        
-        
+    
                     </Grid>
                     <Grid item className={classes.right}>
                         <Paper elevation={0}>

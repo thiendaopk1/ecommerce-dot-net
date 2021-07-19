@@ -88,21 +88,28 @@ const FILTER_LIST =[
 ];
 
 function FilterViewer({filters = {}, onChange = null}) {
+    const visible = (filters,brandList) => brandList[filters.brand_id-1].name;
+    console.log('visible',visible);
     const classes = useStyles();
     // const [filterList, setFilterList] = useState();
     const [brandList,setBrandList] = useState();
+    
     const [ramList, setRamList] = useState();
+    
     const [romList, setRomList] = useState();
+    
     // const [brandList,ramList,romList] = filterList;
     useEffect(() =>{
         (async () =>{
             try {
                 const list = await brandsApi.getAll();
+                
                 setBrandList(list.map((x) => ({
                     id: x.id,
                     name: x.name
                 }))
                 );
+                
             } catch (error) {
                 console.log(error);
             }
@@ -143,12 +150,10 @@ function FilterViewer({filters = {}, onChange = null}) {
            {FILTER_LIST.filter((x) => x.isVisible(filters)).map((x) => (
                <li key={x.id}>
                    <Chip
-                  
-                    label={brandList&&x.getLabel(filters,brandList)
-                        // ?romList&&x.getLabel(filters,romList)
-                        // :ramList&&x.getLabel(filters,ramList)
+                    label={(brandList && x.getLabel(filters,brandList))
+                        && (romList &&x.getLabel(filters,romList))
+                        && (ramList &&x.getLabel(filters,ramList))
                     }
-                    // label={ramList&&x.getLabel(filters,ramList)}
                     color={x.isActive(filters) ? 'primary' : 'default'}
                     clickable={!x.isRemoveable}
                     onClick={
