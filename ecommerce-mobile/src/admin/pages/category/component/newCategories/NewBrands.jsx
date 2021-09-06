@@ -7,6 +7,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import brandsApi from '../../../../../api/brandsApi';
+import { useState } from 'react';
+import { Redirect } from 'react-router';
 NewBrands.propTypes = {
     
 };
@@ -16,7 +18,7 @@ function NewBrands(props) {
     const schema = yup.object().shape({
         name: yup.string().required('please enter ram name'),
     });
-
+    const [open, setOpen] = useState(false);
     const form = useForm({
         defaultValues:{
             name:'',  
@@ -26,11 +28,15 @@ function NewBrands(props) {
     const handleSubmit = async (value) => {
             try {
                 const res = await brandsApi.add(value);
-                enqueueSnackbar('Blocked success!', {variant: 'success'});
+                enqueueSnackbar('success!', {variant: 'success'});
+                setOpen(true);
             } catch (error) {
                 enqueueSnackbar(error.message, {variant: 'error'});
             }
     };
+    if(open){
+        return <Redirect to="/Admin/categories"/>
+    }
     return (
         <Box style={{width:'100%'}}>
         <form style={{maxWidth:'50%',margin:'auto'}} onSubmit={form.handleSubmit(handleSubmit)}>

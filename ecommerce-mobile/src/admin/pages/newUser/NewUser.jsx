@@ -12,6 +12,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     padding: theme.spacing(1, 0, 1, 0),
     width: '100%',
+    marginTop:15,
   },
   avatar: {
     margin: '0 auto',

@@ -61,7 +61,7 @@ function Sidebar() {
             <Link to="/Admin/categories" className="link">
               <li className="sidebarListItem">
                 <CategoryIcon className="sidebarIcon" />
-                Categorys
+                Categories
               </li>
             </Link>
           </ul>
