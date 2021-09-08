@@ -1,57 +1,57 @@
-import { makeStyles } from "@material-ui/core";
+import { makeStyles } from '@material-ui/core';
 
 const FilterStyles = makeStyles(() => ({
-    root: {
-        padding: "16px",
-        border: "1px solid #e4e4e4",
-        marginBottom: "16px",
-        '& > Button': {
-            marginRight: "8px",
-
-        },
+  root: {
+    padding: '16px',
+    border: '1px solid #e4e4e4',
+    marginBottom: '16px',
+    '& > Button': {
+      marginRight: '8px',
     },
+  },
 
-    title: {
-        
-        color: "#575757",
-        fontStyle: "bold",
-        textAlign: "center",
-        
+  title: {
+    color: '#575757',
+    fontStyle: 'bold',
+    textAlign: 'center',
+  },
+
+  menu: {
+    padding: 1,
+    margin: '1px 8px',
+    listStyleType: 'none',
+
+    '& > li': {
+      marginTop: '8px',
+      transform: 'all .25s',
+      marginLeft: '15px',
+
+      '&:hover': {
+        color: '#fa7272',
+        cursor: 'pointer',
+      },
     },
+  },
 
-    menu: {
-        padding:1,
-        margin: "1px 8px",
-        listStyleType: "none",
+  range: {
+    display: 'flex',
+    flexFlow: 'row nowrap',
+    alignItems: 'center',
 
-        '& > li': {
-            marginTop: "8px",
-            transform: 'all .25s',
+    marginTop: '8px',
+    marginBottom: '8px',
 
-            '&:hover': {
-                color: "#fa7272",
-                cursor: "pointer",
-            },
-        },
+    '& > span': {
+      marginLeft: '8px',
+      marginRight: '8px',
     },
+  },
 
-    range: {
-        display: 'flex',
-        flexFlow: 'row nowrap',
-        alignItems: 'center',
-
-        marginTop: "8px",
-        marginBottom: "8px",
-
-        '& > span': {
-            marginLeft: "8px",
-            marginRight: "8px",
-        },
-        
-
-    },
-
-
-
+  moreCompact: {
+    display: 'flex',
+    justifyContent: 'center',
+    textAlign: 'center',
+    cursor: 'pointer',
+  },
 }));
 export default FilterStyles;

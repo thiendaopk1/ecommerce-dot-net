@@ -8,40 +8,30 @@ import { useDispatch } from 'react-redux';
 import cartApi from '../../../api/cartApi';
 
 ProductContentCenter.propTypes = {
-    product: PropTypes.object,
+  product: PropTypes.object,
 };
 
-function ProductContentCenter({product = {}}) {
- 
-    const dispatch = useDispatch();
-    const comments = product.commentResponse; 
- 
-    const handleAddToCartSubmit = ({quantity }) => {
-       
-        const action = addToCart({
-            idp: product.id,
-            product,
-            quantity,
-        });
+function ProductContentCenter({ product = {} }) {
+  const dispatch = useDispatch();
+  const comments = product.commentResponse;
 
+  const handleAddToCartSubmit = ({ quantity }) => {
+    const action = addToCart({
+      idp: product.id,
+      product,
+      quantity,
+    });
 
-        dispatch(action);
-        
-        
-           
-    };
-   
+    dispatch(action);
+  };
 
-    return (
-        <Box>
-            
-            <ProductInfo comments={comments} product={product} />
-           
-        
-            <AddToCartForm onSubmit={handleAddToCartSubmit}/>
-        </Box>
-        
-    );
+  return (
+    <Box>
+      <ProductInfo comments={comments} product={product} />
+
+      <AddToCartForm onSubmit={handleAddToCartSubmit} />
+    </Box>
+  );
 }
 
 export default ProductContentCenter;

@@ -1,18 +1,17 @@
-
-import Chart from "../../components/chart/Chart";
-import FeaturedInfo from "../../components/featuredInfo/FeaturedInfo";
-import WidgetLg from "../../components/widgetLg/WidgetLg";
-import WidgetSm from "../../components/widgetSm/WidgetSm";
+import Chart from '../../components/chart/Chart';
+import FeaturedInfo from '../../components/featuredInfo/FeaturedInfo';
+import WidgetLg from '../../components/widgetLg/WidgetLg';
+import WidgetSm from '../../components/widgetSm/WidgetSm';
 import BieuDo from './BieuDo';
-import "../../pages/home/home.css";
+import '../../pages/home/home.css';
 
-import thongKeApi from '../../../api/thongKeApi'
-import { useEffect } from "react";
-import { useState } from "react";
+import thongKeApi from '../../../api/thongKeApi';
+import { useEffect } from 'react';
+import { useState } from 'react';
 function Home() {
   const [data, setData] = useState();
-  const [doanhThuNam, setDoanhThuNam]=useState();
-  const [doanhThuThang, setDoanhThuThang]=useState();
+  const [doanhThuNam, setDoanhThuNam] = useState();
+  const [doanhThuThang, setDoanhThuThang] = useState();
   console.log('data', data);
   useEffect(() => {
     (async () => {
@@ -23,18 +22,16 @@ function Home() {
       const rs = await thongKeApi.getDoanhThuThang();
       setDoanhThuThang(rs);
     })();
-  },[])
+  }, []);
   // const listDTTheoThang = data.listDTTheoThang;
   // const listTheoTheLoai = data.listTheoTheLoai;
-  
+
   return (
     <div className="home">
-     {doanhThuNam && doanhThuThang &&(<FeaturedInfo doanhThuNam={doanhThuNam} doanhThuThang={doanhThuThang}/>)}
-      { data && <BieuDo data={data}/> }
-      <div className="homeWidgets">
-        <WidgetSm/>
-        <WidgetLg/>
-      </div>
+      {doanhThuNam && doanhThuThang && (
+        <FeaturedInfo doanhThuNam={doanhThuNam} doanhThuThang={doanhThuThang} />
+      )}
+      {data && <BieuDo data={data} />}
     </div>
   );
 }
