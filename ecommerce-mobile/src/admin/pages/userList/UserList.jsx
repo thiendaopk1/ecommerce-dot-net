@@ -144,7 +144,7 @@ function UserList() {
   ];
 
   return (
-    <div className="userList" style={{width:'100%'}}>
+    <div className="userList" style={{width:'100%',height:'600px',marginTop:'10px',marginBottom:'5%'}}>
       <NavLink style={{ textDecoration: 'none' }} to={"/Admin/newUser"} >
         <Button style={{ margin: '10px 10px', color: '#fff', background: 'red' }}>Thêm mới</Button>
       </NavLink>

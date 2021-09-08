@@ -73,7 +73,7 @@ function Sidebar() {
                 className={classNames('sidebarListItem', { active: active === 6 })}
               >
                 <CategoryIcon className="sidebarIcon" />
-                Categorys
+                Categories
               </li>
             </Link>
           </ul>
