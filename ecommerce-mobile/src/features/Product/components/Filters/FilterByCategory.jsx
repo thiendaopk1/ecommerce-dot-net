@@ -13,7 +13,7 @@ const useStyle = makeStyles((theme) => ({}));
 function FilterByCategory({ onChange }) {
   const classes = FilterStyles();
   const [brandList, setBrandList] = useState([]);
-  console.log('brandList', brandList);
+  const [selected, setSelected] = useState(undefined);
   const [view, setView] = useState(true);
   const handleSetViewOpen = () => {
     setView(false);
@@ -34,11 +34,13 @@ function FilterByCategory({ onChange }) {
   }, []);
 
   const handleCategoryClick = (brand) => {
+    setSelected(brand.id);
     if (onChange) {
       onChange(brand.id);
     }
   };
   const handleClickAll = () => {
+    setSelected(undefined);
     if (onChange) {
       onChange();
     }
@@ -54,70 +56,73 @@ function FilterByCategory({ onChange }) {
           {view === true && (
             <div>
               <ul className={classNames('list')}>
-                <li onClick={handleClickAll} className={classNames('item')}>
+                <li
+                  onClick={handleClickAll}
+                  className={classNames('item', { 'item--active': selected === undefined })}
+                >
                   Tất cả
                 </li>
 
                 <li
                   key={brandList[0].id}
                   onClick={() => handleCategoryClick(brandList[0])}
-                  className={classNames('item')}
+                  className={classNames('item', { 'item--active': selected === brandList[0].id })}
                 >
                   {brandList[0].name}
                 </li>
                 <li
                   key={brandList[1].id}
                   onClick={() => handleCategoryClick(brandList[1])}
-                  className={classNames('item')}
+                  className={classNames('item', { 'item--active': selected === brandList[1].id })}
                 >
                   {brandList[1].name}
                 </li>
                 <li
                   key={brandList[2].id}
                   onClick={() => handleCategoryClick(brandList[2])}
-                  className={classNames('item')}
+                  className={classNames('item', { 'item--active': selected === brandList[2].id })}
                 >
                   {brandList[2].name}
                 </li>
                 <li
                   key={brandList[3].id}
                   onClick={() => handleCategoryClick(brandList[3])}
-                  className={classNames('item')}
+                  className={classNames('item', { 'item--active': selected === brandList[3].id })}
                 >
                   {brandList[3].name}
                 </li>
                 <li
                   key={brandList[4].id}
                   onClick={() => handleCategoryClick(brandList[4])}
-                  className={classNames('item')}
+                  className={classNames('item', { 'item--active': selected === brandList[4].id })}
                 >
                   {brandList[4].name}
                 </li>
                 <li
                   key={brandList[5].id}
                   onClick={() => handleCategoryClick(brandList[5])}
-                  className={classNames('item')}
+                  className={classNames('item', { 'item--active': selected === brandList[5].id })}
                 >
                   {brandList[5].name}
                 </li>
                 <li
                   key={brandList[6].id}
                   onClick={() => handleCategoryClick(brandList[6])}
-                  className={classNames('item')}
+                  className={classNames('item', { 'item--active': selected === brandList[6].id })}
                 >
                   {brandList[6].name}
                 </li>
                 <li
                   key={brandList[7].id}
                   onClick={() => handleCategoryClick(brandList[7])}
-                  className={classNames('item')}
+                  className={classNames('item', { 'item--active': selected === brandList[7].id })}
                 >
                   {brandList[7].name}
                 </li>
                 <li
                   key={brandList[8].id}
                   onClick={() => handleCategoryClick(brandList[8])}
-                  className={classNames('item')}
+                  className={classNames('item', { 'item--active': selected === brandList[8].id })}
                 >
                   {brandList[8].name}
                 </li>
@@ -131,7 +136,10 @@ function FilterByCategory({ onChange }) {
           {view === false && (
             <div>
               <ul className={classNames('list')}>
-                <li onClick={handleClickAll} className={classNames('item')}>
+                <li
+                  onClick={handleClickAll}
+                  className={classNames('item', { 'item--active': selected === undefined })}
+                >
                   Tất cả
                 </li>
 
@@ -139,7 +147,7 @@ function FilterByCategory({ onChange }) {
                   <li
                     key={brand.id}
                     onClick={() => handleCategoryClick(brand)}
-                    className={classNames('item')}
+                    className={classNames('item', { 'item--active': selected === brand.id })}
                   >
                     {brand.name}
                   </li>

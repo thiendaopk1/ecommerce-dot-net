@@ -9,7 +9,6 @@ import ProductSort from '../components/ProductSort';
 import { useHistory, useLocation } from 'react-router-dom';
 import queryString from 'query-string';
 import FilterSkeletonList from '../components/FilterSkeletonList';
-import FilterViewer from '../components/FilterViewer';
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -130,7 +129,6 @@ function ListPage(props) {
           <Grid item className={classes.right}>
             <Paper elevation={0}>
               <ProductSort currentSort={queryParams._sort} onChange={handleSortChange} />
-              <FilterViewer filters={queryParams} onChange={setNewFilter} />
 
               {loading ? <ProductSkeletonList length={12} /> : <ProductList data={productList} />}
 
