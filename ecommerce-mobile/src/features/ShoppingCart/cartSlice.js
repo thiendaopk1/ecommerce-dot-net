@@ -43,10 +43,13 @@ const cartSlice = createSlice({
     setQuantity(state, action) {
       const { idp, quantity } = action.payload;
       //check product available in cart
-      const index = state.cartItems.findIndex((x) => x.id === idp);
+      const index = state.cartItems.findIndex((x) => x.idp === idp);
+
       if (index >= 0) {
-        if (quantity == 0) {
-          state.cartItems = state.cartItems.filter((x) => x.id !== idp);
+        if (quantity === 0) {
+          let res1 = JSON.parse(localStorage.getItem('cart'));
+          res1.splice(index, 1);
+          state.cartItems = res1;
           localStorage.setItem('cart', JSON.stringify(state.cartItems));
         } else {
           //update quantity
@@ -58,7 +61,7 @@ const cartSlice = createSlice({
 
     removeFromCart(state, action) {
       const idNeedToRemove = action.payload;
-      state.cartItems = state.cartItems.filter((x) => x.idp != idNeedToRemove.idp);
+      state.cartItems = state.cartItems.filter((x) => x.idp !== idNeedToRemove.idp);
       localStorage.setItem('cart', JSON.stringify(state.cartItems));
     },
     removeAll(state) {
