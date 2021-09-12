@@ -64,7 +64,7 @@ function UpdateForm(props) {
            
         <form onSubmit={form.handleSubmit(handleSubmit)}>
             <InputField name="fullName" label="Full Name" form={form} />
-            <InputField name="email" label="Email" form={form} />
+            <InputField name="email" disabled="true" label="Email" form={form} />
             <InputField name="phone" label="Phone Number" form={form} />
             <InputField name="address" label="Address" form={form} />
         <Button disabled={isSubmitting} type="submit" className={classes.submit} variant="contained" color="primary" fullWidth>

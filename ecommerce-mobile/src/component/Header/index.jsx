@@ -31,18 +31,18 @@ const useStyles = makeStyles((theme) => ({
 
     maxWidth: 1232,
     margin: 'auto',
-    height:116,
+    height: 116,
   },
   header: {
     background: '#ffff',
-    position:'fixed',
+    position: 'fixed',
     // maxWidth: '100%',
     maxWidth: 1232,
-    borderBottom: '3px solid #000'
+    borderBottom: '3px solid #000',
   },
-  toolbar:{
-    maxWidth:1232,
-    borderBottom: '0.5px solid #6e6e6e'
+  toolbar: {
+    maxWidth: 1232,
+    borderBottom: '0.5px solid #6e6e6e',
     // left:'3%',
   },
   menuButton: {
@@ -51,17 +51,15 @@ const useStyles = makeStyles((theme) => ({
   title: {
     flexGrow: 2,
     display: 'flex',
-    flexFlow: 'row nowrap'
-   
+    flexFlow: 'row nowrap',
   },
-  shop:{
+  shop: {
     margin: '10px',
-    padding: '10px'
+    padding: '10px',
   },
-  home:{
+  home: {
     margin: '10px',
-    padding: '10px'
-  
+    padding: '10px',
   },
   link: {
     color: '#545454',
@@ -134,7 +132,7 @@ const MODE = {
 };
 export default function Header() {
   //check isLogin
-  const loggedInUser = useSelector(state => state.user.current);
+  const loggedInUser = useSelector((state) => state.user.current);
   const isLoggedIn = !!loggedInUser.id;
   const history = useHistory();
 
@@ -147,7 +145,7 @@ export default function Header() {
   };
   // form dang ky
   const [open, setOpen] = useState(false);
-  const [mode, setMode] = useState(MODE.REGISTER)
+  const [mode, setMode] = useState(MODE.REGISTER);
   // form dang nhap
   const [openLogin, setOpenLogin] = useState(false);
   //form forgot pass
@@ -174,22 +172,22 @@ export default function Header() {
   const handleCloseForgotPass = () => {
     setOpenForgotPass(false);
   };
- //form doi mat  khau
- const handleClickOpenChangePass = () => {
-  setOpenChangePass(true);
-  setOpenForgotPass(false);
-};
+  //form doi mat  khau
+  const handleClickOpenChangePass = () => {
+    setOpenChangePass(true);
+    setOpenForgotPass(false);
+  };
 
-const handleCloseChangePass = () => {
-  setOpenChangePass(false);
-  setOpenLogin(true);
-};
+  const handleCloseChangePass = () => {
+    setOpenChangePass(false);
+    setOpenLogin(true);
+  };
 
   // form dang nhap
   const handleClickOpenLogin = () => {
     setOpenLogin(true);
   };
-  
+
   const handleCloseLogin = () => {
     setOpenLogin(false);
   };
@@ -202,128 +200,129 @@ const handleCloseChangePass = () => {
   };
   //logOut
   // const [cart, setCart] = useState({});
-  const data1 = JSON.parse(localStorage.getItem("cart"));
- 
+  const data1 = JSON.parse(localStorage.getItem('cart'));
+
   const handleLogoutClick = () => {
-    (async () =>{
-      try {      
-            const thien={"cartItems": data1};
-            const list = await cartApi.add(thien);
-            const action = logout();
-            const action1 = removeAll();
-            dispatch(action1);
-            dispatch(action);
-            handleCloseMenuUser();
-   
+    (async () => {
+      try {
+        const thien = { cartItems: data1 };
+        const list = await cartApi.add(thien);
+        const action = logout();
+        const action1 = removeAll();
+        dispatch(action1);
+        dispatch(action);
+        handleCloseMenuUser();
       } catch (error) {
-          console.log(error);
+        console.log(error);
       }
-  })();
+    })();
   };
 
   const classes = useStyles();
   const hang = {
     id: 1,
-    name: "samsung",
-    img: "https://images.fpt.shop/unsafe/fit-in/108x40/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2020/8/26/637340490904217021_Samsung@2x.jpg",
+    name: 'samsung',
+    img: 'https://images.fpt.shop/unsafe/fit-in/108x40/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2020/8/26/637340490904217021_Samsung@2x.jpg',
   };
   const hang2 = {
     id: 2,
-    name: "xiaomi",
-    img: "https://images.fpt.shop/unsafe/fit-in/108x40/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2020/8/26/637340491898901930_Xiaomi@2x.jpg",
+    name: 'xiaomi',
+    img: 'https://images.fpt.shop/unsafe/fit-in/108x40/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2020/8/26/637340491898901930_Xiaomi@2x.jpg',
   };
   const hang3 = {
     id: 3,
-    name: "huawei",
-    img: "https://images.fpt.shop/unsafe/fit-in/108x40/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2020/8/26/637340494667486283_Huawei@2x.jpg",
+    name: 'huawei',
+    img: 'https://images.fpt.shop/unsafe/fit-in/108x40/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2020/8/26/637340494667486283_Huawei@2x.jpg',
   };
   const hang4 = {
     id: 4,
-    name: "realme",
-    img: "https://images.fpt.shop/unsafe/fit-in/108x40/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2020/8/26/637340491898745716_Realme@2x.jpg",
+    name: 'realme',
+    img: 'https://images.fpt.shop/unsafe/fit-in/108x40/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2020/8/26/637340491898745716_Realme@2x.jpg',
   };
   const hang5 = {
     id: 5,
-    name: "oppo",
-    img: "https://images.fpt.shop/unsafe/fit-in/108x40/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2020/8/26/637340491304997311_Oppo@2x.jpg",
+    name: 'oppo',
+    img: 'https://images.fpt.shop/unsafe/fit-in/108x40/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2020/8/26/637340491304997311_Oppo@2x.jpg',
   };
   const hang6 = {
     id: 6,
-    name: "vinsmart",
-    img: "https://images.fpt.shop/unsafe/fit-in/108x40/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2020/8/26/637340491898901930_Vsmart@2x.jpg",
+    name: 'vinsmart',
+    img: 'https://images.fpt.shop/unsafe/fit-in/108x40/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2020/8/26/637340491898901930_Vsmart@2x.jpg',
   };
   const hang8 = {
     id: 8,
-    name: "iphone",
-    img: "https://images.fpt.shop/unsafe/fit-in/108x40/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2020/8/26/637340490193124614_iPhone-Apple@2x.jpg",
+    name: 'iphone',
+    img: 'https://images.fpt.shop/unsafe/fit-in/108x40/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2020/8/26/637340490193124614_iPhone-Apple@2x.jpg',
   };
   const hang9 = {
     id: 9,
-    name: "nokia",
-    img: "https://images.fpt.shop/unsafe/fit-in/108x40/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2020/8/26/637340493755614653_Nokia@2x.jpg",
+    name: 'nokia',
+    img: 'https://images.fpt.shop/unsafe/fit-in/108x40/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2020/8/26/637340493755614653_Nokia@2x.jpg',
   };
-  
 
-  const data = [hang, hang2, hang3, hang4, hang5, hang6, hang8,hang9];
+  const data = [hang, hang2, hang3, hang4, hang5, hang6, hang8, hang9];
 
   return (
     <div className={classes.root}>
       <AppBar position="static" className={classes.header}>
         <Toolbar className={classes.toolbar}>
-          
-          
           {/* search */}
           <Box className={classes.title}>
             <Typography variant="h6" className={classes.home}>
               <Link className={classes.link} to="/">
-              <img src={logo} style={{height: '30px', width: '55px'}}/>
+                <img src={logo} style={{ height: '30px', width: '55px' }} />
               </Link>
             </Typography>
             <Typography variant="h6" className={classes.shop}>
-              <Link className={classes.link} to="/products">SHOP</Link>
+              <Link className={classes.link} to="/products">
+                SHOP
+              </Link>
             </Typography>
             <SearchForm />
           </Box>
-          
 
-          
           <Box>
-          <IconButton aria-label="cart">
+            <IconButton aria-label="cart">
+              {!isLoggedIn && (
+                <>
+                  <Badge
+                    badgeContent={cartItemsCount}
+                    color="secondary"
+                    onClick={handleClickOpenLogin}
+                  >
+                    <ShoppingCartIcon className={classes.cartIcon} />
+                  </Badge>
+                </>
+              )}
+              {isLoggedIn && (
+                <>
+                  <Badge badgeContent={cartItemsCount} color="secondary" onClick={handleClickCart}>
+                    <ShoppingCartIcon className={classes.cartIcon} />
+                  </Badge>
+                </>
+              )}
+            </IconButton>
             {!isLoggedIn && (
               <>
-                <Badge badgeContent={cartItemsCount} color="secondary" onClick={handleClickOpenLogin}>
-                  <ShoppingCartIcon className={classes.cartIcon} />
-                </Badge>
+                <Button color="#6e6e6e" onClick={handleClickOpenLogin}>
+                  Login
+                </Button>
+                <Button color="#6e6e6e" onClick={handleClickOpen}>
+                  Register
+                </Button>
               </>
             )}
             {isLoggedIn && (
-              <>
-                <Badge badgeContent={cartItemsCount} color="secondary" onClick={handleClickCart}>
-                  <ShoppingCartIcon className={classes.cartIcon} />
-                </Badge>
-              </>
-            )} 
-          </IconButton>
-          {!isLoggedIn && (
-            <>
-
-              <Button color="#6e6e6e" onClick={handleClickOpenLogin}>Login</Button>
-              <Button color="#6e6e6e" onClick={handleClickOpen}>Register</Button>
-            </>
-          )}
-          {isLoggedIn && (
-            <IconButton color="#6e6e6e" onClick={handleUserClick}>
-              <AccountCircle />
-              <div>
-                {loggedInUser.fullName}
-              </div>
-            </IconButton>
-          )}
+              <IconButton color="#6e6e6e" onClick={handleUserClick}>
+                <AccountCircle />
+                <div>{loggedInUser.fullName}</div>
+              </IconButton>
+            )}
           </Box>
         </Toolbar>
-        <div className={classes.hang} >
-          {data.map((hang) => (       
-              <Hang hang={hang} />
+        <div className={classes.hang}>
+          {data.map((hang) => (
+            <Hang hang={hang} />
           ))}
         </div>
       </AppBar>
@@ -343,14 +342,24 @@ const handleCloseChangePass = () => {
         getContentAnchorEl={null}
       >
         {/* <MenuItem onClick={handleCloseMenuUser}>Profile</MenuItem> */}
-        <Link className={classes.link} to="/user-info" ><MenuItem onClick={handleCloseMenuUser}>My account</MenuItem></Link>
+        <Link className={classes.link} to="/user-info">
+          <MenuItem onClick={handleCloseMenuUser}>My account</MenuItem>
+        </Link>
         <MenuItem onClick={handleLogoutClick}>Logout</MenuItem>
-        {isLoggedIn&&loggedInUser.userRoles[0].role.name=='ADMIN'&&(
-          <Link className={classes.link} to="/admin" ><MenuItem onClick={handleCloseMenuUser}>Admin Manager</MenuItem></Link>
+        {isLoggedIn && loggedInUser.userRoles[0].role.name == 'ADMIN' && (
+          <Link className={classes.link} to="/admin">
+            <MenuItem onClick={handleCloseMenuUser}>Admin Manager</MenuItem>
+          </Link>
         )}
       </Menu>
       {/* form sign up */}
-      <Dialog disableBackdropClick disableEscapeKeyDown open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+      <Dialog
+        disableBackdropClick
+        disableEscapeKeyDown
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="form-dialog-title"
+      >
         <IconButton onClick={handleClose} className={classes.closeButton}>
           <Close />
         </IconButton>
@@ -358,28 +367,42 @@ const handleCloseChangePass = () => {
           {mode === MODE.REGISTER && (
             <>
               <Register closeDialog={handleClose} />
-              
             </>
           )}
           {mode === MODE.LOGIN && (
             <>
               <Login closeDialog={handleClose} />
-             
             </>
           )}
         </DialogContent>
       </Dialog>
       {/* form login */}
-      <Dialog disableBackdropClick disableEscapeKeyDown open={openLogin} onClose={handleCloseLogin} aria-labelledby="form-dialog-title">
+      <Dialog
+        disableBackdropClick
+        disableEscapeKeyDown
+        open={openLogin}
+        onClose={handleCloseLogin}
+        aria-labelledby="form-dialog-title"
+      >
         <IconButton onClick={handleCloseLogin} className={classes.closeButton}>
           <Close />
         </IconButton>
         <DialogContent>
-          <Login closeDialog={handleCloseLogin} openForgot={handleClickOpenForgotPass} openRegister={handleClickOpen}/>
+          <Login
+            closeDialog={handleCloseLogin}
+            openForgot={handleClickOpenForgotPass}
+            openRegister={handleClickOpen}
+          />
         </DialogContent>
       </Dialog>
       {/* form forgot Pasword */}
-      <Dialog disableBackdropClick disableEscapeKeyDown open={openForgotPass} onClose={handleCloseForgotPass} aria-labelledby="form-dialog-title">
+      <Dialog
+        disableBackdropClick
+        disableEscapeKeyDown
+        open={openForgotPass}
+        onClose={handleCloseForgotPass}
+        aria-labelledby="form-dialog-title"
+      >
         <IconButton onClick={handleCloseForgotPass} className={classes.closeButton}>
           <Close />
         </IconButton>
@@ -388,7 +411,13 @@ const handleCloseChangePass = () => {
         </DialogContent>
       </Dialog>
       {/* formchange pasword */}
-      <Dialog disableBackdropClick disableEscapeKeyDown open={openChangePass} onClose={handleCloseChangePass} aria-labelledby="form-dialog-title">
+      <Dialog
+        disableBackdropClick
+        disableEscapeKeyDown
+        open={openChangePass}
+        onClose={handleCloseChangePass}
+        aria-labelledby="form-dialog-title"
+      >
         <IconButton onClick={handleCloseChangePass} className={classes.closeButton}>
           <Close />
         </IconButton>

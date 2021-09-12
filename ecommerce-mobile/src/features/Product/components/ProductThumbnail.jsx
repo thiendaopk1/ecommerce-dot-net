@@ -1,28 +1,85 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Box } from '@material-ui/core';
+import { Box, makeStyles } from '@material-ui/core';
+
 // import { STATIC_HOST, THUMBNAIL_PLACEHOLDER } from '../../../constants/index';
-import { Carousel } from "react-responsive-carousel";
+import { Carousel } from 'react-responsive-carousel';
 
 ProductThumbnail.propTypes = {
-    product: PropTypes.object,
+  product: PropTypes.object,
 };
+const useStyles = makeStyles((theme) => ({
+  productThumbnail: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 
-function ProductThumbnail({product = {}}) {
+  productImg: {
+    width: '370px',
+    height: '400px',
+  },
 
-const {images} = product;
+  productImgDetail: {
+    width: '100%',
+    height: '100%',
+  },
 
+  listImage: {
+    marginTop: '15px',
+    width: '100%',
+  },
 
-    return (
-        <Carousel >
-            {images && images.map((image) => (
-                <div key={image.id} >
-                    <img alt="" src={image.image} />
-                </div>
-            ))}
-            
-        </Carousel>
-    );
+  listImages: {
+    paddingLeft: '0',
+    display: 'flex',
+    listStyle: 'none',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  imageItem: {
+    width: '70px',
+    height: '70px',
+    padding: '2px',
+    '&:hover': {
+      border: '#E11B1C solid 1px',
+    },
+  },
+
+  imageItemDetail: {
+    width: '100%',
+    height: '100%',
+  },
+}));
+function ProductThumbnail({ product = {} }) {
+  const classes = useStyles();
+  const { images } = product;
+  const [imgActive, setImgActive] = useState(images[0].image);
+  const handleChangeImage = (image) => {
+    setImgActive(image.image);
+  };
+  return (
+    <Box className={classes.productThumbnail}>
+      <Box className={classes.productImg}>
+        <img src={imgActive} alt="" className={classes.productImgDetail} />
+      </Box>
+      <Box className={classes.listImage}>
+        <ul className={classes.listImages}>
+          {images.map((image) => (
+            <li
+              key={image.id}
+              className={classes.imageItem}
+              onClick={() => handleChangeImage(image)}
+            >
+              <img src={image.image} alt="" className={classes.imageItemDetail} />
+            </li>
+          ))}
+        </ul>
+      </Box>
+    </Box>
+  );
 }
 
 export default ProductThumbnail;

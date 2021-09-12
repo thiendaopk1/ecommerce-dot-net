@@ -9,7 +9,8 @@ const useStyles = makeStyles((theme) => ({
         width: '100%',
         display: 'flex',
         flexFlow: 'row nowrap',
-        height: '800px'
+        height: '800px',
+        marginTop:'15px',
     },
     brand:{
         width: '50%',
