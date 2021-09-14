@@ -45,7 +45,7 @@ function FilterByRam({ onChange }) {
   return (
     <Box className={classes.root}>
       <Typography className={classes.title} variant="subtitle2">
-        DANH MỤC SẢN PHẨM
+        DANH MỤC RAM
       </Typography>
       <ul className={classNames('list')}>
         <li
