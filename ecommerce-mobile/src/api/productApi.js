@@ -65,6 +65,16 @@ const productApi = {
     const url = `/api/information/${id}`;
     return axiosClient.post(url, data);
   },
+
+  getImg(id) {
+    const url = `/api/image/${id}`;
+    return axiosClient.get(url);
+  },
+
+  removeImg(id, idi) {
+    const url = `/api/image/one/${id}/${idi}`;
+    return axiosClient.delete(url);
+  },
 };
 
 export default productApi;

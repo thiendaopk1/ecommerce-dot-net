@@ -21,7 +21,7 @@ function Product() {
   const { product } = useProductDetail(productId);
 
   const [prdct, setPrdct] = useState(product);
-  console.log('prdct', prdct);
+
   //categories
 
   const [brands, setBrands] = useState([]);
@@ -32,7 +32,7 @@ function Product() {
     (async () => {
       try {
         const list = await brandsApi.getAll();
-        console.log('list', list);
+
         setBrands(list);
       } catch (error) {
         console.log(error);
@@ -79,7 +79,7 @@ function Product() {
     try {
       value.id = productId;
       const res = await productApi.edit(value);
-      console.log('edit res', res);
+
       enqueueSnackbar('Edit product thành công', { variant: 'success' });
     } catch (error) {
       enqueueSnackbar(error.message, { variant: 'error' });
@@ -87,7 +87,7 @@ function Product() {
   };
 
   return (
-    <Box style={{ height: 2800, width: '100%' }}>
+    <Box style={{ minHeight: 2000, width: '100%' }}>
       <Paper elevation={0}>
         {product.id && (
           <EditProduct

@@ -18,15 +18,15 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexFlow: 'row nowrap',
     padding: '20px 0px',
-    height: '150px',
   },
 
   left: {
     display: 'flex',
     width: '20%',
-
+    alignItems: 'center',
     borderRight: '1px solid #ddd',
     flexFlow: 'column',
+    justifyContent: 'center',
   },
 
   title: {
@@ -49,6 +49,7 @@ const useStyles = makeStyles((theme) => ({
   right: {
     width: '100%',
     // display: 'flex'
+    height: 'auto',
     marginLeft: '10px',
     marginRight: '20px',
   },
