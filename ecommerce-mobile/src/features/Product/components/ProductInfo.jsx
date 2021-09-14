@@ -49,7 +49,7 @@ function ProductInfo({product = {},comments = {} }) {
                 </span>
                 <span className={classes.romRam}>
                     <Typography className={classes.titleColor}>Rom:</Typography>
-                    <Typography  className={classes.colors}>{rom?.ram}</Typography>
+                    <Typography  className={classes.colors}>{rom?.rom}</Typography>
                 </span>
                 
             </Box>
