@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
     height: '50px',
   },
 }));
-function QuantityFormCart({ quantityItem, id, onChange = null }) {
+function QuantityFormCart({ quantityItem, idp, onChange = null }) {
   const classes = useStyles();
 
   const handleOnChange = async (values) => {
@@ -45,7 +45,7 @@ function QuantityFormCart({ quantityItem, id, onChange = null }) {
 
   return (
     <form>
-      <QuantityInputField name="quantity" id={id} form={form} />
+      <QuantityInputField name="quantity" idp={idp} form={form} />
     </form>
   );
 }

@@ -45,14 +45,21 @@ function FilterByRom({ onChange }) {
   return (
     <Box className={classes.root}>
       <Typography className={classes.title} variant="subtitle2">
-        DANH MỤC SẢN PHẨM
+        DANH MỤC ROM
       </Typography>
       <ul className={classNames('list')}>
-        <li onClick={handleClickAll} className={classNames('item', { 'item--active': selected === undefined })}>
+        <li
+          onClick={handleClickAll}
+          className={classNames('item', { 'item--active': selected === undefined })}
+        >
           Tất cả
         </li>
         {romList.map((rom) => (
-          <li key={rom.id} onClick={() => handleCategoryClick(rom)} className={classNames('item',{ 'item--active': selected === rom.id })}>
+          <li
+            key={rom.id}
+            onClick={() => handleCategoryClick(rom)}
+            className={classNames('item', { 'item--active': selected === rom.id })}
+          >
             {rom.rom}
           </li>
         ))}

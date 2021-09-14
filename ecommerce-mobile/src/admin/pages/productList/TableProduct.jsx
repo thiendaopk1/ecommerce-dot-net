@@ -66,8 +66,17 @@ function TableProduct({ data, onDelete = null }) {
 
   return (
     <div style={{ height: 500, width: '100%' }}>
-      <Box style={{ height: 50, width: '100%', margin: '10px 10px' }}>
-        <Button onClick={handleNewProduct}>Thêm</Button>
+      <Box
+        style={{
+          height: 50,
+          width: '100%',
+          margin: '10px 10px',
+          marginTop: '35px',
+        }}
+      >
+        <Button onClick={handleNewProduct} variant="contained" color="primary">
+          Thêm
+        </Button>
       </Box>
       <DataGrid rows={data} columns={columns} pageSize={7} checkboxSelection />
     </div>

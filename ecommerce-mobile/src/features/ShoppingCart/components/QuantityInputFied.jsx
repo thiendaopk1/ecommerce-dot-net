@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
 function QuantityInputField(props) {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const { form, id, name, label, disabled } = props;
+  const { form, idp, name, label, disabled } = props;
   const { errors, setValue } = form;
   const hasError = !!errors[name];
   return (
@@ -52,7 +52,7 @@ function QuantityInputField(props) {
                     setValue(name, Number.parseInt(value) ? Number.parseInt(value) - 1 : 1);
                     dispatch(
                       setQuantity({
-                        id,
+                        idp,
                         quantity: value ? value - 1 : 1,
                       })
                     );
@@ -70,7 +70,7 @@ function QuantityInputField(props) {
                 onBlur={() => {
                   dispatch(
                     setQuantity({
-                      id,
+                      idp,
                       quantity: value,
                     })
                   );
@@ -83,7 +83,7 @@ function QuantityInputField(props) {
                     setValue(name, Number.parseInt(value) ? Number.parseInt(value) + 1 : 1);
                     dispatch(
                       setQuantity({
-                        id,
+                        idp,
                         quantity: value ? value + 1 : 1,
                       })
                     );
