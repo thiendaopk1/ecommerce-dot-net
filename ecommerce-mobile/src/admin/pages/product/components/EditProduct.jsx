@@ -144,7 +144,7 @@ function EditProduct({
   const history = useHistory();
   const location = useLocation();
   const match = useRouteMatch();
-
+  console.log('product', product);
   const handleCancel = () => {
     history.push('/Admin/products');
   };
@@ -160,7 +160,8 @@ function EditProduct({
   //end editor
 
   //inputField and checkbox
-  const [isHot, setIsHot] = useState(false);
+  const [isHot, setIsHot] = useState(product.isHot);
+  console.log('isHot', isHot);
   const [isSale, setIsSale] = useState(false);
   const handleChange = (event) => {
     setIsHot(event.target.checked);
@@ -309,11 +310,12 @@ function EditProduct({
       await onSubmitEdit(data);
       history.push('/Admin/products');
     }
+    console.log('data', data);
   };
 
   //   imgages
   const [listImgs, setListImgs] = useState([]);
-  console.log('listImgs', listImgs);
+
   useEffect(() => {
     (async () => {
       try {
@@ -335,19 +337,11 @@ function EditProduct({
       console.log('error', error);
     }
   };
-  //   const flatten = (arr) => {
-  //     return arr.reduce((a, b) => {
-  //       return a.concat(Array.isArray(b) ? flatten(b) : b);
-  //     }, []);
-  //   };
+
   const handleSaveImg = async (value) => {
-    console.log('id', id);
     try {
       const res = await productApi.uploadImgs(value, id);
-      console.log('res', res);
-
       let listArr = listImgs.concat(res);
-
       setListImgs(listArr);
     } catch (error) {
       console.log('error', error);
@@ -395,12 +389,7 @@ function EditProduct({
           <Box className={classes.checkbox}>
             <FormControlLabel
               control={
-                <Checkbox
-                  checked={isHot.true}
-                  onChange={handleChange}
-                  name="isHot"
-                  color="primary"
-                />
+                <Checkbox checked={isHot} onChange={handleChange} name="isHot" color="primary" />
               }
               label="isHot"
               style={{ marginRight: '100px' }}
