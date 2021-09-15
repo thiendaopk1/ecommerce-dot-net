@@ -12,7 +12,6 @@ function Home() {
   const [data, setData] = useState();
   const [doanhThuNam, setDoanhThuNam] = useState();
   const [doanhThuThang, setDoanhThuThang] = useState();
-  console.log('data', data);
   useEffect(() => {
     (async () => {
       const res = await thongKeApi.getAll();
@@ -23,8 +22,7 @@ function Home() {
       setDoanhThuThang(rs);
     })();
   }, []);
-  // const listDTTheoThang = data.listDTTheoThang;
-  // const listTheoTheLoai = data.listTheoTheLoai;
+
 
   return (
     <div className="home">

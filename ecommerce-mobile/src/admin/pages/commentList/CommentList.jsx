@@ -98,7 +98,7 @@ function CommentList() {
   ];
 
   return (
-    <div className="userList" style={{marginTop:'20px'}}>
+    <div className="userList" style={{marginTop:'20px',height:'580px'}}>
       <DataGrid
         rows={data}
         disableSelectionOnClick
