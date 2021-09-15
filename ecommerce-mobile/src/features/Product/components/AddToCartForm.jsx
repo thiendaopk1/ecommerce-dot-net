@@ -1,5 +1,13 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Box, Button, Dialog, makeStyles, DialogContent, IconButton } from '@material-ui/core';
+import {
+  Box,
+  Button,
+  Dialog,
+  makeStyles,
+  DialogContent,
+  IconButton,
+  Typography,
+} from '@material-ui/core';
 import { Close } from '@material-ui/icons';
 import PropTypes from 'prop-types';
 import { default as React, useState } from 'react';
@@ -13,6 +21,7 @@ import Login from '../../Auth/components/login';
 
 AddToCartForm.propTypes = {
   onSubmit: PropTypes.func,
+  amount: PropTypes.number,
 };
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -29,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
     height: '50px',
   },
 }));
-function AddToCartForm({ onSubmit = null }) {
+function AddToCartForm({ onSubmit = null, amount }) {
   //check isLogin
   const loggedInUser = useSelector((state) => state.user.current);
   const isLoggedIn = !!loggedInUser.id;
@@ -72,33 +81,53 @@ function AddToCartForm({ onSubmit = null }) {
   return (
     <Box>
       <form onSubmit={form.handleSubmit(handleSubmit)}>
+        <Box>
+          <Typography>Số lượng còn lại: {amount} sản phẩm</Typography>
+        </Box>
         <Box className={classes.form}>
           <QuantityField name="quantity" label="Quantity" form={form} />
-          {!isLoggedIn && (
+          {amount === 0 && (
             <>
               <Button
-                type="submit"
                 variant="contained"
                 color="primary"
                 size="large"
                 className={classes.button}
-                onClick={handleClickOpenLogin}
+                disabled
               >
                 Mua ngay
               </Button>
             </>
           )}
-          {isLoggedIn && (
+          {amount > 0 && (
             <>
-              <Button
-                type="submit"
-                variant="contained"
-                color="primary"
-                size="large"
-                className={classes.button}
-              >
-                Mua ngay
-              </Button>
+              {!isLoggedIn && (
+                <>
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    color="primary"
+                    size="large"
+                    className={classes.button}
+                    onClick={handleClickOpenLogin}
+                  >
+                    Mua ngay
+                  </Button>
+                </>
+              )}
+              {isLoggedIn && (
+                <>
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    color="primary"
+                    size="large"
+                    className={classes.button}
+                  >
+                    Mua ngay
+                  </Button>
+                </>
+              )}
             </>
           )}
         </Box>

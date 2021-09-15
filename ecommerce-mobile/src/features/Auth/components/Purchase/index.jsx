@@ -119,14 +119,16 @@ function Purchase(props) {
                 onSubmitCancel={handleCancel}
                 onSubmitComment={handleComment}
               />
-              <Box className={classes.pagination}>
-                <Pagination
-                  color="secondary"
-                  count={Math.ceil(pagination._total / pagination._limit)}
-                  _page={pagination._page}
-                  onChange={handlePageChange}
-                ></Pagination>
-              </Box>
+              {ordersList.length > 10 && (
+                <Box className={classes.pagination}>
+                  <Pagination
+                    color="secondary"
+                    count={Math.ceil(pagination._total / pagination._limit)}
+                    _page={pagination._page}
+                    onChange={handlePageChange}
+                  ></Pagination>
+                </Box>
+              )}
             </>
           )}
         </Grid>
