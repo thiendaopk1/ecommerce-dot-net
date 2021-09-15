@@ -9,7 +9,7 @@ import ProductSort from '../components/ProductSort';
 import { useHistory, useLocation } from 'react-router-dom';
 import queryString from 'query-string';
 import FilterSkeletonList from '../components/FilterSkeletonList';
-
+import { useDispatch } from 'react-redux';
 const useStyles = makeStyles((theme) => ({
   root: {},
 
@@ -33,6 +33,9 @@ const useStyles = makeStyles((theme) => ({
 
 function ListPage(props) {
   const classes = useStyles();
+
+  // compare
+  const dispatch = useDispatch();
 
   const history = useHistory();
   const location = useLocation();
