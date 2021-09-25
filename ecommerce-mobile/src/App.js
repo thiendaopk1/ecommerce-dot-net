@@ -11,7 +11,7 @@ import ProductHome from './features/HomePageProduct/components';
 import ShoppingCartFeature from './features/ShoppingCart';
 import CheckOut from './features/ShoppingCart/components/CheckOut';
 import PaymentSuccess from './features/ShoppingCart/components/CheckOut/PaymentSuccess';
-
+import CompareList from './features/Product/components/CompareList';
 
 function App() {
   return (
@@ -19,15 +19,16 @@ function App() {
       <Header />
       <Route path="/" component={SlideShow} exact />
       {/* <Breadcrumb /> */}
-      <Switch >
+      <Switch>
         <Route path="/" component={ProductHome} exact />
         <Route path="/user-info" component={UserInfo} />
         <Route path="/products" component={ProductFeature} />
         <Route path="/cart" component={ShoppingCartFeature} />
-        <Route path="/checkout" component={CheckOut}/>
-        <Route path="/payment-success" component={PaymentSuccess}/>
-        <Route path="/Admin" component={Admin}/>
-        <Route path="/auth/login" component={ProductHome} exact/>
+        <Route path="/checkout" component={CheckOut} />
+        <Route path="/payment-success" component={PaymentSuccess} />
+        <Route path="/Admin" component={Admin} />
+        <Route path="/auth/login" component={ProductHome} exact />
+        <Route path="/compare" component={CompareList} exact />
       </Switch>
       <Footer />
     </div>

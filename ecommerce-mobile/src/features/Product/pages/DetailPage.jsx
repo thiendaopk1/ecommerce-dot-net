@@ -43,13 +43,13 @@ function DetailPage() {
     url,
   } = useRouteMatch();
   const { product, loading } = useProductDetail(productId);
-  console.log('product', product);
+
   const [value, setValue] = useState();
 
   useEffect(() => {
     setValue(product);
   }, [product]);
-  console.log('product', product);
+
   const [comment, setComment] = useState();
 
   //

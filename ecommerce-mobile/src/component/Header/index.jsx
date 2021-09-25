@@ -20,11 +20,14 @@ import Login from '../../features/Auth/components/login';
 import Register from '../../features/Auth/components/Register';
 import { logout } from '../../features/Auth/userSlice';
 import { removeAll } from '../../features/ShoppingCart/cartSlice';
-import { cartItemsCountSelectors } from '../../features/ShoppingCart/selectors';
+import {
+  cartItemsCountSelectors,
+  compareItemsCountSelectors,
+} from '../../features/ShoppingCart/selectors';
 import SearchForm from '../search';
 import Hang from './Hang';
 import logo from '../../images/phonehaylogo.png';
-
+import CompareIcon from '@material-ui/icons/Compare';
 const useStyles = makeStyles((theme) => ({
   root: {
     // flexGrow: 1,
@@ -140,6 +143,15 @@ export default function Header() {
   const dispatch = useDispatch();
   //Cart
   const cartItemsCount = useSelector(cartItemsCountSelectors);
+
+  const compareList = useSelector((state) => {
+    return state.compare.compareItems;
+  });
+  const compareItemCount = compareList.length;
+  const handleClickCompare = () => {
+    history.push('/compare');
+  };
+
   const handleClickCart = () => {
     history.push('/cart');
   };
@@ -282,6 +294,11 @@ export default function Header() {
           </Box>
 
           <Box>
+            <IconButton>
+              <Badge badgeContent={compareItemCount} color="secondary" onClick={handleClickCompare}>
+                <CompareIcon />
+              </Badge>
+            </IconButton>
             <IconButton aria-label="cart">
               {!isLoggedIn && (
                 <>

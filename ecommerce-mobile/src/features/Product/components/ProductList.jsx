@@ -18,15 +18,14 @@ const useStyle = makeStyles((theme) => ({
 function ProductList({ data }) {
   // const match = useRouteMatch();
   const classes = useStyle();
+
   //   Link
   return (
     <Box>
       <Grid container>
         {data.map((product) => (
           <Grid item key={product.id} xs={12} sm={6} md={4} lg={3}>
-            <Link to={`products/${product.id}`} style={{ textDecoration: 'none', color: 'black' }}>
-              <Product product={product} className={classes.root} />
-            </Link>
+            <Product product={product} className={classes.root} />
           </Grid>
         ))}
       </Grid>

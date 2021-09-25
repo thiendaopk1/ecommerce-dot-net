@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import ordersApi from '../../../../api/ordersApi';
 import ListItems from './ListItems';
-
+import img from '../components/tagSale.png';
 Orders.propTypes = {
     Orders: PropTypes.object,
 };
@@ -74,34 +74,29 @@ const useStyles = makeStyles(theme => ({
         right: theme.spacing(1),
         color: theme.palette.grey[500],
       },
+        percent: {
+            width: "39px",
+            height: "35px",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            padding: "0 0 5px!important",
+            margin: "0 !important",
+            fontSize: "12px",
+            position: "absolute",
+            overflow: "hidden",
+            color: "#fff",
+            fontWeight: "700",
+            zIndex: '2',
+            backgroundImage: `url(${img})`},
 }))
 function Orders({orders}) {
     const classes = useStyles();
     const {status, date, lastPrice,name, paymentType, cartItems,id } = orders;
-   
-    
-    // const [openComment, setOpenComment] = useState(false);
-
-
-    // const [cancel, setCancel] = useState();
-    // console.log('cancel', cancel);
-    // const handleCancelOrder = (e) => {
-    //     (async () =>{
-    //         try {      
-    //             const animation = await ordersApi.cancel(id);
-    //             setCancel(animation);
-    //         } catch (error) {
-    //             console.log(error);
-    //         }
-    //     })();
-    // }
-    // const handleBuyAgaint = () => {
-
-    // }
     return (
         <Box>
+            {status.id==1&&<span className={classes.percent}>new</span>}  
             <Container>
-                
                 <Grid item >
                     <Box className={classes.header}> 
                         <span className={classes.paymentType}>
