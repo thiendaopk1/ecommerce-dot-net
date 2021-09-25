@@ -37,12 +37,15 @@ const useStyles = makeStyles((theme) => ({
     listStyle: 'none',
     justifyContent: 'center',
     alignItems: 'center',
+    maxWidth: '100%',
+    overflowX: 'auto',
   },
 
   imageItem: {
     width: '70px',
     height: '70px',
     padding: '2px',
+    flexShrink: '0',
     '&:hover': {
       border: '#E11B1C solid 1px',
     },
