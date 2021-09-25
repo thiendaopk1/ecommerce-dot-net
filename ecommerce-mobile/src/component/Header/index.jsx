@@ -8,7 +8,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { AccountCircle, Close } from '@material-ui/icons';
-import MenuIcon from '@material-ui/icons/Menu';
+import CompareIcon from '@material-ui/icons/Compare';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -20,14 +20,10 @@ import Login from '../../features/Auth/components/login';
 import Register from '../../features/Auth/components/Register';
 import { logout } from '../../features/Auth/userSlice';
 import { removeAll } from '../../features/ShoppingCart/cartSlice';
-import {
-  cartItemsCountSelectors,
-  compareItemsCountSelectors,
-} from '../../features/ShoppingCart/selectors';
+import { cartItemsCountSelectors } from '../../features/ShoppingCart/selectors';
+import logo from '../../images/phonehaylogo.png';
 import SearchForm from '../search';
 import Hang from './Hang';
-import logo from '../../images/phonehaylogo.png';
-import CompareIcon from '@material-ui/icons/Compare';
 const useStyles = makeStyles((theme) => ({
   root: {
     // flexGrow: 1,
@@ -157,7 +153,7 @@ export default function Header() {
   };
   // form dang ky
   const [open, setOpen] = useState(false);
-  const [mode, setMode] = useState(MODE.REGISTER);
+  const [mode] = useState(MODE.REGISTER);
   // form dang nhap
   const [openLogin, setOpenLogin] = useState(false);
   //form forgot pass
@@ -218,7 +214,7 @@ export default function Header() {
     (async () => {
       try {
         const thien = { cartItems: data1 };
-        const list = await cartApi.add(thien);
+        await cartApi.add(thien);
         const action = logout();
         const action1 = removeAll();
         dispatch(action1);
@@ -282,7 +278,7 @@ export default function Header() {
           <Box className={classes.title}>
             <Typography variant="h6" className={classes.home}>
               <Link className={classes.link} to="/">
-                <img src={logo} style={{ height: '30px', width: '55px' }} />
+                <img alt="" src={logo} style={{ height: '30px', width: '55px' }} />
               </Link>
             </Typography>
             <Typography variant="h6" className={classes.shop}>
@@ -363,7 +359,7 @@ export default function Header() {
           <MenuItem onClick={handleCloseMenuUser}>My account</MenuItem>
         </Link>
         <MenuItem onClick={handleLogoutClick}>Logout</MenuItem>
-        {isLoggedIn && loggedInUser.userRoles[0].role.name == 'ADMIN' && (
+        {isLoggedIn && loggedInUser.userRoles[0].role.name === 'ADMIN' && (
           <Link className={classes.link} to="/admin">
             <MenuItem onClick={handleCloseMenuUser}>Admin Manager</MenuItem>
           </Link>

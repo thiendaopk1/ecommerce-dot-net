@@ -1,17 +1,17 @@
-import { Box, Button, Typography, Link } from '@material-ui/core';
+import { Box, Button, Typography } from '@material-ui/core';
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import Rating from '@material-ui/lab/Rating';
 import classNames from 'classnames';
+import { useSnackbar } from 'notistack';
 // import { STATIC_HOST, THUMBNAIL_PLACEHOLDER } from 'constants/index';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
-import ProductStyles from './ProductStyles';
-import './style.scss';
-import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
-import { addToCompare } from './compareSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useLocation, useRouteMatch } from 'react-router';
 import productApi from '../../../api/productApi';
-import { useSnackbar } from 'notistack';
+import { addToCompare } from './compareSlice';
+import ProductStyles from './ProductStyles';
+import './style.scss';
 Product.propTypes = {
   product: PropTypes.object,
 };
@@ -125,7 +125,7 @@ function Product({ product }) {
         {compareList.length < 3 && (
           <>
             {compareItem?.idp === product.id && (
-              <Button size="small" className={classes.buttonCompare} onClick={handleCompare}>
+              <Button size="small" className={classes.buttonCompare}>
                 <AddCircleOutlineIcon style={{ fontSize: '18px', color: '#69a3f2' }} />
                 Đã thêm vào so sánh
               </Button>

@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import { login } from '../../userSlice';
-import LoginForm from '../loginForm';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { useSnackbar } from 'notistack';
-import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
+import React from 'react';
+import { useDispatch } from 'react-redux';
 import cartApi from '../../../../api/cartApi';
 import { setCart } from '../../../ShoppingCart/cartSlice';
+import { login } from '../../userSlice';
+import LoginForm from '../loginForm';
 
 Login.propTypes = {
   closeDialog: PropTypes.func,
