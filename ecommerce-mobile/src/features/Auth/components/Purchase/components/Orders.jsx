@@ -182,24 +182,44 @@ function Orders({ orders, onCancel = null, onSubmitComment = null }) {
               {status.statusString === 'Đã giao hàng' && (
                 <>
                   {cartItems[0].product.commentOrders.length === 0 && (
-                    <Button
-                      variant="contained"
-                      color="secondary"
-                      className={classes.button}
-                      onClick={handleClickOpenCommentForm}
-                    >
-                      Đánh giá
-                    </Button>
+                    <>
+                      <Button
+                        variant="contained"
+                        color="secondary"
+                        className={classes.button}
+                        onClick={handleClickOpenCommentForm}
+                      >
+                        Đánh giá
+                      </Button>
+                      <Button
+                        variant="contained"
+                        color="secondary"
+                        className={classes.button}
+                        onClick={handleBuyAgaint}
+                      >
+                        Mua lại
+                      </Button>
+                    </>
                   )}
                   {cartItems[0].product.commentOrders.length > 0 && (
-                    <Button
-                      variant="contained"
-                      className={classes.button}
-                      color="secondary"
-                      onClick={handleClickOpenCommentView}
-                    >
-                      Xem đánh giá
-                    </Button>
+                    <>
+                      <Button
+                        variant="contained"
+                        className={classes.button}
+                        color="secondary"
+                        onClick={handleClickOpenCommentView}
+                      >
+                        Xem đánh giá
+                      </Button>
+                      <Button
+                        variant="contained"
+                        color="secondary"
+                        className={classes.button}
+                        onClick={handleBuyAgaint}
+                      >
+                        Mua lại
+                      </Button>
+                    </>
                   )}
                 </>
               )}

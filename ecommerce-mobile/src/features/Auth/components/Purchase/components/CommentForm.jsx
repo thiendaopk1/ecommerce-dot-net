@@ -100,7 +100,7 @@ function CommentForm({ closeDialog = null, onSubmitComment = null, cartItems = [
         ))}
       </Box>
       <Box className={classes.commentFooter}>
-        <Button>Trở lại</Button>
+        <Button onClick={handleClose}>Trở lại</Button>
         <Button type="submit">Hoàn thành</Button>
       </Box>
     </form>
